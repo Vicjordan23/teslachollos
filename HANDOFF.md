@@ -41,6 +41,14 @@
 - `docs/ALTAS_AFILIADOS.md`: enlaces y textos para las altas. Claude rellena lo público; Vic pone datos, contraseña y condiciones. Mejor cuando la web esté publicada.
 - Siguiente: crear el Worker desde el repo con Cloudflare. Build command `npm run cf:build -w apps/web`; deploy command `cd apps/web && npx opennextjs-cloudflare deploy`; raíz del repo `/`. Variable `NEXT_PUBLIC_SITIO` = la dirección de workers.dev hasta tener dominio.
 
+## 20/11/2026 (9): nuevo diseño (opción A de Vic)
+
+- Vic eligió la **ficha horizontal A** y pidió color en el fondo de la ficha y en el botón. Paleta solo clara, **sin rojo**: fondo `#f1f4f8`, fichas azul suave `#f5f9ff`, precio verde `#15803d`, botón «Ir al chollo» verde `#16a34a`, temperatura ámbar. Letra Fredoka (le gusta).
+- Ficha: foto a la izquierda; temperatura con ▾/▴ (0° hasta que haya cuentas), «Oficial», fecha del precio, título, precio final, precio tachado, % de ahorro, tienda, Guardar, Compartir (funciona), código con copiar y botón verde. **Sin aviso de afiliado por producto** (decisión de Vic): queda en el pie de todas las páginas, Amazon incluido.
+- **Menú** arriba: Chollos, Carga, Alfombrillas, Alertas, «Publicar chollo» y «Entrar» (las tres últimas llevan a `/entrar`, «muy pronto»).
+- **Filtro por tipo de producto** (no por tienda): `categoriaDe()` en core, por palabras del título (12 tipos; 90 de 1.594 en «Otros»). Rutas `/categoria/<id>` y `/categoria/<id>/pagina/N`. Las páginas `/tienda/...` siguen, pero ya no se enlazan desde la web.
+- Pendiente de decidir con Vic: el icono del logo sigue rojo.
+
 ## 20/11/2026 (8): WEB PUBLICADA y Supabase con el esquema
 
 - **Web en producción:** https://chollesla.victor-martin-juanas.workers.dev (Cloudflare Workers, plan gratis). Worker `chollesla` conectado a GitHub (app de Cloudflare instalada **solo en `teslachollos`**; Vic confirmó con GitHub Mobile). Cada push a `main` despliega solo. Build: `npm run cf:build -w apps/web`. Deploy: `cd apps/web && npx opennextjs-cloudflare deploy`. Raíz `/`. Variable `NODE_VERSION=24`. Vistas previas de rama desactivadas. Primer build: 2 min, OK.

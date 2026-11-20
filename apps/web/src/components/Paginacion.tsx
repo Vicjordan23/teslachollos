@@ -7,7 +7,7 @@ export function Paginacion({ actual, total, base, prefijo }: { actual: number; t
   const desde = Math.max(1, actual - 2);
   const hasta = Math.min(total, actual + 2);
   const numeros = Array.from({ length: hasta - desde + 1 }, (_, i) => desde + i);
-  const boton = "rounded-full px-3 py-1.5 border border-black/10 dark:border-white/15";
+  const boton = "rounded-full px-3 py-1.5 border border-borde bg-white";
 
   return (
     <nav aria-label="Paginación" className="flex flex-wrap items-center justify-center gap-2 text-sm">
@@ -24,7 +24,7 @@ export function Paginacion({ actual, total, base, prefijo }: { actual: number; t
       {desde > 2 && <span aria-hidden>…</span>}
       {numeros.map((n) =>
         n === actual ? (
-          <span key={n} aria-current="page" className="rounded-full bg-rojo px-3 py-1.5 font-semibold text-white">
+          <span key={n} aria-current="page" className="rounded-full bg-verde-boton px-3 py-1.5 font-semibold text-white">
             {n}
           </span>
         ) : (

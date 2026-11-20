@@ -1,32 +1,46 @@
 @import "tailwindcss";
 
+/* Paleta de Chollesla (solo modo claro, sin rojo):
+   fondo gris claro, fichas azul muy suave, precio y botón en verde, temperatura en ámbar. */
 :root {
-  --rojo: #d90a1c;
-  --negro: #171a20;
-  --background: #ffffff;
-  --foreground: #171a20;
-  --suave: #f4f4f5;
+  --fondo: #f1f4f8;
+  --superficie: #ffffff;
+  --tarjeta: #f5f9ff;
+  --tarjeta-borde: #dbe5f1;
+  --texto: #1c2430;
+  --texto-suave: #5b6676;
+  --verde: #15803d;
+  --verde-boton: #16a34a;
+  --verde-boton-hover: #15803d;
+  --verde-claro: #e7f6ec;
+  --ambar: #b45309;
+  --ambar-claro: #fff4e0;
+  --borde: #e2e8f0;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-rojo: var(--rojo);
-  --color-negro: var(--negro);
-  --color-suave: var(--suave);
+  --color-fondo: var(--fondo);
+  --color-superficie: var(--superficie);
+  --color-tarjeta: var(--tarjeta);
+  --color-tarjeta-borde: var(--tarjeta-borde);
+  --color-texto: var(--texto);
+  --color-texto-suave: var(--texto-suave);
+  --color-verde: var(--verde);
+  --color-verde-boton: var(--verde-boton);
+  --color-verde-boton-hover: var(--verde-boton-hover);
+  --color-verde-claro: var(--verde-claro);
+  --color-ambar: var(--ambar);
+  --color-ambar-claro: var(--ambar-claro);
+  --color-borde: var(--borde);
   --font-sans: var(--font-fredoka), system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0f1115;
-    --foreground: #f4f4f5;
-    --suave: #1c1f26;
-  }
+html {
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--fondo);
+  color: var(--texto);
   font-family: var(--font-sans);
 }

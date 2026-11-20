@@ -1,16 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
-import { aplicarAfiliado, avisoAfiliado, formatoEuros, precioFinal, TIENDAS, urlFoto } from "@chollesla/core";
+import { aplicarAfiliado, formatoEuros, porcentajeAhorro, precioFinal, TIENDAS, urlFoto } from "@chollesla/core";
+import { Compartir, CopiarCodigo } from "@/components/AccionesChollo";
 import { formatoFecha } from "@/datos/chollos";
 
 export interface DatosChollo {
-  /** Si existe, el título y la foto enlazan a la ficha /chollo/<slug>. */
-  slug?: string;
+  slug: string;
   titulo: string;
   modelos: string;
   /** Enlace a la tienda tal como llega (la tarjeta pone el afiliado de Vic). */
   enlace: string;
-  /** Foto real del producto (Amazon o Shopify; se admite el proxy wsrv.nl del catálogo antiguo). */
+  /** Foto real del producto (Amazon o Shopify). */
   foto?: string | null;
   /** Precio en tienda en céntimos, antes del código de descuento. */
   precioTienda: number;
@@ -18,90 +18,87 @@ export interface DatosChollo {
   /** Fecha del precio, ISO (aaaa-mm-dd). */
   fecha: string;
   oficial?: boolean;
+  /** Temperatura (suma de votos). Hasta que haya cuentas, 0. */
+  temperatura?: number;
 }
 
+/** Ficha horizontal (opción A elegida por Vic): foto a la izquierda, datos y acciones a la derecha. */
 export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChollo; prioridad?: boolean }) {
   const enlace = aplicarAfiliado(chollo.enlace);
   const tienda = enlace.estado === "ok" && enlace.tienda ? TIENDAS[enlace.tienda] : null;
   const final = precioFinal(chollo.precioTienda, tienda?.id ?? null);
-  const aviso = avisoAfiliado(tienda?.id ?? null);
+  const ahorro = porcentajeAhorro(final, chollo.precioTienda);
   const foto = urlFoto(chollo.foto);
-  const ficha = chollo.slug ? `/chollo/${chollo.slug}` : null;
-
-  const imagen = (
-    <div className="relative aspect-[4/3] w-full bg-white">
-      {foto ? (
-        <Image
-          src={foto}
-          alt={chollo.titulo}
-          fill
-          priority={prioridad}
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-contain p-4"
-        />
-      ) : (
-        <div className="flex h-full items-center justify-center text-sm text-black/40">Sin foto</div>
-      )}
-      {chollo.oficial && (
-        <span className="absolute left-3 top-3 rounded-full bg-rojo px-3 py-0.5 text-sm font-medium text-white">
-          Chollo oficial
-        </span>
-      )}
-    </div>
-  );
+  const ficha = `/chollo/${chollo.slug}`;
+  const temperatura = chollo.temperatura ?? 0;
 
   return (
-    <article
-      className={`flex flex-col overflow-hidden rounded-2xl bg-suave ${chollo.oficial ? "border-2 border-rojo" : "border border-black/10 dark:border-white/10"}`}
-    >
-      {ficha ? (
-        <Link href={ficha} tabIndex={-1} aria-hidden>
-          {imagen}
-        </Link>
-      ) : (
-        imagen
-      )}
-
-      <div className="flex flex-1 flex-col gap-2 p-5">
-        {tienda && <p className="text-sm font-medium opacity-70">{tienda.nombre}</p>}
-        <h2 className="text-lg font-medium leading-snug">
-          {ficha ? (
-            <Link href={ficha} className="hover:underline">
-              {chollo.titulo}
-            </Link>
-          ) : (
-            chollo.titulo
-          )}
-        </h2>
-        <p className="text-sm opacity-70">{chollo.modelos}</p>
-
-        <div className="flex flex-wrap items-baseline gap-x-3">
-          <p className="text-2xl font-semibold text-rojo">
-            {chollo.desde && <span className="text-base font-medium">Desde </span>}
-            {formatoEuros(final)}
-          </p>
-          {final < chollo.precioTienda && (
-            <p className="text-sm line-through opacity-60">{formatoEuros(chollo.precioTienda)}</p>
-          )}
-        </div>
-        {tienda?.codigo ? (
-          <p className="text-sm">
-            Con el código <strong className="rounded bg-rojo/10 px-1.5 py-0.5 font-semibold text-rojo">{tienda.codigo}</strong>
-          </p>
-        ) : null}
-        <p className="text-xs opacity-60">Precio del {formatoFecha(chollo.fecha)}; puede variar.</p>
-
-        {enlace.estado === "ok" && (
-          <a
-            href={enlace.url}
-            rel="sponsored nofollow noopener"
-            target="_blank"
-            className="mt-auto w-fit rounded-full bg-negro px-5 py-2 font-medium text-white dark:bg-white dark:text-negro"
-          >
-            Ir al chollo
-          </a>
+    <article className="flex gap-3 rounded-2xl border border-tarjeta-borde bg-tarjeta p-3 sm:gap-4 sm:p-4">
+      <Link
+        href={ficha}
+        tabIndex={-1}
+        aria-hidden
+        className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-white sm:h-36 sm:w-36"
+      >
+        {foto && (
+          <Image src={foto} alt="" fill priority={prioridad} sizes="(max-width: 640px) 96px, 144px" className="object-contain p-2" />
         )}
-        {aviso && <p className="text-xs opacity-60">{aviso}</p>}
+      </Link>
+
+      <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+        <div className="flex items-center justify-between gap-2 text-xs text-texto-suave">
+          <div className="flex items-center gap-1 rounded-full border border-borde bg-white px-1 py-0.5">
+            <Link href="/entrar" aria-label="Voto negativo" className="rounded-full px-1.5 text-base leading-none hover:bg-fondo">
+              ▾
+            </Link>
+            <span className="min-w-8 text-center text-sm font-medium text-ambar">{temperatura}°</span>
+            <Link href="/entrar" aria-label="Voto positivo" className="rounded-full px-1.5 text-base leading-none hover:bg-fondo">
+              ▴
+            </Link>
+          </div>
+          <div className="flex items-center gap-2">
+            {chollo.oficial && <span className="rounded-full bg-verde-claro px-2 py-0.5 font-medium text-verde">Oficial</span>}
+            <span>Precio del {formatoFecha(chollo.fecha)}</span>
+          </div>
+        </div>
+
+        <h2 className="line-clamp-2 text-base font-medium leading-snug sm:text-lg">
+          <Link href={ficha} className="hover:underline">
+            {chollo.titulo}
+          </Link>
+        </h2>
+
+        <div className="flex flex-wrap items-baseline gap-x-2">
+          <span className="text-xl font-semibold text-verde sm:text-2xl">
+            {chollo.desde && <span className="text-sm font-medium">Desde </span>}
+            {formatoEuros(final)}
+          </span>
+          {final < chollo.precioTienda && <span className="text-sm text-texto-suave line-through">{formatoEuros(chollo.precioTienda)}</span>}
+          {ahorro > 0 && <span className="rounded-md bg-verde-claro px-1.5 text-xs font-medium text-verde">-{ahorro} %</span>}
+          {tienda && <span className="text-sm text-texto-suave">· {tienda.nombre}</span>}
+        </div>
+
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-2 pt-1">
+          <div className="flex gap-3 text-sm text-texto-suave">
+            <Link href="/entrar" className="hover:text-texto">
+              Guardar
+            </Link>
+            <Compartir ruta={ficha} titulo={chollo.titulo} />
+          </div>
+          <div className="flex items-center gap-2">
+            {tienda?.codigo && <CopiarCodigo codigo={tienda.codigo} />}
+            {enlace.estado === "ok" && (
+              <a
+                href={enlace.url}
+                rel="sponsored nofollow noopener"
+                target="_blank"
+                className="rounded-full bg-verde-boton px-4 py-1.5 text-sm font-medium text-white hover:bg-verde-boton-hover"
+              >
+                Ir al chollo
+              </a>
+            )}
+          </div>
+        </div>
       </div>
     </article>
   );

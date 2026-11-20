@@ -5,7 +5,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { aplicarAfiliado, urlFoto } from "../packages/core/dist/index.js";
+import { aplicarAfiliado, categoriaDe, urlFoto } from "../packages/core/dist/index.js";
 
 const origen = process.argv[2];
 if (!origen) {
@@ -60,6 +60,7 @@ for (const [archivo, tiendaPorDefecto] of archivos) {
       id: p.asin,
       slug,
       tienda,
+      categoria: categoriaDe(p.titulo, p.descripcion ?? ""),
       titulo: p.titulo,
       descripcion: p.descripcion ?? "",
       modelos: p.modelos ?? "",
@@ -81,3 +82,5 @@ const porTienda = chollos.reduce((a, c) => ((a[c.tienda] = (a[c.tienda] ?? 0) + 
 console.log(`Importados ${chollos.length} chollos →`, destino);
 console.log("Por tienda:", porTienda);
 console.log("Descartados:", descartes);
+const porCategoria = chollos.reduce((a, c) => ((a[c.categoria] = (a[c.categoria] ?? 0) + 1), a), {});
+console.log("Por categoría:", porCategoria);

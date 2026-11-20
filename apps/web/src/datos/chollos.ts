@@ -1,4 +1,4 @@
-import type { IdTienda } from "@chollesla/core";
+import type { IdCategoria, IdTienda } from "@chollesla/core";
 import datos from "./oficiales.json";
 
 /** Chollo oficial importado del catálogo de Vic (scripts/importar-catalogo.mjs). */
@@ -6,6 +6,7 @@ export interface CholloOficial {
   id: string;
   slug: string;
   tienda: IdTienda;
+  categoria: IdCategoria;
   titulo: string;
   descripcion: string;
   modelos: string;
@@ -68,6 +69,10 @@ export function cholloPorSlug(slug: string): CholloOficial | undefined {
 
 export function chollosDeTienda(tienda: IdTienda): CholloOficial[] {
   return CHOLLOS.filter((c) => c.tienda === tienda);
+}
+
+export function chollosDeCategoria(categoria: IdCategoria): CholloOficial[] {
+  return CHOLLOS.filter((c) => c.categoria === categoria);
 }
 
 export function totalPaginas(lista: unknown[]): number {

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { TIENDAS, type IdTienda } from "@chollesla/core";
-import { ChipsTiendas } from "@/components/ChipsTiendas";
+import { BarraCategorias } from "@/components/BarraCategorias";
 import { Paginacion } from "@/components/Paginacion";
 import { Rejilla } from "@/components/Rejilla";
 import { chollosDeTienda, pagina, totalPaginas } from "@/datos/chollos";
@@ -34,15 +34,15 @@ export default async function PaginaTienda({ params }: PageProps<"/tienda/[tiend
   const t = TIENDAS[id];
   const lista = chollosDeTienda(id);
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-8 px-4 py-10">
+    <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-5 px-4 py-6">
       <section className="flex flex-col gap-3">
         <h1 className="text-3xl font-semibold">Chollos de {t.nombre} para tu Tesla</h1>
         {t.codigo && (
-          <p className="text-lg opacity-80">
-            Precios con el código <strong className="text-rojo">{t.codigo}</strong> ya aplicado.
+          <p className="text-lg text-texto-suave">
+            Precios con el código <strong className="text-verde">{t.codigo}</strong> ya aplicado.
           </p>
         )}
-        <ChipsTiendas activa={id} />
+        <BarraCategorias />
       </section>
       <Rejilla chollos={pagina(lista, 1)} prioridad={3} />
       <Paginacion actual={1} total={totalPaginas(lista)} base={`/tienda/${id}`} prefijo={`/tienda/${id}`} />
