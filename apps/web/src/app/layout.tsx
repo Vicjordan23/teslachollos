@@ -25,8 +25,8 @@ export const metadata: Metadata = {
 
 const MENU = [
   { href: "/", texto: "Chollos" },
-  { href: "/categoria/carga", texto: "Carga" },
-  { href: "/categoria/alfombrillas", texto: "Alfombrillas" },
+  { href: "/modelo/model-y", texto: "Model Y" },
+  { href: "/modelo/model-3", texto: "Model 3" },
   { href: "/entrar", texto: "Alertas" },
 ];
 

@@ -1,4 +1,4 @@
-import type { IdCategoria, IdTienda } from "@chollesla/core";
+import { modelosDe, precioFinal, porcentajeAhorro, type IdCategoria, type IdModelo, type IdTienda } from "@chollesla/core";
 import datos from "./oficiales.json";
 
 /** Chollo oficial importado del catálogo de Vic (scripts/importar-catalogo.mjs). */
@@ -73,6 +73,35 @@ export function chollosDeTienda(tienda: IdTienda): CholloOficial[] {
 
 export function chollosDeCategoria(categoria: IdCategoria): CholloOficial[] {
   return CHOLLOS.filter((c) => c.categoria === categoria);
+}
+
+const MODELOS_DE = new Map(CHOLLOS.map((c) => [c.slug, modelosDe(c.modelos)]));
+
+/** Chollos compatibles con un modelo (incluye los universales, como los cables Tipo 2). */
+export function chollosDeModelo(modelo: IdModelo, lista: CholloOficial[] = CHOLLOS): CholloOficial[] {
+  return lista.filter((c) => MODELOS_DE.get(c.slug)?.includes(modelo));
+}
+
+export const ORDENES = [
+  { id: "destacados", nombre: "Destacados" },
+  { id: "descuento", nombre: "Más descuento" },
+  { id: "barato", nombre: "Más baratos" },
+  { id: "caro", nombre: "Más caros" },
+  { id: "recientes", nombre: "Precio más reciente" },
+] as const;
+export type IdOrden = (typeof ORDENES)[number]["id"];
+
+export const finalDe = (c: CholloOficial) => precioFinal(c.precioTienda, c.tienda);
+export const ahorroDe = (c: CholloOficial) => porcentajeAhorro(finalDe(c), c.precioTienda);
+
+/** Ordena sin mutar; «destacados» es el orden mezclado de la portada. Empates: orden de la portada. */
+export function ordenar(lista: CholloOficial[], orden: IdOrden): CholloOficial[] {
+  const copia = [...lista];
+  if (orden === "descuento") return copia.sort((a, b) => ahorroDe(b) - ahorroDe(a));
+  if (orden === "barato") return copia.sort((a, b) => finalDe(a) - finalDe(b));
+  if (orden === "caro") return copia.sort((a, b) => finalDe(b) - finalDe(a));
+  if (orden === "recientes") return copia.sort((a, b) => b.fecha.localeCompare(a.fecha));
+  return copia;
 }
 
 export function totalPaginas(lista: unknown[]): number {

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CATEGORIAS, nombreCategoria, type IdCategoria } from "@chollesla/core";
-import { BarraCategorias } from "@/components/BarraCategorias";
+import { Filtros } from "@/components/Filtros";
 import { Paginacion } from "@/components/Paginacion";
 import { Rejilla } from "@/components/Rejilla";
 import { chollosDeCategoria, pagina, totalPaginas } from "@/datos/chollos";
@@ -40,7 +40,7 @@ export default async function PaginaCategoriaN({ params }: PageProps<"/categoria
         <h1 className="text-2xl font-semibold">
           {nombreCategoria(r.id)} para tu Tesla · página {r.num}
         </h1>
-        <BarraCategorias activa={r.id} />
+        <Filtros filtro={{ categoria: r.id }} />
       </section>
       <Rejilla chollos={pagina(r.lista, r.num)} />
       <Paginacion actual={r.num} total={totalPaginas(r.lista)} base={`/categoria/${r.id}`} prefijo={`/categoria/${r.id}`} />

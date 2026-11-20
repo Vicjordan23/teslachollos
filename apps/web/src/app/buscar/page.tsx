@@ -1,40 +1,41 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { buscar } from "@chollesla/core";
-import { BarraCategorias } from "@/components/BarraCategorias";
+import { buscar, nombreCategoria, nombreModelo } from "@chollesla/core";
+import { Filtros } from "@/components/Filtros";
 import { Rejilla } from "@/components/Rejilla";
-import { CHOLLOS, pagina, totalPaginas } from "@/datos/chollos";
+import { CHOLLOS, chollosDeModelo, ordenar, pagina, totalPaginas } from "@/datos/chollos";
+import { leerFiltro, urlFiltro } from "@/lib/explorar";
 
-// Las búsquedas no se indexan (contenido duplicado y combinaciones infinitas).
+// Búsquedas y combinaciones de filtros: no se indexan (contenido duplicado y combinaciones infinitas).
 export const metadata: Metadata = { title: "Buscar", robots: { index: false, follow: true } };
 
-function texto(v: string | string[] | undefined): string {
-  return (Array.isArray(v) ? v[0] : v)?.trim().slice(0, 80) ?? "";
-}
-
 export default async function Buscar({ searchParams }: PageProps<"/buscar">) {
-  const sp = await searchParams;
-  const q = texto(sp.q);
-  const resultados = q ? buscar(CHOLLOS, q) : [];
-  const total = totalPaginas(resultados);
-  const n = Math.min(total, Math.max(1, Number.parseInt(texto(sp.p), 10) || 1));
-  const ruta = (p: number) => `/buscar?q=${encodeURIComponent(q)}${p > 1 ? `&p=${p}` : ""}`;
+  const { p, ...filtro } = leerFiltro(await searchParams);
+  const { q, modelo, categoria, orden = "destacados" } = filtro;
+  let lista = q ? buscar(CHOLLOS, q) : CHOLLOS;
+  if (modelo) lista = chollosDeModelo(modelo, lista);
+  if (categoria) lista = lista.filter((c) => c.categoria === categoria);
+  // Con búsqueda y orden «destacados», manda la relevancia.
+  if (!(q && orden === "destacados")) lista = ordenar(lista, orden);
+  const total = totalPaginas(lista);
+  const n = Math.min(total, p);
+  const ruta = (num: number) => urlFiltro({ ...filtro, orden }, num);
   const boton = "rounded-full border border-borde bg-white px-3 py-1.5";
+  const partes = [modelo && nombreModelo(modelo), categoria && nombreCategoria(categoria)].filter(Boolean).join(" · ");
 
   return (
     <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-5 px-4 py-6">
       <section className="flex flex-col gap-3">
-        <h1 className="text-2xl font-semibold sm:text-3xl">{q ? `Resultados para «${q}»` : "Buscar chollos"}</h1>
-        {q && (
-          <p className="text-texto-suave" aria-live="polite">
-            {resultados.length === 0
-              ? "No hay chollos con esas palabras. Prueba con menos palabras o mira por tipo de producto:"
-              : `${resultados.length.toLocaleString("es-ES")} ${resultados.length === 1 ? "chollo" : "chollos"}`}
-          </p>
-        )}
-        {(!q || resultados.length === 0) && <BarraCategorias />}
+        <h1 className="text-2xl font-semibold sm:text-3xl">{q ? `Resultados para «${q}»` : `Chollos${partes ? `: ${partes}` : ""}`}</h1>
+        {q && partes && <p className="text-texto-suave">Filtrado por {partes}</p>}
+        <p className="text-texto-suave" aria-live="polite">
+          {lista.length === 0
+            ? "No hay chollos con esos filtros. Prueba con menos palabras o quita algún filtro."
+            : `${lista.length.toLocaleString("es-ES")} ${lista.length === 1 ? "chollo" : "chollos"}`}
+        </p>
+        <Filtros filtro={filtro} />
       </section>
-      {resultados.length > 0 && <Rejilla chollos={pagina(resultados, n)} prioridad={3} />}
+      {lista.length > 0 && <Rejilla chollos={pagina(lista, n)} prioridad={3} />}
       {total > 1 && (
         <nav aria-label="Paginación" className="flex items-center justify-center gap-3 text-sm">
           {n > 1 && (

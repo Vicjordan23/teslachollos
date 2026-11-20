@@ -1,5 +1,13 @@
 # HANDOFF
 
+## 20/11/2026 (15): filtro por modelo y orden (en main)
+
+- Vic pide: «implementa todo lo que puedas de Chollometro», incluir AliExpress, y dice que ya tiene Supabase. Pedido a Vic: claves de Supabase en Cloudflare (URL y anon como variables; service_role como secreto), URL de Auth, cuenta de Resend para emails, y para AliExpress el tracking ID de Portals y la fuente de los productos.
+- `modelosDe()` en core: lee el texto «modelos» (Model 3/Y, «3, Y, X y S», Cybertruck, MY/M3); si no nombra ninguno, es universal y sale en todos. 4 tests. En el catálogo: Model Y 1.328, Model 3 1.029, S 89, X 83, Cybertruck 77 (los 77 universales).
+- Páginas estáticas `/modelo/<id>` y `/modelo/<id>/pagina/N` (en el sitemap). Menú: Model Y y Model 3 en lugar de Carga y Alfombrillas.
+- Componente `Filtros` (modelo, tipo, orden) en portada, categorías y modelos. Orden: destacados, más descuento, más baratos, más caros, precio más reciente. Las combinaciones simples van a páginas estáticas y el resto a `/buscar?q&modelo&categoria&orden&p` (dinámica, `noindex`).
+- No hay orden «Nuevos» ni «Más calientes» de verdad: el catálogo no tiene fecha de publicación y aún no hay votos. Llegan con Supabase.
+
 ## 20/11/2026 (14): sin cobros por ahora
 
 - **Decisión de Vic:** no se cobra a nadie por ahora. Fuera del plan hasta nuevo aviso: Fase 6 (publicadores de pago, Stripe, cupos), destacados de pago y condiciones de contratación. Las funciones gratuitas de comunidad (cuentas, votos, guardados, alertas) siguen en el plan.

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { BarraCategorias } from "@/components/BarraCategorias";
+import { Filtros } from "@/components/Filtros";
 import { Paginacion } from "@/components/Paginacion";
 import { Rejilla } from "@/components/Rejilla";
 import { CHOLLOS, pagina, totalPaginas } from "@/datos/chollos";
@@ -29,7 +29,7 @@ export default async function PaginaListado({ params }: PageProps<"/pagina/[n]">
     <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-5 px-4 py-6">
       <section className="flex flex-col gap-3">
         <h1 className="text-2xl font-semibold">Chollos en accesorios para tu Tesla · página {n}</h1>
-        <BarraCategorias />
+        <Filtros filtro={{}} />
       </section>
       <Rejilla chollos={pagina(CHOLLOS, n)} />
       <Paginacion actual={n} total={totalPaginas(CHOLLOS)} base="/" prefijo="" />
