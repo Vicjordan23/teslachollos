@@ -1,5 +1,9 @@
 # HANDOFF
 
+## 20/11/2026 (14): sin cobros por ahora
+
+- **Decisión de Vic:** no se cobra a nadie por ahora. Fuera del plan hasta nuevo aviso: Fase 6 (publicadores de pago, Stripe, cupos), destacados de pago y condiciones de contratación. Las funciones gratuitas de comunidad (cuentas, votos, guardados, alertas) siguen en el plan.
+
 ## 20/11/2026 (13): borradores de aviso legal, privacidad y cookies (en main)
 
 - Páginas `/aviso-legal`, `/privacidad` y `/cookies`, enlazadas en el pie. Describen la web tal como es hoy: sin cuentas, sin cookies propias, Cloudflare como alojamiento, fotos cargadas desde Amazon y Shopify, registro de clics sin IP (Workers Logs guarda 3 días en el plan gratis). **Borrador: debe revisarlo un abogado antes de cobrar.** Hay que ampliar la privacidad antes de activar las cuentas.
