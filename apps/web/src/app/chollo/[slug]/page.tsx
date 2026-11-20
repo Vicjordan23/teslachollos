@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { aplicarAfiliado, formatoEuros, nombreCategoria, porcentajeAhorro, precioFinal, TIENDAS } from "@chollesla/core";
 import { CHOLLOS, cholloPorSlug, formatoFecha } from "@/datos/chollos";
+import { Guardar, Temperatura } from "@/components/Interacciones";
 import { enlaceSalida } from "@/lib/salida";
 import { SITIO } from "@/lib/sitio";
 
@@ -72,7 +73,13 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
         </div>
 
         <div className="flex flex-col gap-3">
-          <p className="text-sm font-medium text-texto-suave">{t.nombre}</p>
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-sm font-medium text-texto-suave">{t.nombre}</p>
+            <div className="flex items-center gap-3">
+              <Temperatura slug={c.slug} />
+              <Guardar slug={c.slug} claro />
+            </div>
+          </div>
           <h1 className="text-2xl font-semibold leading-snug sm:text-3xl">{c.titulo}</h1>
           <p className="text-texto-suave">{c.modelos}</p>
           {c.descripcion && <p className="text-lg text-texto">{c.descripcion}</p>}

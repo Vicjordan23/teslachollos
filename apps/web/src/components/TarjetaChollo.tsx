@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { aplicarAfiliado, formatoEuros, porcentajeAhorro, precioFinal, TIENDAS, urlFoto } from "@chollesla/core";
 import { Compartir, CopiarCodigo } from "@/components/AccionesChollo";
+import { Guardar, Temperatura } from "@/components/Interacciones";
 import { enlaceSalida } from "@/lib/salida";
 import { formatoFecha } from "@/datos/chollos";
 
@@ -21,8 +22,6 @@ export interface DatosChollo {
   /** Fecha del precio, ISO (aaaa-mm-dd). */
   fecha: string;
   oficial?: boolean;
-  /** Temperatura (suma de votos). Hasta que haya cuentas, 0. */
-  temperatura?: number;
 }
 
 const ICONO = "size-4 shrink-0";
@@ -36,8 +35,6 @@ export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChol
   const ahorro = porcentajeAhorro(final, chollo.precioTienda);
   const foto = urlFoto(chollo.foto);
   const ficha = `/chollo/${chollo.slug}`;
-  const temperatura = chollo.temperatura ?? 0;
-  const colorTemp = temperatura < 0 ? "text-ficha-frio" : temperatura >= 100 ? "text-ficha-calor" : "text-ficha-suave";
 
   return (
     <article className="flex flex-col gap-3 rounded-xl bg-ficha p-3 text-ficha-texto sm:flex-row sm:gap-5 sm:p-4">
@@ -54,27 +51,7 @@ export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChol
 
       <div className="flex min-w-0 flex-1 flex-col gap-2 sm:gap-2.5">
         <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-1.5 rounded-full bg-ficha-chip p-1">
-            <Link
-              href="/entrar"
-              aria-label="Voto negativo"
-              className="grid size-7 place-items-center rounded-full border-2 border-ficha-frio text-ficha-frio"
-            >
-              <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                <path d="M12 5v14M6 13l6 6 6-6" />
-              </svg>
-            </Link>
-            <span className={`min-w-10 text-center text-base font-bold ${colorTemp}`}>{temperatura}°</span>
-            <Link
-              href="/entrar"
-              aria-label="Voto positivo"
-              className="grid size-7 place-items-center rounded-full border-2 border-ficha-calor text-ficha-calor"
-            >
-              <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                <path d="M12 19V5M6 11l6-6 6 6" />
-              </svg>
-            </Link>
-          </div>
+          <Temperatura slug={chollo.slug} />
           <span className="flex items-center gap-1.5 rounded-md bg-ficha-aviso px-2.5 py-1.5 text-xs text-ficha-aviso-texto sm:text-sm">
             <svg viewBox="0 0 24 24" className={ICONO} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
               <circle cx="12" cy="12" r="9" />
@@ -125,11 +102,7 @@ export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChol
         <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-2">
           <div className="flex items-center gap-4">
             <Compartir ruta={ficha} titulo={chollo.titulo} />
-            <Link href="/entrar" title="Guardar" aria-label="Guardar" className="text-ficha-suave hover:text-ficha-texto">
-              <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden>
-                <path d="M6 3h12v18l-6-4-6 4z" />
-              </svg>
-            </Link>
+<Guardar slug={chollo.slug} />
           </div>
           <div className="flex items-center gap-2">
             {tienda?.codigo && <CopiarCodigo codigo={tienda.codigo} />}

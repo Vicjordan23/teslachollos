@@ -1,0 +1,38 @@
+name: Sincronizar Supabase
+
+# Copia los chollos oficiales a Supabase cuando cambia el catálogo (o a mano desde la pestaña Actions).
+on:
+  push:
+    branches: [main]
+    paths: [apps/web/src/datos/oficiales.json, scripts/sincronizar-supabase.mjs]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency: sincronizar-supabase
+
+jobs:
+  sincronizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build -w packages/core
+      - name: Comprobar si hay secretos
+        id: secretos
+        env:
+          CLAVE: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: echo "hay=$([ -n "$CLAVE" ] && echo si || echo no)" >> "$GITHUB_OUTPUT"
+      - if: steps.secretos.outputs.hay == 'no'
+        run: echo "::warning::Faltan los secretos SUPABASE_URL y SUPABASE_SERVICE_ROLE_KEY; no se sincroniza."
+      - if: steps.secretos.outputs.hay == 'si'
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/sincronizar-supabase.mjs

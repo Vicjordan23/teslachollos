@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Fredoka } from "next/font/google";
 import { AVISO_AMAZON } from "@chollesla/core";
 import { CajaBusqueda } from "@/components/CajaBusqueda";
+import { BotonCuenta } from "@/components/Cuenta";
 import { INDEXAR, SITIO } from "@/lib/sitio";
 import "./globals.css";
 
@@ -27,7 +28,7 @@ const MENU = [
   { href: "/", texto: "Chollos" },
   { href: "/modelo/model-y", texto: "Model Y" },
   { href: "/modelo/model-3", texto: "Model 3" },
-  { href: "/entrar", texto: "Alertas" },
+  { href: "/alertas", texto: "Alertas" },
 ];
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -49,12 +50,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             </nav>
             <CajaBusqueda className="hidden min-w-0 flex-1 sm:block" />
             <div className="ml-auto flex items-center gap-2 text-sm">
-              <Link href="/entrar" className="hidden shrink-0 rounded-full border border-borde px-3 py-1.5 hover:bg-fondo lg:inline-block">
+              <Link href="/publicar" className="hidden shrink-0 rounded-full border border-borde px-3 py-1.5 hover:bg-fondo lg:inline-block">
                 Publicar chollo
               </Link>
-              <Link href="/entrar" className="rounded-full bg-verde-boton px-4 py-1.5 font-medium text-white hover:bg-verde-boton-hover">
-                Entrar
-              </Link>
+              <BotonCuenta />
             </div>
           </div>
           <div className="mx-auto max-w-4xl px-4 pb-2.5 sm:hidden">
