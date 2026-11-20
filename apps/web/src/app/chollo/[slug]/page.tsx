@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { aplicarAfiliado, formatoEuros, nombreCategoria, porcentajeAhorro, precioFinal, TIENDAS } from "@chollesla/core";
 import { CHOLLOS, cholloPorSlug, formatoFecha } from "@/datos/chollos";
 import { Guardar, Temperatura } from "@/components/Interacciones";
+import { Reportar } from "@/components/Reportar";
 import { enlaceSalida } from "@/lib/salida";
 import { SITIO } from "@/lib/sitio";
 
@@ -113,6 +114,7 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
               Ir al chollo en {t.nombre}
             </a>
           )}
+          <Reportar slug={c.slug} />
         </div>
       </article>
     </main>

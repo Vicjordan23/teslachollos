@@ -33,6 +33,14 @@ export default async function Buscar({ searchParams }: PageProps<"/buscar">) {
             ? "No hay chollos con esos filtros. Prueba con menos palabras o quita algún filtro."
             : `${lista.length.toLocaleString("es-ES")} ${lista.length === 1 ? "chollo" : "chollos"}`}
         </p>
+        {(q || modelo || categoria) && (
+          <Link
+            href={`/alertas?${new URLSearchParams({ ...(q && { palabra: q }), ...(modelo && { modelo }), ...(categoria && { categoria }) })}`}
+            className="w-fit rounded-full border border-verde/40 bg-verde-claro px-4 py-1.5 text-sm font-medium text-verde"
+          >
+            Crear alerta con esta búsqueda
+          </Link>
+        )}
         <Filtros filtro={filtro} />
       </section>
       {lista.length > 0 && <Rejilla chollos={pagina(lista, n)} prioridad={3} />}

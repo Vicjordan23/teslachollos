@@ -1,0 +1,40 @@
+name: Enviar alertas
+
+# Una vez al día (10:17 hora de Madrid en invierno) y a mano desde la pestaña Actions.
+on:
+  schedule:
+    - cron: "17 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency: enviar-alertas
+
+jobs:
+  enviar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build -w packages/core
+      - name: Comprobar si hay secretos
+        id: secretos
+        env:
+          CLAVE: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: echo "hay=$([ -n "$CLAVE" ] && echo si || echo no)" >> "$GITHUB_OUTPUT"
+      - if: steps.secretos.outputs.hay == 'no'
+        run: echo "::warning::Faltan los secretos de Supabase; no se envían alertas."
+      - if: steps.secretos.outputs.hay == 'si'
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          ALERTAS_REMITENTE: ${{ secrets.ALERTAS_REMITENTE }}
+          SITIO: ${{ vars.SITIO || 'https://chollesla.victor-martin-juanas.workers.dev' }}
+        run: node scripts/enviar-alertas.mjs
