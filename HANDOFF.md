@@ -1,5 +1,10 @@
 # HANDOFF
 
+## 20/11/2026 (19) — Prueba en la web y arreglo de «Guardar»
+- Prueba real con la cuenta de Vic: login, alias, voto y alerta funcionan; Vic es `rol='admin'` y `/admin` abre.
+- Bug: «Guardar» no guardaba y `/guardados` se quedaba en «Cargando…». Causa: consultas lanzadas dentro de `onAuthStateChange` (interbloqueo del bloqueo de auth de supabase-js). Arreglo en `apps/web/src/lib/interacciones.ts` (se difieren con `setTimeout`), commit 0b487d5. Verificado en producción: POST `guardados` 201 y `/guardados` lista el chollo.
+- Pendiente: Resend y login con Google (ver entrada anterior), rotar el App Secret de AliExpress (se pegó en el chat) y, si se quiere, la service_role de Supabase; migrar a las claves nuevas de Supabase antes de 2027.
+
 ## 20/11/2026 (18): configuración de paneles hecha desde el Chrome de Vic, y enlace de Telegram
 
 - **Supabase (proyecto chollesla, ref `qcyqerhinjqwkkmwcbpo`):** aplicadas `20261121…` y `20261122…` en el editor SQL y verificado (`alertas.ultimo_aviso`, `perfiles.suspendido`, vista `perfiles_publicos`, tienda `aliexpress`). Auth → URL Configuration: Site URL `https://chollesla.victor-martin-juanas.workers.dev` y Redirect URL `…/**`.
