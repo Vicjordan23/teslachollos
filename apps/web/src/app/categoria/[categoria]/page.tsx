@@ -32,7 +32,7 @@ export default async function PaginaCategoria({ params }: PageProps<"/categoria/
   if (!id) notFound();
   const lista = chollosDeCategoria(id);
   return (
-    <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-5 px-4 py-6">
+    <main className="mx-auto flex w-full max-w-[1640px] flex-1 flex-col gap-5 px-4 py-6">
       <section className="flex flex-col gap-3">
         <h1 className="text-2xl font-semibold sm:text-3xl">{nombreCategoria(id)} para tu Tesla</h1>
         <Filtros filtro={{ categoria: id }} />

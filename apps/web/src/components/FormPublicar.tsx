@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useEstado } from "@/lib/interacciones";
 import { CUENTAS_ACTIVAS, supabase } from "@/lib/supabase";
 
-const campo = "w-full rounded-xl border border-borde bg-white px-4 py-2.5 outline-none focus:border-verde";
+const campo = "w-full rounded-xl border border-borde bg-superficie px-4 py-2.5 outline-none focus:border-verde";
 
 /** Formulario para que la comunidad publique un chollo (gratis, con el afiliado de Chollesla). */
 export function FormPublicar() {

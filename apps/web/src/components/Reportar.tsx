@@ -56,7 +56,7 @@ export function Reportar({ slug }: { slug: string }) {
     );
   }
   return (
-    <form onSubmit={enviar} className="flex flex-col gap-2 rounded-xl border border-borde bg-white p-3 text-sm">
+    <form onSubmit={enviar} className="flex flex-col gap-2 rounded-xl border border-borde bg-superficie p-3 text-sm">
       <fieldset className="flex flex-col gap-1">
         <legend className="mb-1 font-medium">¿Qué pasa con este chollo?</legend>
         {MOTIVOS.map(([id, texto]) => (

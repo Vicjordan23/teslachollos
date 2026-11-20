@@ -1,21 +1,21 @@
 @import "tailwindcss";
 
-/* Paleta de Chollesla (solo modo claro, sin rojo):
+/* Paleta de Chollesla (modo oscuro, copia de la estructura visual de Chollómetro por decisión de Vic):
    fondo gris claro, fichas azul muy suave, precio y botón en verde, temperatura en ámbar. */
 :root {
-  --fondo: #f1f4f8;
-  --superficie: #ffffff;
-  --tarjeta: #f5f9ff;
-  --tarjeta-borde: #dbe5f1;
-  --texto: #1c2430;
-  --texto-suave: #5b6676;
-  --verde: #15803d;
-  --verde-boton: #16a34a;
-  --verde-boton-hover: #15803d;
-  --verde-claro: #e7f6ec;
-  --ambar: #b45309;
-  --ambar-claro: #fff4e0;
-  --borde: #e2e8f0;
+  --fondo: #0e0e0f;
+  --superficie: #1b1c1d;
+  --tarjeta: #1f2123;
+  --tarjeta-borde: #3a3d40;
+  --texto: #f2f3f4;
+  --texto-suave: #a9adb2;
+  --verde: #62e583;
+  --verde-boton: #ff6a00;
+  --verde-boton-hover: #ff7d1f;
+  --verde-claro: #1d3a26;
+  --ambar: #ffb454;
+  --ambar-claro: #3a2a10;
+  --borde: #323436;
 
   /* Ficha oscura (decisión de Vic, 20/11/2026: copia visual fiel). */
   --ficha: #1f2123;
@@ -66,7 +66,7 @@
 }
 
 html {
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 body {

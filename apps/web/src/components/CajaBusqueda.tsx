@@ -2,7 +2,7 @@
 export function CajaBusqueda({ valor = "", className = "" }: { valor?: string; className?: string }) {
   return (
     <form action="/buscar" method="get" role="search" className={`relative ${className}`}>
-      <svg aria-hidden viewBox="0 0 24 24" className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-texto-suave" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round">
+      <svg aria-hidden viewBox="0 0 24 24" className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-texto" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round">
         <circle cx="11" cy="11" r="7" />
         <path d="m20 20-3.5-3.5" />
       </svg>
@@ -11,10 +11,10 @@ export function CajaBusqueda({ valor = "", className = "" }: { valor?: string; c
         aria-label="Buscar chollos"
         type="search"
         defaultValue={valor}
-        placeholder="Buscar chollos…"
+        placeholder="Buscar…"
         maxLength={80}
         enterKeyHint="search"
-        className="w-full rounded-full border border-borde bg-fondo py-1.5 pl-9 pr-3 text-sm outline-none placeholder:text-texto-suave focus:border-verde focus:bg-white"
+        className="h-12 w-full rounded-full border border-borde bg-fondo pl-12 pr-4 text-base text-texto outline-none placeholder:text-texto-suave focus:border-verde-boton"
       />
     </form>
   );

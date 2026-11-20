@@ -1,5 +1,10 @@
 # HANDOFF
 
+## 20/11/2026 (20) — Rediseño visual tipo Chollómetro (solo estructura, marca Chollesla)
+- Tema oscuro (variables en `globals.css`), cabecera de dos filas a todo el ancho (logo, Menú, buscador, Crear alerta, Regístrate/Inicia sesión, Comparte; debajo Categorías, Modelos, Ofertas, Comunidad, Alertas, Telegram), pestañas de orden + botón «Filtrar» (`Filtros.tsx`), listado a todo el ancho con panel lateral «Los mayores descuentos» (`MasVotados.tsx`, dentro de `Rejilla.tsx`).
+- No se usó la herramienta externa REA (repo desconocido; descargar/ejecutar código externo lo decide Vic). Sin logo ni nombre de Chollómetro. «Más votados» se llama «Mayores descuentos» porque los votos viven en Supabase, no en el HTML estático.
+- Sin compilar en local (no hay node_modules): revisar el build de Cloudflare.
+
 ## 20/11/2026 (19) — Prueba en la web y arreglo de «Guardar»
 - Prueba real con la cuenta de Vic: login, alias, voto y alerta funcionan; Vic es `rol='admin'` y `/admin` abre.
 - Bug: «Guardar» no guardaba y `/guardados` se quedaba en «Cargando…». Causa: consultas lanzadas dentro de `onAuthStateChange` (interbloqueo del bloqueo de auth de supabase-js). Arreglo en `apps/web/src/lib/interacciones.ts` (se difieren con `setTimeout`), commit 0b487d5. Verificado en producción: POST `guardados` 201 y `/guardados` lista el chollo.

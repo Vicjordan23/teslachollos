@@ -46,7 +46,7 @@ export function MisGuardados() {
   return (
     <ul className="flex flex-col gap-2">
       {filas.map((f) => (
-        <li key={f.slug} className="flex items-center gap-3 rounded-xl border border-borde bg-white p-2">
+        <li key={f.slug} className="flex items-center gap-3 rounded-xl border border-borde bg-superficie p-2">
           {f.foto && (
             // eslint-disable-next-line @next/next/no-img-element -- miniatura de CDN de tienda, ya reducida
             <img src={f.foto} alt="" width={64} height={64} loading="lazy" className="size-16 shrink-0 rounded-lg object-contain" />

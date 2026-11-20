@@ -20,11 +20,11 @@ export default async function Buscar({ searchParams }: PageProps<"/buscar">) {
   const total = totalPaginas(lista);
   const n = Math.min(total, p);
   const ruta = (num: number) => urlFiltro({ ...filtro, orden }, num);
-  const boton = "rounded-full border border-borde bg-white px-3 py-1.5";
+  const boton = "rounded-full border border-borde bg-superficie px-3 py-1.5";
   const partes = [modelo && nombreModelo(modelo), categoria && nombreCategoria(categoria)].filter(Boolean).join(" · ");
 
   return (
-    <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-5 px-4 py-6">
+    <main className="mx-auto flex w-full max-w-[1640px] flex-1 flex-col gap-5 px-4 py-6">
       <section className="flex flex-col gap-3">
         <h1 className="text-2xl font-semibold sm:text-3xl">{q ? `Resultados para «${q}»` : `Chollos${partes ? `: ${partes}` : ""}`}</h1>
         {q && partes && <p className="text-texto-suave">Filtrado por {partes}</p>}

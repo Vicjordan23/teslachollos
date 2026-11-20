@@ -67,7 +67,7 @@ export function PanelAdmin() {
   if (esAdmin === null) return <p className="text-texto-suave">Cargando…</p>;
   if (!esAdmin) return <p className="text-texto-suave">Esta página es solo para administradores.</p>;
 
-  const boton = "rounded-full border border-borde bg-white px-3 py-1 text-sm hover:border-verde/40";
+  const boton = "rounded-full border border-borde bg-superficie px-3 py-1 text-sm hover:border-verde/40";
   const ruta = (slug: string, tipo = "comunidad") => (tipo === "oficial" ? `/chollo/${slug}` : `/c/${slug}`);
   return (
     <div className="flex flex-col gap-8">
@@ -76,7 +76,7 @@ export function PanelAdmin() {
         <h2 className="text-xl font-semibold">Pendientes de revisión ({pendientes.length})</h2>
         {pendientes.length === 0 && <p className="text-texto-suave">Nada pendiente.</p>}
         {pendientes.map((c) => (
-          <article key={c.id} className="flex flex-col gap-2 rounded-xl border border-borde bg-white p-3">
+          <article key={c.id} className="flex flex-col gap-2 rounded-xl border border-borde bg-superficie p-3">
             <p className="font-medium">{c.titulo}</p>
             <p className="text-sm text-texto-suave">
               @{c.perfiles?.alias} · {formatoEuros(c.precio_final)} · {new Date(c.creado).toLocaleString("es-ES")}
@@ -102,7 +102,7 @@ export function PanelAdmin() {
         <h2 className="text-xl font-semibold">Reportes abiertos ({reportes.length})</h2>
         {reportes.length === 0 && <p className="text-texto-suave">No hay reportes.</p>}
         {reportes.map((r) => (
-          <article key={r.id} className="flex flex-col gap-2 rounded-xl border border-borde bg-white p-3">
+          <article key={r.id} className="flex flex-col gap-2 rounded-xl border border-borde bg-superficie p-3">
             <p>
               <strong>{r.motivo}</strong> ·{" "}
               {r.chollos && (

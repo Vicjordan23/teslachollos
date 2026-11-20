@@ -27,7 +27,7 @@ export default async function Comunidad({ searchParams }: PageProps<"/comunidad"
   const filtro = orden === "calientes" ? `&creado=gt.${haceDias(7)}` : "";
   const lista = await leer<CholloComunidad>(`chollos_publicos?select=${CAMPOS}&tipo=eq.comunidad&estado=eq.publicado${filtro}&order=${ORDEN[orden].sql}&limit=48`, 30);
   const chip = (activo: boolean) =>
-    `rounded-full px-3 py-1.5 text-sm ${activo ? "bg-verde-boton text-white" : "border border-borde bg-white hover:border-verde/40"}`;
+    `rounded-full px-3 py-1.5 text-sm ${activo ? "bg-verde-boton text-white" : "border border-borde bg-superficie hover:border-verde/40"}`;
 
   return (
     <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-5 px-4 py-6">

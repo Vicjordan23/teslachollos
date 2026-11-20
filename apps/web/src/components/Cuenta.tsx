@@ -10,11 +10,11 @@ import { supabase } from "@/lib/supabase";
 /** Botón de la cabecera: «Entrar» o el alias. */
 export function BotonCuenta() {
   const { sesion, alias } = useEstado();
-  const clase = "rounded-full bg-verde-boton px-4 py-1.5 font-medium text-white hover:bg-verde-boton-hover";
+  const clase = "flex shrink-0 items-center gap-2 px-2 py-1.5 font-semibold hover:text-verde-boton";
   if (!sesion) {
     return (
       <Link href="/entrar" className={clase}>
-        Entrar
+        Regístrate / Inicia sesión
       </Link>
     );
   }
@@ -57,7 +57,7 @@ export function ElegirAlias({ alTerminar }: { alTerminar?: () => void }) {
             setError("");
           }}
           placeholder="tu_alias"
-          className="min-w-0 flex-1 rounded-full border border-borde bg-white px-4 py-2.5 outline-none focus:border-verde"
+          className="min-w-0 flex-1 rounded-full border border-borde bg-superficie px-4 py-2.5 outline-none focus:border-verde"
         />
         <button type="submit" disabled={!valido} className="rounded-full bg-verde-boton px-5 py-2.5 font-medium text-white disabled:opacity-50">
           Guardar
@@ -132,7 +132,7 @@ export function MiCuenta() {
           ["/publicar", "Publicar un chollo"],
           ...(alias ? [[`/u/${alias}`, "Mi perfil público"]] : []),
         ].map(([href, texto]) => (
-          <Link key={href} href={href} className="rounded-full border border-borde bg-white px-4 py-2 hover:border-verde/40">
+          <Link key={href} href={href} className="rounded-full border border-borde bg-superficie px-4 py-2 hover:border-verde/40">
             {texto}
           </Link>
         ))}

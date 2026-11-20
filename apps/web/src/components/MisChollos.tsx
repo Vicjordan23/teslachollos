@@ -38,7 +38,7 @@ export function MisChollos() {
         {filas.map((f) => {
           const ultima = [...f.moderacion].sort((a, b) => b.creado.localeCompare(a.creado))[0];
           return (
-            <li key={f.id} className="rounded-xl border border-borde bg-white px-4 py-3">
+            <li key={f.id} className="rounded-xl border border-borde bg-superficie px-4 py-3">
               {f.estado === "publicado" || f.estado === "caducado" ? (
                 <Link href={`/c/${f.slug}`} className="font-medium hover:underline">
                   {f.titulo}

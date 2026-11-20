@@ -25,7 +25,7 @@ export default async function PerfilPublico({ params }: PageProps<"/u/[alias]">)
   const insignias = insigniasDe(p);
   const chollos = await leer<CholloComunidad>(`chollos_publicos?select=${CAMPOS}&autor_alias=eq.${p.alias}&tipo=eq.comunidad&order=creado.desc&limit=24`, 60);
   const dato = (valor: number, texto: string) => (
-    <div className="rounded-xl border border-borde bg-white px-4 py-3">
+    <div className="rounded-xl border border-borde bg-superficie px-4 py-3">
       <p className="text-2xl font-semibold">{valor.toLocaleString("es-ES")}</p>
       <p className="text-sm text-texto-suave">{texto}</p>
     </div>

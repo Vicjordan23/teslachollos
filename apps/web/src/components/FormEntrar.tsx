@@ -89,7 +89,7 @@ export function FormEntrar() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="tu@email.com"
           aria-label="Email"
-          className="min-w-0 flex-1 rounded-full border border-borde bg-white px-4 py-2.5 outline-none focus:border-verde"
+          className="min-w-0 flex-1 rounded-full border border-borde bg-superficie px-4 py-2.5 outline-none focus:border-verde"
         />
         <button
           type="submit"
@@ -111,7 +111,7 @@ export function FormEntrar() {
             }
             await supabase()?.auth.signInWithOAuth({ provider: "google", options: { redirectTo: `${location.origin}/auth/confirmar` } });
           }}
-          className="flex items-center gap-2 rounded-full border border-borde bg-white px-5 py-2.5 font-medium hover:border-verde/40"
+          className="flex items-center gap-2 rounded-full border border-borde bg-superficie px-5 py-2.5 font-medium hover:border-verde/40"
         >
           <svg viewBox="0 0 24 24" className="size-5" aria-hidden>
             <path fill="#4285F4" d="M22.6 12.2c0-.8-.1-1.5-.2-2.2H12v4.2h5.9a5 5 0 0 1-2.2 3.3v2.7h3.6c2.1-1.9 3.3-4.8 3.3-8z" />

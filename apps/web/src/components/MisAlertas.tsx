@@ -15,7 +15,7 @@ interface Alerta {
   precio_max: number | null;
 }
 
-const campo = "rounded-full border border-borde bg-white px-4 py-2.5 outline-none focus:border-verde";
+const campo = "rounded-full border border-borde bg-superficie px-4 py-2.5 outline-none focus:border-verde";
 
 /** Alertas por email: palabra, modelo, tipo y precio máximo. Se avisa una vez al día de los chollos nuevos. */
 export function MisAlertas() {
@@ -89,7 +89,7 @@ export function MisAlertas() {
 
   return (
     <div className="flex flex-col gap-6">
-      <form onSubmit={crear} className="flex flex-col gap-3 rounded-2xl border border-borde bg-white p-4">
+      <form onSubmit={crear} className="flex flex-col gap-3 rounded-2xl border border-borde bg-superficie p-4">
         <h2 className="text-lg font-semibold">Nueva alerta</h2>
         <input value={palabra} onChange={(e) => setPalabra(e.target.value)} placeholder="Palabra: wallbox, alfombrillas, spoiler…" aria-label="Palabra" maxLength={60} className={campo} />
         <div className="grid gap-3 sm:grid-cols-3">
@@ -127,7 +127,7 @@ export function MisAlertas() {
         ) : (
           <ul className="flex flex-col gap-2">
             {lista.map((a) => (
-              <li key={a.id} className="flex items-center justify-between gap-3 rounded-xl border border-borde bg-white px-4 py-3">
+              <li key={a.id} className="flex items-center justify-between gap-3 rounded-xl border border-borde bg-superficie px-4 py-3">
                 <span>
                   {[
                     a.palabra && `«${a.palabra}»`,
