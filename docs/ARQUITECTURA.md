@@ -78,6 +78,8 @@ Las tarifas son las públicas que conozco a fecha de hoy. Compruébalas al contr
 
 ## 5. Nombre y dominio
 
+> **20/11/2026:** sustituido por `NOMBRES_Y_LOGO.md` (Vic quiere un nombre que evoque Tesla). Se conserva esta tabla como referencia. Sin pagos, Stripe y Supabase Pro dejan de ser necesarios al principio: coste ~1 €/mes más el dominio.
+
 Un nombre que **no empiece por la marca Tesla** reduce el riesgo legal y permite ampliar algún día. Comprobado hoy en el registro de .com (sin registrar = probablemente libre; los .es los compruebas tú al comprar):
 
 | Nombre | .com | Comentario |

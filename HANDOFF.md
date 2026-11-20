@@ -1,5 +1,15 @@
 # HANDOFF
 
+## 20/11/2026 (2): OK de Vic con cambios
+
+**Decidido:** plataforma **gratuita** (sin cuotas ni destacados de pago por ahora) · ver chollos sin cuenta · importar su catálogo · arquitectura recomendada aprobada · usar REA **solo** sobre páginas públicas de Chollometro para sacar la lista de funciones.
+
+**Hecho:** `docs/NOMBRES_Y_LOGO.md` (lista de nombres con .com comprobado y prompt del logo) · `PRODUCTO.md` §0 con el modelo gratuito y la propuesta de monetización (comunidad con el afiliado de Vic).
+
+**Pendiente de Vic:** elegir nombre (recomendado: Chollesla) y comprar el dominio · generar el logo con el prompt · decir si la comunidad puede publicar gratis con su afiliado (PRODUCTO §0, punto 2).
+
+**Siguiente (Claude):** observación con REA → `docs/FUNCIONES_OBSERVADAS.md` · Fase 1 del plan: esqueleto del monorepo.
+
 ## 20/11/2026: Fases 1 y 2 (preguntas y documentación)
 
 **Hecho**

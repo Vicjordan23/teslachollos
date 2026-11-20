@@ -1,6 +1,22 @@
 # Documento de producto (borrador para OK de Vic)
 
-Fecha: 20/11/2026 · Estado: **pendiente de OK**
+Fecha: 20/11/2026 · Estado: **aprobado con cambios** (ver §0)
+
+## 0. Cambios aprobados por Vic (20/11/2026, segunda ronda): mandan sobre el resto del documento
+
+- **La plataforma es GRATUITA.** No hay cuota de publicador ni destacados de pago, de momento. Se aparcan §3 (planes y precios), la parte de pago de §2 y la Fase 6 del plan. La monetización se decide más adelante.
+- **Ver chollos es público, sin cuenta.** La cuenta gratuita sirve para votar, guardar, crear alertas y reportar.
+- **Se importa el catálogo actual de Vic** (`productos*.json` + `precios*.json`) como chollos oficiales.
+- Nombre y logo: ver `NOMBRES_Y_LOGO.md` (pendiente de elección).
+- Arquitectura recomendada aprobada: monorepo Next.js + Expo + Supabase.
+
+### Cómo ganar dinero sin cuotas (propuesta, por orden)
+1. **Chollos oficiales con tus afiliados** (Amazon, Jowua, Hansshow, Tesery y EVDANCE): es la base y no cambia nada.
+2. **Chollos de la comunidad con TU afiliado** (el modelo clásico de las webs de chollos). Cualquier cuenta gratuita publica un chollo con el enlace normal de la tienda. Si la tienda está en tus programas, la plataforma pone **tu** código de afiliado y quita cualquier otro; si no, el enlace queda limpio. El usuario gana insignias y reputación, y tú la comisión. Se avisa en las condiciones y en cada chollo («Podemos ganar una comisión»). Es lo que más escala, porque la comunidad trabaja para el catálogo.
+3. **Más programas de afiliados** de tiendas de accesorios Tesla con envío a España (para que el punto 2 cubra más tiendas).
+4. **Más adelante:** destacados patrocinados para tiendas, newsletter patrocinada o publicidad (con banner de cookies).
+
+Ojo, sin re-discutir lo decidido: las comisiones de afiliado ya son ingresos de actividad económica, igual que hasta ahora. Que la web sea gratuita evita cobrar cuotas a usuarios (facturas, IVA y Stripe), pero no cambia lo que ya tienes que declarar de las comisiones. Coméntalo con un gestor cuando crezcan.
 
 ## 1. Qué es
 
