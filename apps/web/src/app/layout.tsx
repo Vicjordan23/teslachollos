@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Fredoka } from "next/font/google";
 import { AVISO_AMAZON } from "@chollesla/core";
+import { CajaBusqueda } from "@/components/CajaBusqueda";
 import { INDEXAR, SITIO } from "@/lib/sitio";
 import "./globals.css";
 
@@ -39,21 +40,25 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <Image src="/icon.svg" alt="" width={36} height={36} priority />
               <span className="text-2xl font-semibold tracking-tight">chollesla</span>
             </Link>
-            <nav aria-label="Menú principal" className="hidden flex-1 items-center gap-1 text-sm sm:flex">
+            <nav aria-label="Menú principal" className="hidden items-center gap-1 text-sm md:flex">
               {MENU.map((m) => (
                 <Link key={m.href} href={m.href} className="rounded-full px-3 py-1.5 text-texto-suave hover:bg-fondo hover:text-texto">
                   {m.texto}
                 </Link>
               ))}
             </nav>
+            <CajaBusqueda className="hidden min-w-0 flex-1 sm:block" />
             <div className="ml-auto flex items-center gap-2 text-sm">
-              <Link href="/entrar" className="hidden rounded-full border border-borde px-3 py-1.5 hover:bg-fondo sm:inline-block">
+              <Link href="/entrar" className="hidden shrink-0 rounded-full border border-borde px-3 py-1.5 hover:bg-fondo lg:inline-block">
                 Publicar chollo
               </Link>
               <Link href="/entrar" className="rounded-full bg-verde-boton px-4 py-1.5 font-medium text-white hover:bg-verde-boton-hover">
                 Entrar
               </Link>
             </div>
+          </div>
+          <div className="mx-auto max-w-4xl px-4 pb-2.5 sm:hidden">
+            <CajaBusqueda />
           </div>
         </header>
 

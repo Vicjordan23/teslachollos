@@ -1,5 +1,12 @@
 # HANDOFF
 
+## 20/11/2026 (11): buscador
+
+- `buscar()` en `@chollesla/core` (`buscar.ts`): sin acentos, todas las palabras por prefijo, plurales sencillos (alfombrillas, luces → luz), modelos normalizados («Model 3/Y», «MY», «M3» → `model3`/`modely`), quita palabras vacías («para», «tesla»…) y ordena por relevancia (título > modelos > descripción). 6 tests nuevos.
+- Web: cuadro de búsqueda en la cabecera (segunda fila en móvil; formulario GET, funciona sin JavaScript) y página `/buscar?q=…&p=N` (24 por página, `noindex`, sin resultados muestra las categorías). Se renderiza en el Worker en cada petición.
+- El menú de texto se ve desde `md` y «Publicar chollo» desde `lg`, para dejar sitio al buscador.
+- Probado: typecheck, lint, 41 tests y vista a 375 px y 1280 px sin scroll horizontal. Ejemplos con el catálogo real: «alfombrillas model y» 63, «wallbox» 5, «luces ambiente» 11.
+
 ## 20/11/2026 (10): ficha oscura estilo Chollometro
 
 - **Petición de Vic:** que las fichas tengan el mismo aspecto que la de Chollometro. Se le avisó de que chocaba con la regla anti plagio y eligió «copia visual fiel»; la excepción queda en `CLAUDE.md`.
