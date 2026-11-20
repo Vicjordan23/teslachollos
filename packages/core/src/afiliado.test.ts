@@ -79,3 +79,15 @@ describe("avisoAfiliado", () => {
     expect(avisoAfiliado(null)).toBeNull();
   });
 });
+
+describe("AliExpress", () => {
+  it("deja la ficha limpia y obliga a resolver los enlaces de afiliado ajenos", () => {
+    expect(aplicarAfiliado("https://es.aliexpress.com/item/1005006.html?aff_fcid=x&spm=y")).toEqual({
+      estado: "ok",
+      url: "https://es.aliexpress.com/item/1005006.html",
+      tienda: "aliexpress",
+    });
+    expect(aplicarAfiliado("https://www.aliexpress.com/item/1005006.html").estado).toBe("ok");
+    expect(aplicarAfiliado("https://s.click.aliexpress.com/e/_abc").estado).toBe("resolver");
+  });
+});

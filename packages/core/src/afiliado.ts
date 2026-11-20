@@ -71,6 +71,14 @@ function enlaceTienda(tienda: Tienda, url: URL): string {
       url.searchParams.set("utm_source", "goaffpro");
       return url.toString();
     }
+    case "aliexpress": {
+      // Ficha limpia: https://es.aliexpress.com/item/<id>.html, sin afiliados ajenos ni seguimiento.
+      const id = url.pathname.match(/\/item\/(\d+)\.html/)?.[1];
+      if (id) return `https://es.aliexpress.com/item/${id}.html`;
+      limpiarParametros(url);
+      for (const k of [...url.searchParams.keys()]) url.searchParams.delete(k);
+      return url.toString();
+    }
     case "evdance": {
       limpiarParametros(url);
       const destino = encodeURIComponent(url.toString());
@@ -101,6 +109,8 @@ export function aplicarAfiliado(enlace: string): ResultadoEnlace {
     return ued ? aplicarAfiliado(ued) : { estado: "invalido", motivo: "Enlace de Awin sin destino" };
   }
   if (esAcortador(url)) return { estado: "resolver", motivo: "acortador" };
+  // Enlaces de afiliado de AliExpress (s.click / a.aliexpress): se siguen hasta la ficha para quitar el afiliado ajeno.
+  if (/^(s\.click|a)\.aliexpress\.com$/.test(hostLimpio(url))) return { estado: "resolver", motivo: "acortador" };
 
   const tienda = tiendaDeUrl(url);
   if (tienda) return { estado: "ok", url: enlaceTienda(tienda, url), tienda: tienda.id };

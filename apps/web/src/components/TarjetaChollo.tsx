@@ -22,6 +22,8 @@ export interface DatosChollo {
   /** Fecha del precio, ISO (aaaa-mm-dd). */
   fecha: string;
   oficial?: boolean;
+  /** Enlace de afiliado generado por la tienda (AliExpress). */
+  enlaceAfiliado?: string;
   /** Alias del autor (chollos de la comunidad). */
   autor?: string | null;
   /** Ruta de la ficha (por defecto /chollo/<slug>; los de la comunidad, /c/<slug>). */
@@ -33,7 +35,7 @@ const ICONO = "size-4 shrink-0";
 /** Ficha oscura horizontal: foto en panel blanco a la izquierda; temperatura, título, precio, tienda y botón a la derecha. */
 export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChollo; prioridad?: boolean }) {
   const enlace = aplicarAfiliado(chollo.enlace);
-  const salida = enlaceSalida(chollo.slug, enlace);
+  const salida = enlaceSalida(chollo.slug, enlace, chollo.enlaceAfiliado);
   const tienda = enlace.estado === "ok" && enlace.tienda ? TIENDAS[enlace.tienda] : null;
   const final = precioFinal(chollo.precioTienda, tienda?.id ?? null);
   const ahorro = porcentajeAhorro(final, chollo.precioTienda);

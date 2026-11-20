@@ -1,4 +1,4 @@
-// Copia los chollos oficiales (apps/web/src/datos/oficiales.json) a la tabla `chollos` de Supabase, para que
+// Copia los chollos oficiales (apps/web/src/datos/oficiales.json y aliexpress.json) a la tabla `chollos` de Supabase, para que
 // se puedan votar, guardar y reportar. La web los sigue pintando desde el JSON (estático y rápido).
 // Uso: SUPABASE_URL=… SUPABASE_SERVICE_ROLE_KEY=… node scripts/sincronizar-supabase.mjs [--prueba]
 // Lo ejecuta la acción «Sincronizar Supabase» con los secretos del repo. Requiere `npm run build -w packages/core`.
@@ -13,7 +13,8 @@ if (!prueba && (!url || !clave)) {
   process.exit(1);
 }
 
-const datos = JSON.parse(readFileSync(new URL("../apps/web/src/datos/oficiales.json", import.meta.url), "utf8"));
+const leerJson = (f) => JSON.parse(readFileSync(new URL(`../apps/web/src/datos/${f}`, import.meta.url), "utf8"));
+const datos = [...leerJson("oficiales.json"), ...leerJson("aliexpress.json")];
 
 export function fila(c) {
   const enlace = aplicarAfiliado(c.enlace);
@@ -27,7 +28,8 @@ export function fila(c) {
     descripcion: c.descripcion.slice(0, 2000),
     modelos: c.modelos,
     enlace_original: c.enlace,
-    enlace: enlace.url,
+    // AliExpress: el enlace de afiliado lo genera su API con el tracking ID de Vic.
+    enlace: c.enlaceAfiliado ?? enlace.url,
     foto: c.foto,
     precio_tienda: c.precioTienda,
     precio_final: precioFinal(c.precioTienda, c.tienda),

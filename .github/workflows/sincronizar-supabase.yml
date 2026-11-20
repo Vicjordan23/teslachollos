@@ -4,7 +4,7 @@ name: Sincronizar Supabase
 on:
   push:
     branches: [main]
-    paths: [apps/web/src/datos/oficiales.json, scripts/sincronizar-supabase.mjs]
+    paths: [apps/web/src/datos/oficiales.json, apps/web/src/datos/aliexpress.json, scripts/sincronizar-supabase.mjs]
   workflow_dispatch:
 
 permissions:

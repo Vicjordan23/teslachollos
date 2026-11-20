@@ -1,4 +1,5 @@
 import { modelosDe, precioFinal, porcentajeAhorro, type IdCategoria, type IdModelo, type IdTienda } from "@chollesla/core";
+import aliexpress from "./aliexpress.json";
 import datos from "./oficiales.json";
 
 /** Chollo oficial importado del catálogo de Vic (scripts/importar-catalogo.mjs). */
@@ -18,6 +19,8 @@ export interface CholloOficial {
   desde: boolean;
   /** Fecha del precio, ISO (aaaa-mm-dd). */
   fecha: string;
+  /** Enlace de afiliado ya generado por la tienda (AliExpress: lo crea su API con el tracking ID de Vic). */
+  enlaceAfiliado?: string;
 }
 
 export const POR_PAGINA = 24;
@@ -59,7 +62,7 @@ function intercalar(lista: CholloOficial[]): CholloOficial[] {
   return salida;
 }
 
-export const CHOLLOS: CholloOficial[] = intercalar(datos as unknown as CholloOficial[]);
+export const CHOLLOS: CholloOficial[] = intercalar([...(datos as unknown as CholloOficial[]), ...(aliexpress as unknown as CholloOficial[])]);
 
 const PORSLUG = new Map(CHOLLOS.map((c) => [c.slug, c]));
 

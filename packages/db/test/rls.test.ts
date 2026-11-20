@@ -154,3 +154,23 @@ describe("guardados, alertas y reportes son privados", () => {
     await expect(como("anon", null, () => db.query(`select 1 from public.reportes`))).rejects.toThrow(/permission denied/);
   });
 });
+
+describe("migración 3: suspensión y perfiles públicos", () => {
+  it("una cuenta suspendida no puede votar", async () => {
+    await db.exec(`update public.perfiles set suspendido = true where alias = 'bea'`);
+    const id = await idDe("publicado");
+    await expect(
+      como("authenticated", BEA, () => db.query(`insert into public.votos (chollo_id, usuario_id, valor) values ($1, $2, 1)`, [id, BEA])),
+    ).rejects.toThrow();
+    await db.exec(`update public.perfiles set suspendido = false where alias = 'bea'`);
+  });
+  it("el perfil público solo da alias y recuentos, también sin cuenta", async () => {
+    const r = await como("anon", null, () => db.query<Record<string, unknown>>(`select * from public.perfiles_publicos where alias = 'vic'`));
+    expect(Object.keys(r.rows[0]!).sort()).toEqual(["alias", "chollos", "creado", "grados", "reportes_utiles", "votos_dados"]);
+    expect(r.rows[0]!.chollos).toBe(1);
+  });
+  it("AliExpress existe como tienda", async () => {
+    const r = await db.query(`select id from public.tiendas where id = 'aliexpress'`);
+    expect(r.rows).toHaveLength(1);
+  });
+});

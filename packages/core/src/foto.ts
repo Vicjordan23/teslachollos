@@ -26,6 +26,11 @@ export function fotoConAncho(url: string, ancho: number): string {
       : u.pathname.replace(/\.(jpe?g|png|webp)$/i, `._AC_SL${w}_.$1`);
     return u.toString();
   }
+  if (u.hostname === "ae01.alicdn.com" || u.hostname === "ae-pic-a1.aliexpress-media.com") {
+    // AliExpress sirve miniaturas añadiendo «_<ancho>x<ancho>.jpg» a la URL (tamaños fijos).
+    const tam = [220, 350, 480, 640, 960].find((t) => t >= w) ?? 960;
+    return /\.(jpe?g|png|webp)$/i.test(u.pathname) && !/_\d+x\d+\.jpg$/i.test(u.pathname) ? `${u.toString()}_${tam}x${tam}.jpg` : url;
+  }
   if (u.hostname === "cdn.shopify.com") {
     u.searchParams.set("width", String(w));
     return u.toString();

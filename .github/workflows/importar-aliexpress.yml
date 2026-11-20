@@ -1,0 +1,54 @@
+name: Importar AliExpress
+
+# Cada lunes (y a mano desde la pestaña Actions): busca accesorios para Tesla con la API de afiliados de AliExpress,
+# actualiza apps/web/src/datos/aliexpress.json y lo sube a main (Cloudflare despliega solo).
+on:
+  schedule:
+    - cron: "43 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency: importar-aliexpress
+
+jobs:
+  importar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build -w packages/core
+      - name: Importar
+        env:
+          ALIEXPRESS_APP_KEY: ${{ secrets.ALIEXPRESS_APP_KEY }}
+          ALIEXPRESS_APP_SECRET: ${{ secrets.ALIEXPRESS_APP_SECRET }}
+          ALIEXPRESS_TRACKING_ID: ${{ secrets.ALIEXPRESS_TRACKING_ID }}
+        run: node scripts/importar-aliexpress.mjs
+      - name: Comprobar que la web compila con los datos nuevos
+        run: npm test && npm run typecheck
+      - name: Subir los cambios
+        id: subir
+        run: |
+          if git diff --quiet -- apps/web/src/datos/aliexpress.json; then echo "Sin cambios."; echo "hay=no" >> "$GITHUB_OUTPUT"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add apps/web/src/datos/aliexpress.json
+          git commit -m "datos: catálogo de AliExpress actualizado"
+          git push origin HEAD:main
+          echo "hay=si" >> "$GITHUB_OUTPUT"
+      - name: Sincronizar Supabase
+        if: steps.subir.outputs.hay == 'si'
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          if [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then echo "::warning::Sin secretos de Supabase; no se sincroniza."; exit 0; fi
+          node scripts/sincronizar-supabase.mjs

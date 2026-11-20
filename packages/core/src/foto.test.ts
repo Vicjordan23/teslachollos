@@ -44,3 +44,10 @@ describe("urlFoto", () => {
     expect(urlFoto(undefined)).toBeNull();
   });
 });
+
+describe("fotoConAncho en AliExpress", () => {
+  it("pide la miniatura del tamaño fijo más cercano por encima", () => {
+    expect(fotoConAncho("https://ae01.alicdn.com/kf/S1.jpg", 300)).toBe("https://ae01.alicdn.com/kf/S1.jpg_350x350.jpg");
+    expect(fotoConAncho("https://ae01.alicdn.com/kf/S1.jpg", 2000)).toBe("https://ae01.alicdn.com/kf/S1.jpg_960x960.jpg");
+  });
+});

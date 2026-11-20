@@ -35,7 +35,7 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
   const t = TIENDAS[c.tienda];
   const final = precioFinal(c.precioTienda, c.tienda);
   const enlace = aplicarAfiliado(c.enlace);
-  const salida = enlaceSalida(c.slug, enlace);
+  const salida = enlaceSalida(c.slug, enlace, c.enlaceAfiliado);
   const ahorro = porcentajeAhorro(final, c.precioTienda);
 
   // Datos estructurados de producto: sin valoraciones ni opiniones (regla de Vic: nada inventado).

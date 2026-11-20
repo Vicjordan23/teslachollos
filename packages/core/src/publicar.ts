@@ -5,7 +5,7 @@ import { urlFoto } from "./foto.js";
 import { hostLimpio, type IdTienda } from "./tiendas.js";
 
 /** Tiendas sin programa de Vic que también se aceptan (el enlace se publica limpio, sin afiliados ajenos). */
-export const TIENDAS_EXTRA = ["tesla.com", "aliexpress.com"];
+export const TIENDAS_EXTRA = ["tesla.com"];
 
 export interface Borrador {
   titulo: string;
