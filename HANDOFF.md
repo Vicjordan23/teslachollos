@@ -1,5 +1,12 @@
 # HANDOFF
 
+## 20/11/2026 (13): borradores de aviso legal, privacidad y cookies (en main)
+
+- Páginas `/aviso-legal`, `/privacidad` y `/cookies`, enlazadas en el pie. Describen la web tal como es hoy: sin cuentas, sin cookies propias, Cloudflare como alojamiento, fotos cargadas desde Amazon y Shopify, registro de clics sin IP (Workers Logs guarda 3 días en el plan gratis). **Borrador: debe revisarlo un abogado antes de cobrar.** Hay que ampliar la privacidad antes de activar las cuentas.
+- Los datos del titular (LSSI art. 10) **no van en el repo**: se leen de `NEXT_PUBLIC_TITULAR_NOMBRE`, `NEXT_PUBLIC_TITULAR_NIF`, `NEXT_PUBLIC_TITULAR_DIRECCION` y `NEXT_PUBLIC_TITULAR_EMAIL` (`apps/web/src/lib/titular.ts`). Mientras falten, se ve «pendiente».
+- **Pendiente de Vic:** poner esas 4 variables de build en Cloudflare (Workers → chollesla → Settings → Build → Variables) y relanzar el build. Como particular se publican su nombre, NIF y dirección (ver `docs/LEGAL_Y_PAGOS.md` §0).
+- Faltan las condiciones de uso: se redactan con las cuentas de usuario.
+
 ## 20/11/2026 (12): salida por /ir/<slug> (en main)
 
 - Buscador (entrada 11) juntado con `main` a petición de Vic; Cloudflare lo despliega solo.

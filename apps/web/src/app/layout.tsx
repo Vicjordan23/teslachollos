@@ -71,6 +71,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               Los enlaces a tiendas son de afiliado: Chollesla puede ganar una comisión si compras, sin coste extra para
               ti. {AVISO_AMAZON}
             </p>
+            <nav aria-label="Legal" className="flex flex-wrap gap-x-4 gap-y-1">
+              <Link href="/aviso-legal" className="hover:text-texto hover:underline">Aviso legal</Link>
+              <Link href="/privacidad" className="hover:text-texto hover:underline">Privacidad</Link>
+              <Link href="/cookies" className="hover:text-texto hover:underline">Cookies</Link>
+            </nav>
           </div>
         </footer>
       </body>
