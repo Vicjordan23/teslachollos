@@ -33,6 +33,14 @@
 - `@chollesla/core` usa imports con `.js` para poder ejecutarse en Node (importador).
 - `npm test` ejecuta los tests de todos los paquetes (30 en total). El typecheck de la web hace `next typegen` antes.
 
+## 20/11/2026 (7): Cloudflare y Supabase en marcha (a medias, esperando a Vic)
+
+- Repo preparado para Cloudflare Workers con OpenNext (`apps/web/wrangler.jsonc`, `open-next.config.ts`, scripts `cf:build` y `cf:deploy`). Worker de 1,66 MB comprimido. Fotos pedidas ya reducidas a los CDN de Amazon y Shopify. Sin `cacheComponents` → 404 reales. Build de OpenNext probado en Windows (avisa de que no es plataforma recomendada; el despliegue real lo hará Cloudflare en Linux).
+- Con el OK de Vic: se instala la app «Cloudflare Workers and Pages» en GitHub **solo para `Vicjordan23/teslachollos`**. GitHub pidió confirmar con GitHub Mobile: **pendiente de Vic**.
+- Supabase: formulario «New project» relleno (nombre `chollesla`, Central EU Frankfurt). La contraseña de la base de datos la generó Supabase. **Vic** la guarda con «Copy» en su gestor y pulsa «Create new project». Después Claude aplica `supabase/migrations/20261120000000_inicial.sql` en el editor SQL.
+- `docs/ALTAS_AFILIADOS.md`: enlaces y textos para las altas. Claude rellena lo público; Vic pone datos, contraseña y condiciones. Mejor cuando la web esté publicada.
+- Siguiente: crear el Worker desde el repo con Cloudflare. Build command `npm run cf:build -w apps/web`; deploy command `cd apps/web && npx opennextjs-cloudflare deploy`; raíz del repo `/`. Variable `NEXT_PUBLIC_SITIO` = la dirección de workers.dev hasta tener dominio.
+
 **Pendiente:** despliegue de prueba en Cloudflare (cuando Vic cree la cuenta) · Fase 2 (Supabase: esquema, RLS y auth) · importar el catálogo · `docs/FUNCIONES_OBSERVADAS.md` (cuando REA funcione).
 
 ## 20/11/2026 (2): OK de Vic con cambios
