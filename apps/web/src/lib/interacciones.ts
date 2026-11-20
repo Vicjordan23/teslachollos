@@ -66,10 +66,14 @@ function iniciar() {
     const cambioUsuario = sesion?.user.id !== estado.sesion?.user.id;
     cambiar({ sesion, listo: true });
     if (cambioUsuario || evento === "SIGNED_IN") {
-      void cargarAlias(sesion);
-      // Recarga votos y guardados de todo lo que hay en pantalla con el nuevo usuario.
-      Object.keys(estado.chollos).forEach((s) => pendientes.add(s));
-      programar();
+      // Fuera del callback: supabase-js mantiene el bloqueo de auth dentro de onAuthStateChange y cualquier
+      // consulta lanzada ahí se queda colgada (interbloqueo).
+      setTimeout(() => {
+        void cargarAlias(sesion);
+        // Recarga votos y guardados de todo lo que hay en pantalla con el nuevo usuario.
+        Object.keys(estado.chollos).forEach((s) => pendientes.add(s));
+        programar();
+      }, 0);
     }
   });
 }
