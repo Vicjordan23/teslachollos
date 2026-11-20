@@ -18,6 +18,12 @@
 - CI: `.github/workflows/ci.yml` (Node 24: `npm ci`, test, build, lint).
 - Comprobado en local: `npm test`, `npm run build`, `npm run lint`, `npm run typecheck`.
 
+## 20/11/2026 (5): REA funcionando y foto en las tarjetas
+
+- **REA:** con el OK de Vic se descargó Node portable 24.22.3 de nodejs.org (SHA-256 verificado) en el scratchpad; el Node del sistema no se tocó. Se ejecutó `inspect-web-page` (DOM y accesibilidad) sobre la portada pública de Chollometro en un Chrome aislado → `docs/FUNCIONES_OBSERVADAS.md`. Sin bundles, sin API y sin copiar contenidos. No se capturó ninguna ficha individual (REA filtra los enlaces).
+- **Foto del producto en cada tarjeta** (petición de Vic): `urlFoto()` en core (solo `m.media-amazon.com` y `cdn.shopify.com`; desenvuelve el proxy `wsrv.nl` del catálogo antiguo) + `images.remotePatterns` en `next.config.ts` + componente `TarjetaChollo`, con foto, tienda, precio final, precio en tienda tachado, código y aviso. 18 tests en verde. Probado en el navegador: las fotos de Amazon y de Shopify cargan.
+- Riesgo ya avisado: las fotos de Amazon son de terceros; lo correcto a medio plazo es la API de Amazon (PA-API).
+
 **Pendiente:** despliegue de prueba en Cloudflare (cuando Vic cree la cuenta) · Fase 2 (Supabase: esquema, RLS y auth) · importar el catálogo · `docs/FUNCIONES_OBSERVADAS.md` (cuando REA funcione).
 
 ## 20/11/2026 (2): OK de Vic con cambios
