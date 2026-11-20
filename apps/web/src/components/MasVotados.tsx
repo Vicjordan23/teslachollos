@@ -8,7 +8,7 @@ const TOP = [...CHOLLOS].sort((a, b) => ahorroDe(b) - ahorroDe(a)).slice(0, 6);
 /** Panel lateral con los chollos de mayor descuento (el voto de la comunidad vive en Supabase y no está en el HTML estático). */
 export function MasVotados() {
   return (
-    <aside aria-label="Mayores descuentos" className="hidden self-start rounded border border-ficha-borde bg-ficha p-5 lg:sticky lg:top-24 lg:block">
+    <aside aria-label="Mayores descuentos" className="hidden self-start rounded border border-ficha-borde bg-ficha p-5 lg:block">
       <h2 className="mb-4 text-xl font-bold">Los mayores descuentos</h2>
       <ul className="flex flex-col gap-4">
         {TOP.map((c) => {

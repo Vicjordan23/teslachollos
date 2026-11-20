@@ -1,5 +1,10 @@
 # HANDOFF
 
+## 20/11/2026 (22) — Títulos en español y panel lateral sin fijar
+- `scripts/traducir-titulos.mjs` traduce al español títulos y descripciones de `aliexpress.json` y `oficiales.json` (traductor gratuito de Google, caché en `scripts/traducciones.json`; si falla deja el original). Se ejecuta en el workflow «Importar AliExpress» tras importar. Para el catálogo oficial hay que ejecutarlo a mano tras `importar-catalogo.mjs`. Tras traducir, lanzar «Sincronizar Supabase» para que la base tenga los títulos nuevos.
+- Panel «Los mayores descuentos»: ya no es `sticky` (se quedaba fijo y cortado); se desplaza con la página.
+- Telegram/Facebook/Instagram (repo tesla-telegram): siempre con foto y traducidos (`traducir.py`).
+
 ## 20/11/2026 (21) — Estilo propio «Garaje técnico»
 - Decisión de Vic: público masculino, accesorios para coches Tesla, sin logos ni marca Tesla. Estilo: carbono casi negro con textura sutil, acento rojo-naranja `#ff3d1f`, descuentos en lima, tipografías Rajdhani (títulos/precios) + Barlow (texto), esquinas casi rectas, logo en mayúsculas espaciadas, textos directos.
 - Variables en `globals.css`; estructura (cabecera, pestañas, panel lateral) igual que (20).
