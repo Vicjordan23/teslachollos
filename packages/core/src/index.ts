@@ -6,3 +6,4 @@ export * from "./categorias.js";
 export * from "./buscar.js";
 export * from "./modelos.js";
 export * from "./publicar.js";
+export * from "./insignias.js";

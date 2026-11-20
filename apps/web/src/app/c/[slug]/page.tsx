@@ -82,7 +82,10 @@ export default async function FichaComunidad({ params }: PageProps<"/c/[slug]">)
             </p>
           )}
           <p className="text-sm text-texto-suave">
-            Compartido por <strong>@{c.autor_alias}</strong> el {formatoFecha(c.creado.slice(0, 10))}. Precio indicado por quien lo
+            Compartido por{" "}
+            <Link href={`/u/${c.autor_alias}`} className="font-semibold underline">
+              @{c.autor_alias}
+            </Link> el {formatoFecha(c.creado.slice(0, 10))}. Precio indicado por quien lo
             publicó; la comunidad lo puede reportar si no es correcto.
           </p>
           {salida && c.estado === "publicado" && (

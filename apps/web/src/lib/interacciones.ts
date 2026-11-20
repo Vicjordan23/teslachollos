@@ -54,6 +54,14 @@ function iniciar() {
   iniciado = true;
   const sb = supabase();
   if (!sb) return cambiar({ listo: true });
+  // Temperatura en directo: cuando alguien vota un chollo que está en pantalla, se vuelve a pedir su temperatura.
+  sb.channel("votos")
+    .on("postgres_changes", { event: "*", schema: "public", table: "votos" }, (cambio) => {
+      const id = ((cambio.new as { chollo_id?: number })?.chollo_id ?? (cambio.old as { chollo_id?: number })?.chollo_id) as number | undefined;
+      const slug = Object.keys(estado.chollos).find((s) => estado.chollos[s]!.id === id);
+      if (slug) refrescarTemperatura(slug);
+    })
+    .subscribe();
   sb.auth.onAuthStateChange((evento, sesion) => {
     const cambioUsuario = sesion?.user.id !== estado.sesion?.user.id;
     cambiar({ sesion, listo: true });
@@ -64,6 +72,21 @@ function iniciar() {
       programar();
     }
   });
+}
+
+const refrescos = new Set<string>();
+let temporizadorRefresco: ReturnType<typeof setTimeout> | null = null;
+
+function refrescarTemperatura(slug: string) {
+  refrescos.add(slug);
+  if (temporizadorRefresco) return;
+  temporizadorRefresco = setTimeout(async () => {
+    temporizadorRefresco = null;
+    const slugs = [...refrescos];
+    refrescos.clear();
+    const { data } = (await supabase()?.from("chollos_publicos").select("slug, temperatura").in("slug", slugs)) ?? {};
+    for (const f of data ?? []) cambiarChollo(f.slug as string, { temperatura: f.temperatura as number });
+  }, 500);
 }
 
 function programar() {

@@ -95,7 +95,10 @@ export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChol
           )}
           {!chollo.oficial && chollo.autor && (
             <span>
-              <span className="hidden sm:inline">Compartido por</span> <strong className="font-bold text-ficha-texto">@{chollo.autor}</strong>
+              <span className="hidden sm:inline">Compartido por</span>{" "}
+              <Link href={`/u/${chollo.autor}`} className="font-bold text-ficha-texto hover:underline">
+                @{chollo.autor}
+              </Link>
             </span>
           )}
           {chollo.oficial && (

@@ -1,5 +1,18 @@
 # HANDOFF
 
+## 20/11/2026 (17): AliExpress, moderación, caducidad, perfiles, insignias, votos en directo y Google
+
+- Vic pidió que Claude hiciera la configuración en Supabase y Cloudflare: esta sesión es en la nube y **no puede usar el navegador de su PC** (hace falta una sesión de Claude en su ordenador). Sigue pendiente de Vic la lista de la entrada 16, más lo de abajo.
+- **AliExpress:** tienda `aliexpress` en core (ficha limpia `es.aliexpress.com/item/<id>.html`; los `s.click` ajenos se resuelven para quitar el afiliado). `scripts/importar-aliexpress.mjs` usa la API de afiliados (`aliexpress.affiliate.product.query`, firma HMAC-SHA256, EUR, envío a España, tracking ID de Vic), filtra productos para Tesla, guarda hasta 300 en `apps/web/src/datos/aliexpress.json` con su `enlaceAfiliado` (el botón sale por `/ir/`). No se muestra el «precio original» de AliExpress. Acción «Importar AliExpress» (lunes y a mano): importa, prueba, hace commit en main y sincroniza Supabase. Probado con una API simulada. **Las 2 ejecuciones reales fallaron: los secretos no están en este repo** (la acción acepta `ALIEXPRESS_APP_KEY`/`_APP_SECRET`/`_TRACKING_ID` y variantes). Vic debe añadirlos en `Vicjordan23/teslachollos` → Settings → Secrets → Actions.
+- **Moderación:** `/admin` (pendientes y reportes; publicar, rechazar, caducar, retirar, suspender cuenta) + `POST /api/moderar` (comprueba rol admin; cada decisión queda en `moderacion` con su motivo). El autor ve el estado y el motivo en `/cuenta` → «Mis chollos» (DSA art. 17). Vic tiene que ponerse `rol = admin` en su fila de `perfiles` (Table Editor).
+- **Caducidad:** `scripts/caducar.mjs` (en la acción diaria antes de las alertas): por fecha de fin, a los 30 días o con 3 reportes de «caducado» de personas distintas. Fecha de fin opcional al publicar.
+- **Perfil público** `/u/<alias>`: nivel (Novato → Leyenda), puntos, estadísticas e insignias (`insigniasDe`/`nivelDe` en core, con tests). El alias del autor enlaza al perfil.
+- **Votos en directo** (Supabase Realtime sobre `votos`). **Entrar con Google**: el botón aparece con `NEXT_PUBLIC_LOGIN_GOOGLE=si` cuando Vic configure el proveedor en Supabase.
+- Migración nueva `20261122000000_aliexpress_moderacion_insignias.sql` (tienda AliExpress, suspensión, `perfiles_publicos`, Realtime). **Aplicar después de la de la entrada 16.**
+- Nota: retirar o caducar un chollo oficial se deshace en la siguiente sincronización; los oficiales se corrigen en el catálogo de origen.
+- Probado: 46 + 15 tests, typecheck, lint y en el navegador con Supabase simulado.
+- Sin hacer: notificaciones push (necesita claves VAPID y un servicio de envío).
+
 ## 20/11/2026 (16): comunidad con Supabase (código listo; se activa con las claves de Vic)
 
 Todo se activa solo cuando existen las variables; sin ellas la web sigue como antes («muy pronto»).
