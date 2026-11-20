@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { aplicarAfiliado, formatoEuros, porcentajeAhorro, precioFinal, TIENDAS, urlFoto } from "@chollesla/core";
 import { Compartir, CopiarCodigo } from "@/components/AccionesChollo";
+import { enlaceSalida } from "@/lib/salida";
 import { formatoFecha } from "@/datos/chollos";
 
 export interface DatosChollo {
@@ -29,6 +30,7 @@ const ICONO = "size-4 shrink-0";
 /** Ficha oscura horizontal: foto en panel blanco a la izquierda; temperatura, título, precio, tienda y botón a la derecha. */
 export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChollo; prioridad?: boolean }) {
   const enlace = aplicarAfiliado(chollo.enlace);
+  const salida = enlaceSalida(chollo.slug, enlace);
   const tienda = enlace.estado === "ok" && enlace.tienda ? TIENDAS[enlace.tienda] : null;
   const final = precioFinal(chollo.precioTienda, tienda?.id ?? null);
   const ahorro = porcentajeAhorro(final, chollo.precioTienda);
@@ -131,9 +133,9 @@ export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChol
           </div>
           <div className="flex items-center gap-2">
             {tienda?.codigo && <CopiarCodigo codigo={tienda.codigo} />}
-            {enlace.estado === "ok" && (
+            {salida && (
               <a
-                href={enlace.url}
+                href={salida}
                 rel="sponsored nofollow noopener"
                 target="_blank"
                 className="flex items-center gap-2 rounded-full bg-ficha-boton px-5 py-2.5 text-sm font-extrabold text-white hover:bg-ficha-boton-hover sm:px-8 sm:py-3 sm:text-base"

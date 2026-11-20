@@ -1,5 +1,13 @@
 # HANDOFF
 
+## 20/11/2026 (12): salida por /ir/<slug> (en main)
+
+- Buscador (entrada 11) juntado con `main` a petición de Vic; Cloudflare lo despliega solo.
+- Nueva ruta `/ir/<slug>`: pone el afiliado en el servidor y responde 302 (`no-store`, `X-Robots-Tag: noindex, nofollow`); si el chollo no existe, 404. Cada clic se escribe en los registros del Worker (`{"evento":"clic","slug","tienda"}`), visibles en Cloudflare → Workers → chollesla → Logs (observabilidad ya activa). Cuando haya Supabase, se guardarán en una tabla.
+- **Amazon va directo** a `amazon.es/dp/…?tag=teslaaccesorios-21`, sin pasar por `/ir/`: su acuerdo de afiliados prohíbe ocultar o enmascarar los enlaces especiales. El resto de tiendas sale por `/ir/`. Lógica en `apps/web/src/lib/salida.ts`.
+- `robots.txt` (cuando se active la indexación) bloquea `/ir/` y `/buscar`.
+- Probado en local: 302 a Awin para EVDANCE, enlace directo de Amazon, 404 en un slug inexistente, typecheck y lint.
+
 ## 20/11/2026 (11): buscador
 
 - `buscar()` en `@chollesla/core` (`buscar.ts`): sin acentos, todas las palabras por prefijo, plurales sencillos (alfombrillas, luces → luz), modelos normalizados («Model 3/Y», «MY», «M3» → `model3`/`modely`), quita palabras vacías («para», «tesla»…) y ordena por relevancia (título > modelos > descripción). 6 tests nuevos.

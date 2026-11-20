@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { aplicarAfiliado, formatoEuros, nombreCategoria, porcentajeAhorro, precioFinal, TIENDAS } from "@chollesla/core";
 import { CHOLLOS, cholloPorSlug, formatoFecha } from "@/datos/chollos";
+import { enlaceSalida } from "@/lib/salida";
 import { SITIO } from "@/lib/sitio";
 
 // Solo existen las rutas generadas en el build; el resto da 404.
@@ -32,6 +33,7 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
   const t = TIENDAS[c.tienda];
   const final = precioFinal(c.precioTienda, c.tienda);
   const enlace = aplicarAfiliado(c.enlace);
+  const salida = enlaceSalida(c.slug, enlace);
   const ahorro = porcentajeAhorro(final, c.precioTienda);
 
   // Datos estructurados de producto: sin valoraciones ni opiniones (regla de Vic: nada inventado).
@@ -94,9 +96,9 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
             <p className="text-sm text-texto-suave">Ojo: EVDANCE envía desde la UE y cobra gastos de envío a España.</p>
           )}
 
-          {enlace.estado === "ok" && (
+          {salida && (
             <a
-              href={enlace.url}
+              href={salida}
               rel="sponsored nofollow noopener"
               target="_blank"
               className="mt-2 w-fit rounded-full bg-verde-boton px-6 py-3 text-lg font-medium text-white hover:bg-verde-boton-hover"
