@@ -42,7 +42,9 @@ for (const archivo of ARCHIVOS) {
   await enLotes(textos, 8, traducir);
   for (const c of datos) {
     for (const campo of ["titulo", "descripcion"]) {
-      const nuevo = c[campo] ? cache[c[campo]] ?? c[campo] : c[campo];
+      let nuevo = c[campo] ? cache[c[campo]] ?? c[campo] : c[campo];
+      // La base de datos limita el título a 200 caracteres: si la traducción se pasa, se recorta en una palabra.
+      if (campo === "titulo" && nuevo.length > 200) nuevo = nuevo.slice(0, 197).replace(/\s+\S*$/, "") + "…";
       if (nuevo !== c[campo]) {
         c[campo] = nuevo;
         cambios++;
