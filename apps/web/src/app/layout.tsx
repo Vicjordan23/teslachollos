@@ -24,6 +24,8 @@ export const metadata: Metadata = {
   robots: INDEXAR ? undefined : { index: false, follow: false },
 };
 
+const TELEGRAM = "https://t.me/teslaaccesorios";
+
 const MENU = [
   { href: "/", texto: "Chollos" },
   { href: "/modelo/model-y", texto: "Model Y" },
@@ -54,6 +56,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <Link href="/publicar" className="hidden shrink-0 rounded-full border border-borde px-3 py-1.5 hover:bg-fondo lg:inline-block">
                 Publicar chollo
               </Link>
+              <a
+                href={TELEGRAM}
+                target="_blank"
+                rel="noopener"
+                className="hidden shrink-0 rounded-full border border-borde px-3 py-1.5 hover:bg-fondo md:inline-block"
+              >
+                Telegram
+              </a>
               <BotonCuenta />
             </div>
           </div>
@@ -70,6 +80,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <p>
               Los enlaces a tiendas son de afiliado: Chollesla puede ganar una comisión si compras, sin coste extra para
               ti. {AVISO_AMAZON}
+            </p>
+            <p>
+              Más chollos en nuestro canal de Telegram:{" "}
+              <a href={TELEGRAM} target="_blank" rel="noopener" className="font-medium text-texto hover:underline">
+                t.me/teslaaccesorios
+              </a>
             </p>
             <nav aria-label="Legal" className="flex flex-wrap gap-x-4 gap-y-1">
               <Link href="/aviso-legal" className="hover:text-texto hover:underline">Aviso legal</Link>

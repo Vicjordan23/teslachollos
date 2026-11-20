@@ -1,5 +1,17 @@
 # HANDOFF
 
+## 20/11/2026 (18): configuración de paneles hecha desde el Chrome de Vic, y enlace de Telegram
+
+- **Supabase (proyecto chollesla, ref `qcyqerhinjqwkkmwcbpo`):** aplicadas `20261121…` y `20261122…` en el editor SQL y verificado (`alertas.ultimo_aviso`, `perfiles.suspendido`, vista `perfiles_publicos`, tienda `aliexpress`). Auth → URL Configuration: Site URL `https://chollesla.victor-martin-juanas.workers.dev` y Redirect URL `…/**`.
+- **Cloudflare (worker chollesla):** variables de build `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_ANON_KEY`; secreto de runtime `SUPABASE_SERVICE_ROLE_KEY`. Se usan las claves **legacy JWT**: `servicio()` envía la clave como `Bearer`, así que las `sb_secret_…` no sirven (y Supabase retirará las legacy en 2027: habrá que migrar el código antes). Build relanzado; estado final por comprobar.
+- **GitHub:** secretos `SUPABASE_URL` y `SUPABASE_SERVICE_ROLE_KEY`. «Sincronizar Supabase» dejó `chollos` con 1.594 filas (todas publicadas, 0 de AliExpress).
+- **Bug corregido:** los scripts (`sincronizar-supabase`, `enviar-alertas`, `caducar`) hacían `r.json()` sobre un 201 sin cuerpo (`return=minimal`) y fallaban con «Unexpected end of JSON input». Ahora leen el texto y parsean solo si hay cuerpo.
+- **Telegram:** botón «Telegram» en la cabecera (pantallas ≥ md) y línea en el pie con `t.me/teslaaccesorios`.
+- **AliExpress, pendiente:** los secretos `ALIEXPRESS_APP_KEY/_SECRET` están en `Vicjordan23/tesla-telegram`, pero GitHub no deja leer sus valores. Vic debe copiarlos del portal de AliExpress; hay que añadir `ALIEXPRESS_APP_KEY`, `ALIEXPRESS_APP_SECRET` y `ALIEXPRESS_TRACKING_ID` (por defecto `enlace_id`) aquí y lanzar «Importar AliExpress».
+- **Pendiente:** prueba en la web (entrar con email, alias, votar, guardar, alerta) y poner `rol = 'admin'` en `perfiles` para `/admin`.
+- **Resend (emails):** cuenta gratis; SMTP en Supabase (Authentication → SMTP) y secretos `RESEND_API_KEY` y `ALERTAS_REMITENTE` en GitHub. Solo envía a cualquier destinatario con un **dominio verificado**: sin dominio propio no hay emails de alertas ni de acceso fiables.
+- **Login con Google:** crear credenciales OAuth en Google Cloud, activar el proveedor en Supabase (Authentication → Sign In / Providers) con la callback de Supabase, y poner `NEXT_PUBLIC_LOGIN_GOOGLE=si` en Cloudflare (variable de build) y relanzar.
+
 ## 20/11/2026 (17): AliExpress, moderación, caducidad, perfiles, insignias, votos en directo y Google
 
 - Vic pidió que Claude hiciera la configuración en Supabase y Cloudflare: esta sesión es en la nube y **no puede usar el navegador de su PC** (hace falta una sesión de Claude en su ordenador). Sigue pendiente de Vic la lista de la entrada 16, más lo de abajo.
