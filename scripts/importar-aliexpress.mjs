@@ -3,13 +3,14 @@
 // ALIEXPRESS_APP_KEY, ALIEXPRESS_APP_SECRET y ALIEXPRESS_TRACKING_ID. Requiere `npm run build -w packages/core`.
 // Reglas: foto real de AliExpress, precio de la API (EUR, envío a España), enlace de afiliado generado por la API
 // con el tracking ID de Vic. No se muestra el «precio original» de AliExpress (suele estar inflado).
-import { createHmac } from "node:crypto";
+import { createHash, createHmac } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";
 import { aplicarAfiliado, categoriaDe, urlFoto } from "../packages/core/dist/index.js";
 
-const APP_KEY = process.env.ALIEXPRESS_APP_KEY;
-const SECRETO = process.env.ALIEXPRESS_APP_SECRET;
-const TRACKING = process.env.ALIEXPRESS_TRACKING_ID;
+// .trim(): un secreto pegado con salto de línea o espacio rompe la firma.
+const APP_KEY = process.env.ALIEXPRESS_APP_KEY?.trim();
+const SECRETO = process.env.ALIEXPRESS_APP_SECRET?.trim();
+const TRACKING = process.env.ALIEXPRESS_TRACKING_ID?.trim();
 if (!APP_KEY || !SECRETO || !TRACKING) {
   console.error("Faltan ALIEXPRESS_APP_KEY, ALIEXPRESS_APP_SECRET o ALIEXPRESS_TRACKING_ID.");
   process.exit(1);
@@ -23,23 +24,43 @@ const BUSQUEDAS = [
   "tesla model s accessories", "tesla model x accessories",
 ];
 
-/** Firma de la API de AliExpress (IOP): HMAC-SHA256 de clave+valor ordenados, en hexadecimal mayúsculas. */
-export function firmar(params, secreto) {
+/** Firma de la API de AliExpress. SHA256: HMAC con el secreto sobre clave+valor ordenados. MD5 (protocolo TOP): md5(secreto+texto+secreto). Hexadecimal en mayúsculas. */
+export function firmar(params, secreto, modo = "sha256") {
   const base = Object.keys(params).sort().map((k) => `${k}${params[k]}`).join("");
+  if (modo === "md5") return createHash("md5").update(secreto + base + secreto, "utf8").digest("hex").toUpperCase();
   return createHmac("sha256", secreto).update(base, "utf8").digest("hex").toUpperCase();
 }
 
+let modoFirma = null; // se fija con la primera llamada que funciona (como en el agente de Telegram: sha256 y, si falla, md5)
+
+function parametros(metodo, negocio, modo) {
+  if (modo === "md5") {
+    // TOP: hora de Pekín en texto, v=2.0, format=json.
+    const hora = new Date(Date.now() + 8 * 3600_000).toISOString().replace("T", " ").slice(0, 19);
+    return { app_key: APP_KEY, method: metodo, timestamp: hora, sign_method: "md5", v: "2.0", format: "json", ...negocio };
+  }
+  return { app_key: APP_KEY, method: metodo, sign_method: "sha256", timestamp: String(Date.now()), ...negocio };
+}
+
 async function llamar(metodo, negocio) {
-  const params = { app_key: APP_KEY, method: metodo, sign_method: "sha256", timestamp: String(Date.now()), ...negocio };
-  params.sign = firmar(params, SECRETO);
-  const r = await fetch(process.env.ALIEXPRESS_API ?? "https://api-sg.aliexpress.com/sync", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded;charset=utf-8" },
-    body: new URLSearchParams(params),
-  });
-  const j = await r.json();
-  if (j.error_response) throw new Error(`${metodo}: ${j.error_response.code} ${j.error_response.msg}`);
-  return j;
+  let ultimo;
+  for (const modo of modoFirma ? [modoFirma] : ["sha256", "md5"]) {
+    const params = parametros(metodo, negocio, modo);
+    params.sign = firmar(params, SECRETO, modo);
+    const r = await fetch(process.env.ALIEXPRESS_API ?? "https://api-sg.aliexpress.com/sync", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded;charset=utf-8" },
+      body: new URLSearchParams(params),
+    });
+    const j = await r.json();
+    if (!j.error_response) {
+      modoFirma = modo;
+      return j;
+    }
+    ultimo = new Error(`${metodo}: ${j.error_response.code} ${j.error_response.msg}`);
+    if (!/signature/i.test(`${j.error_response.code} ${j.error_response.msg}`)) throw ultimo;
+  }
+  throw ultimo;
 }
 
 const centimos = (v) => Math.round(Number(String(v ?? "").replace(",", ".")) * 100);
