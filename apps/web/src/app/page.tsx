@@ -8,9 +8,9 @@ export default function Inicio() {
     <main className="mx-auto flex w-full max-w-[1250px] flex-1 flex-col gap-5 px-4 py-6">
       <Filtros filtro={{}} />
       <section className="flex flex-col gap-1">
-        <h1 className="text-3xl font-semibold">Chollos destacados</h1>
+        <h1 className="text-3xl font-semibold">Accesorios Tesla al mejor precio</h1>
         <p className="text-texto-suave">
-          {CHOLLOS.length.toLocaleString("es-ES")} accesorios con el precio final después del código de descuento.
+          {CHOLLOS.length.toLocaleString("es-ES")} accesorios · precio final ya con el código aplicado
         </p>
       </section>
       <Rejilla chollos={pagina(CHOLLOS, 1)} prioridad={3} />

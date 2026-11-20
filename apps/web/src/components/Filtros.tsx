@@ -4,7 +4,7 @@ import { chollosDeCategoria, ORDENES } from "@/datos/chollos";
 import { urlFiltro, type Filtro } from "@/lib/explorar";
 
 const chip = (activo: boolean) =>
-  `shrink-0 rounded-full px-3 py-1.5 text-sm ${activo ? "bg-verde-boton text-white" : "border border-borde bg-superficie text-texto hover:border-verde-boton"}`;
+  `shrink-0 rounded px-3 py-1.5 text-sm ${activo ? "bg-verde-boton text-white" : "border border-borde bg-superficie text-texto hover:border-verde-boton"}`;
 
 function Fila({ etiqueta, children }: { etiqueta: string; children: React.ReactNode }) {
   return (
@@ -41,11 +41,11 @@ export function Filtros({ filtro }: { filtro: Filtro }) {
           ))}
         </nav>
         <details className="group relative shrink-0">
-          <summary className="flex cursor-pointer list-none items-center gap-2 rounded-full border border-borde bg-superficie px-4 py-2 font-medium marker:hidden">
+          <summary className="flex cursor-pointer list-none items-center gap-2 rounded border border-borde bg-superficie px-4 py-2 font-medium marker:hidden">
             <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
               <path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6" />
             </svg>
-            Filtrar{nFiltros > 0 && <span className="rounded-full bg-verde-boton px-1.5 text-xs text-white">{nFiltros}</span>}
+            Filtrar{nFiltros > 0 && <span className="rounded bg-verde-boton px-1.5 text-xs text-white">{nFiltros}</span>}
           </summary>
           <div className="absolute right-0 z-20 mt-2 flex w-[min(92vw,34rem)] flex-col gap-3 rounded-xl border border-borde bg-superficie p-4 shadow-xl">
             <Fila etiqueta="Modelo">

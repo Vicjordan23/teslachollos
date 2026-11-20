@@ -14,7 +14,7 @@ export function CajaBusqueda({ valor = "", className = "" }: { valor?: string; c
         placeholder="Buscar…"
         maxLength={80}
         enterKeyHint="search"
-        className="h-10 w-full rounded-full border border-white/35 bg-superficie pl-10 pr-4 text-sm text-texto outline-none placeholder:text-texto-suave focus:border-verde-boton"
+        className="h-10 w-full rounded border border-white/35 bg-superficie pl-10 pr-4 text-sm text-texto outline-none placeholder:text-texto-suave focus:border-verde-boton"
       />
     </form>
   );

@@ -107,7 +107,7 @@ export function FormPublicar() {
         </span>
       </label>
       {estado === "error" && <p className="text-ambar">{mensaje}</p>}
-      <button type="submit" disabled={estado === "enviando"} className="w-fit rounded-full bg-verde-boton px-6 py-2.5 font-medium text-white hover:bg-verde-boton-hover disabled:opacity-60">
+      <button type="submit" disabled={estado === "enviando"} className="w-fit rounded bg-verde-boton px-6 py-2.5 font-medium text-white hover:bg-verde-boton-hover disabled:opacity-60">
         {estado === "enviando" ? "Publicando…" : "Publicar chollo"}
       </button>
     </form>

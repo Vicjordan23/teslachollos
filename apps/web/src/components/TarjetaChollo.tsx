@@ -43,12 +43,12 @@ export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChol
   const ficha = chollo.ruta ?? `/chollo/${chollo.slug}`;
 
   return (
-    <article className="flex flex-col gap-3 rounded-lg bg-ficha p-3 text-ficha-texto sm:flex-row sm:gap-5 sm:p-4">
+    <article className="flex flex-col gap-3 rounded border border-ficha-borde bg-ficha p-3 text-ficha-texto sm:flex-row sm:gap-5 sm:p-4">
       <Link
         href={ficha}
         tabIndex={-1}
         aria-hidden
-        className="relative h-48 w-full shrink-0 overflow-hidden rounded-lg bg-white sm:h-auto sm:min-h-52 sm:w-52 sm:self-stretch"
+        className="relative h-48 w-full shrink-0 overflow-hidden rounded-sm bg-white sm:h-auto sm:min-h-52 sm:w-52 sm:self-stretch"
       >
         {foto && (
           <Image src={foto} alt="" fill priority={prioridad} sizes="(max-width: 640px) 100vw, 208px" className="object-contain p-2" />
@@ -78,7 +78,7 @@ export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChol
 
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-sm text-ficha-suave">
           <span className="flex items-baseline gap-2">
-            <span className="text-2xl font-extrabold text-ficha-precio sm:text-3xl">
+            <span className="text-2xl font-display font-bold text-ficha-precio tabular-nums sm:text-3xl">
               {chollo.desde && <span className="text-sm font-medium">Desde </span>}
               {formatoEuros(final)}
             </span>
@@ -125,7 +125,7 @@ export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChol
                 href={salida}
                 rel="sponsored nofollow noopener"
                 target="_blank"
-                className="flex items-center gap-2 rounded-full bg-ficha-boton px-5 py-2.5 text-sm font-extrabold text-white hover:bg-ficha-boton-hover sm:px-8 sm:py-3 sm:text-base"
+                className="flex items-center gap-2 rounded bg-ficha-boton px-5 py-2.5 text-sm font-extrabold text-white hover:bg-ficha-boton-hover sm:px-8 sm:py-3 sm:text-base"
               >
                 Ir al chollo
                 <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>

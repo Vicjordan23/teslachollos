@@ -1,17 +1,15 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Fredoka } from "next/font/google";
+import { Barlow, Rajdhani } from "next/font/google";
 import { AVISO_AMAZON, CATEGORIAS, MODELOS } from "@chollesla/core";
 import { CajaBusqueda } from "@/components/CajaBusqueda";
 import { BotonCuenta } from "@/components/Cuenta";
 import { INDEXAR, SITIO } from "@/lib/sitio";
 import "./globals.css";
 
-const fredoka = Fredoka({
-  variable: "--font-fredoka",
-  subsets: ["latin"],
-});
+const cuerpo = Barlow({ variable: "--font-cuerpo", subsets: ["latin"], weight: ["400", "500", "600", "700"] });
+const display = Rajdhani({ variable: "--font-display-next", subsets: ["latin"], weight: ["500", "600", "700"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITIO),
@@ -34,20 +32,20 @@ const MENU = [
 
 const DESPLEGABLE =
   "absolute left-0 top-full z-30 mt-1 flex max-h-96 w-60 flex-col overflow-y-auto rounded-xl border border-borde bg-superficie p-2 shadow-xl";
-const ENLACE_MENU = "flex items-center gap-2 rounded-full px-3 py-2 text-texto hover:bg-fondo hover:text-verde-boton";
+const ENLACE_MENU = "flex items-center gap-2 rounded px-3 py-2 text-texto hover:bg-fondo hover:text-verde-boton";
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es" className={`${fredoka.variable} h-full antialiased`}>
+    <html lang="es" className={`${cuerpo.variable} ${display.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        <header className="border-b border-borde bg-fondo">
+        <header className="border-b border-borde border-t-2 border-t-verde-boton bg-superficie">
           <div className="mx-auto flex max-w-[1250px] items-center gap-3 px-4 py-3">
             <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="Chollesla, inicio">
               <Image src="/icon.svg" alt="" width={36} height={36} priority />
-              <span className="text-2xl font-semibold tracking-tight">chollesla</span>
+              <span className="font-display text-3xl font-bold uppercase tracking-[0.12em]">chollesla</span>
             </Link>
             <details className="group relative hidden shrink-0 md:block">
-              <summary className="flex h-10 cursor-pointer list-none items-center gap-2 rounded-full border border-white/35 bg-superficie px-4 text-sm font-bold marker:hidden">
+              <summary className="flex h-10 cursor-pointer list-none items-center gap-2 rounded border border-white/35 bg-superficie px-4 text-sm font-bold marker:hidden">
                 <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
                   <path d="M4 7h16M4 12h16M4 17h16" />
                 </svg>
@@ -73,7 +71,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <BotonCuenta />
               <Link
                 href="/publicar"
-                className="hidden shrink-0 items-center gap-2 rounded-full border border-verde-boton px-5 py-2 text-sm font-bold text-verde-boton hover:bg-verde-boton hover:text-white sm:flex"
+                className="hidden shrink-0 items-center gap-2 rounded border border-verde-boton px-5 py-2 text-sm font-bold text-verde-boton hover:bg-verde-boton hover:text-white sm:flex"
               >
                 <span className="text-xl leading-none">+</span> Comparte
               </Link>

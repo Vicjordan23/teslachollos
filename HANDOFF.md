@@ -1,5 +1,9 @@
 # HANDOFF
 
+## 20/11/2026 (21) — Estilo propio «Garaje técnico»
+- Decisión de Vic: público masculino, accesorios para coches Tesla, sin logos ni marca Tesla. Estilo: carbono casi negro con textura sutil, acento rojo-naranja `#ff3d1f`, descuentos en lima, tipografías Rajdhani (títulos/precios) + Barlow (texto), esquinas casi rectas, logo en mayúsculas espaciadas, textos directos.
+- Variables en `globals.css`; estructura (cabecera, pestañas, panel lateral) igual que (20).
+
 ## 20/11/2026 (20) — Rediseño visual tipo Chollómetro (solo estructura, marca Chollesla)
 - Tema oscuro (variables en `globals.css`), cabecera de dos filas a todo el ancho (logo, Menú, buscador, Crear alerta, Regístrate/Inicia sesión, Comparte; debajo Categorías, Modelos, Ofertas, Comunidad, Alertas, Telegram), pestañas de orden + botón «Filtrar» (`Filtros.tsx`), listado a todo el ancho con panel lateral «Los mayores descuentos» (`MasVotados.tsx`, dentro de `Rejilla.tsx`).
 - No se usó la herramienta externa REA (repo desconocido; descargar/ejecutar código externo lo decide Vic). Sin logo ni nombre de Chollómetro. «Más votados» se llama «Mayores descuentos» porque los votos viven en Supabase, no en el HTML estático.

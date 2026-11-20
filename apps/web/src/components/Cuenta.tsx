@@ -57,9 +57,9 @@ export function ElegirAlias({ alTerminar }: { alTerminar?: () => void }) {
             setError("");
           }}
           placeholder="tu_alias"
-          className="min-w-0 flex-1 rounded-full border border-borde bg-superficie px-4 py-2.5 outline-none focus:border-verde"
+          className="min-w-0 flex-1 rounded border border-borde bg-superficie px-4 py-2.5 outline-none focus:border-verde"
         />
-        <button type="submit" disabled={!valido} className="rounded-full bg-verde-boton px-5 py-2.5 font-medium text-white disabled:opacity-50">
+        <button type="submit" disabled={!valido} className="rounded bg-verde-boton px-5 py-2.5 font-medium text-white disabled:opacity-50">
           Guardar
         </button>
       </div>
@@ -103,7 +103,7 @@ export function Confirmar() {
       <>
         <h1 className="text-3xl font-semibold">El enlace no ha funcionado</h1>
         <p className="text-texto-suave">Puede que haya caducado o que lo hayas abierto en otro navegador. Pide uno nuevo.</p>
-        <Link href="/entrar" className="rounded-full bg-verde-boton px-5 py-2 font-medium text-white">
+        <Link href="/entrar" className="rounded bg-verde-boton px-5 py-2 font-medium text-white">
           Volver a entrar
         </Link>
       </>
@@ -132,7 +132,7 @@ export function MiCuenta() {
           ["/publicar", "Publicar un chollo"],
           ...(alias ? [[`/u/${alias}`, "Mi perfil público"]] : []),
         ].map(([href, texto]) => (
-          <Link key={href} href={href} className="rounded-full border border-borde bg-superficie px-4 py-2 hover:border-verde/40">
+          <Link key={href} href={href} className="rounded border border-borde bg-superficie px-4 py-2 hover:border-verde/40">
             {texto}
           </Link>
         ))}

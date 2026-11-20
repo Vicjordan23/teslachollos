@@ -15,7 +15,7 @@ interface Alerta {
   precio_max: number | null;
 }
 
-const campo = "rounded-full border border-borde bg-superficie px-4 py-2.5 outline-none focus:border-verde";
+const campo = "rounded border border-borde bg-superficie px-4 py-2.5 outline-none focus:border-verde";
 
 /** Alertas por email: palabra, modelo, tipo y precio máximo. Se avisa una vez al día de los chollos nuevos. */
 export function MisAlertas() {
@@ -112,7 +112,7 @@ export function MisAlertas() {
           <input value={precio} onChange={(e) => setPrecio(e.target.value)} inputMode="decimal" placeholder="Precio máx. (€)" aria-label="Precio máximo en euros" className={campo} />
         </div>
         {error && <p className="text-ambar">{error}</p>}
-        <button type="submit" className="w-fit rounded-full bg-verde-boton px-6 py-2.5 font-medium text-white hover:bg-verde-boton-hover">
+        <button type="submit" className="w-fit rounded bg-verde-boton px-6 py-2.5 font-medium text-white hover:bg-verde-boton-hover">
           Crear alerta
         </button>
         <p className="text-sm text-texto-suave">Te escribimos como mucho una vez al día, solo si hay chollos nuevos que encajen.</p>

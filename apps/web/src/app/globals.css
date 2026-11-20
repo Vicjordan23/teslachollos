@@ -1,35 +1,35 @@
 @import "tailwindcss";
 
-/* Paleta de Chollesla (modo oscuro, copia de la estructura visual de Chollómetro por decisión de Vic):
+/* Paleta de Chollesla (estilo «garaje técnico» decidido por Vic el 20/11/2026: carbono, acento rojo-naranja, esquinas casi rectas):
    fondo gris claro, fichas azul muy suave, precio y botón en verde, temperatura en ámbar. */
 :root {
-  --fondo: #000000;
-  --superficie: #1d1f20;
-  --tarjeta: #1d1f20;
-  --tarjeta-borde: #3a3d40;
+  --fondo: #0a0b0d;
+  --superficie: #121418;
+  --tarjeta: #14171b;
+  --tarjeta-borde: #2a2f36;
   --texto: #f2f3f4;
   --texto-suave: #a9adb2;
-  --verde: #62e583;
-  --verde-boton: #ff6a00;
-  --verde-boton-hover: #ff7d1f;
+  --verde: #b6ff3b;
+  --verde-boton: #ff3d1f;
+  --verde-boton-hover: #ff5f45;
   --verde-claro: #1d3a26;
   --ambar: #ffb454;
   --ambar-claro: #3a2a10;
-  --borde: #323436;
+  --borde: #262b32;
 
   /* Ficha oscura (decisión de Vic, 20/11/2026: copia visual fiel). */
-  --ficha: #1d1f20;
-  --ficha-chip: #151617;
+  --ficha: #14171b;
+  --ficha-chip: #0d0f12;
   --ficha-texto: #ffffff;
-  --ficha-suave: #b4b8bc;
-  --ficha-borde: #3a3d40;
-  --ficha-precio: #ff6a00;
-  --ficha-boton: #ff6a00;
-  --ficha-boton-hover: #ff7d1f;
+  --ficha-suave: #a3abb5;
+  --ficha-borde: #2a2f36;
+  --ficha-precio: #ff5a3c;
+  --ficha-boton: #ff3d1f;
+  --ficha-boton-hover: #ff5f45;
   --ficha-frio: #5aa2ff;
   --ficha-calor: #ef7b7b;
-  --ficha-descuento: #1d5a2e;
-  --ficha-descuento-texto: #62e583;
+  --ficha-descuento: #1f3a0d;
+  --ficha-descuento-texto: #b6ff3b;
   --ficha-aviso: #4a1313;
   --ficha-aviso-texto: #ff7a7a;
 }
@@ -62,15 +62,27 @@
   --color-ficha-descuento-texto: var(--ficha-descuento-texto);
   --color-ficha-aviso: var(--ficha-aviso);
   --color-ficha-aviso-texto: var(--ficha-aviso-texto);
-  --font-sans: var(--font-fredoka), system-ui, sans-serif;
+  --font-sans: var(--font-cuerpo), system-ui, sans-serif;
+  --font-display: var(--font-display-next), 'Arial Narrow', sans-serif;
 }
 
 html {
   color-scheme: dark;
 }
 
+h1, h2, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+}
+
+/* Garaje técnico: fibra de carbono muy sutil y esquinas casi rectas. */
 body {
-  background: var(--fondo);
+  background-color: var(--fondo);
+  background-image:
+    linear-gradient(45deg, rgba(255, 255, 255, 0.025) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.025) 75%),
+    linear-gradient(45deg, rgba(255, 255, 255, 0.025) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.025) 75%);
+  background-size: 6px 6px;
+  background-position: 0 0, 3px 3px;
   color: var(--texto);
   font-family: var(--font-sans);
 }
