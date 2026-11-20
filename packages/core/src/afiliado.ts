@@ -1,4 +1,4 @@
-import { esAcortador, hostLimpio, tiendaDeUrl, type IdTienda, type Tienda } from "./tiendas";
+import { esAcortador, hostLimpio, tiendaDeUrl, type IdTienda, type Tienda } from "./tiendas.js";
 
 /** Datos de afiliado de Vic. No son secretos: van en todos los enlaces públicos. */
 export const AFILIADO = {

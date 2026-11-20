@@ -1,4 +1,4 @@
-import { TIENDAS, type IdTienda } from "./tiendas";
+import { TIENDAS, type IdTienda } from "./tiendas.js";
 
 /** Formato de precios.json de Vic: { p: céntimos en tienda, d: 1 si es «desde», f: fecha ISO }. */
 export interface PrecioTienda {

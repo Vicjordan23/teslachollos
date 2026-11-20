@@ -24,6 +24,15 @@
 - **Foto del producto en cada tarjeta** (petición de Vic): `urlFoto()` en core (solo `m.media-amazon.com` y `cdn.shopify.com`; desenvuelve el proxy `wsrv.nl` del catálogo antiguo) + `images.remotePatterns` en `next.config.ts` + componente `TarjetaChollo`, con foto, tienda, precio final, precio en tienda tachado, código y aviso. 18 tests en verde. Probado en el navegador: las fotos de Amazon y de Shopify cargan.
 - Riesgo ya avisado: las fotos de Amazon son de terceros; lo correcto a medio plazo es la API de Amazon (PA-API).
 
+## 20/11/2026 (6): catálogo importado, web con 1.594 chollos y esquema de Supabase
+
+- **Importador** `scripts/importar-catalogo.mjs` (se ejecuta a mano con la ruta de la carpeta `proyecto` del agente): genera `apps/web/src/datos/oficiales.json`. **1.594 chollos** (Amazon 202, Jowua 160, Hansshow 465, Tesery 756, EVDANCE 11); descartados 22 pausados, 2 sin precio y 2 sin foto. Cada enlace se valida con `aplicarAfiliado()`. Para actualizar precios: volver a ejecutarlo (los precios los sigue actualizando el workflow semanal del agente).
+- **Web estática (SEO):** portada y `/pagina/N` (24 por página, tiendas mezcladas en proporción, orden estable con semilla 2026), `/tienda/<id>` y `/tienda/<id>/pagina/N`, ficha `/chollo/<slug>` con datos estructurados de producto (sin valoraciones), `sitemap.xml` (1.600 URL) y `robots.txt`. **La indexación está bloqueada** hasta poner `NEXT_PUBLIC_INDEXAR=si` (y `NEXT_PUBLIC_SITIO` con el dominio). Pie con el aviso de afiliado y el de Amazon. Build: ~3,5 min.
+- Rutas inexistentes: devuelven 200 con `noindex` y la página «Este chollo ya no está» (efecto del prerenderizado parcial de Next 16). Un 404 real se añadirá con `proxy.ts` si hace falta.
+- **Supabase:** `supabase/migrations/20261120000000_inicial.sql`: perfiles (alias, rol), tiendas, chollos, votos, guardados, alertas, reportes, moderación (motivo, DSA art. 17) y la vista `chollos_publicos` con la temperatura. RLS en todo: los chollos solo los escribe el servidor (`service_role`), así nadie cuela su afiliado. **12 pruebas de RLS con PGlite** (`packages/db`), sin Docker.
+- `@chollesla/core` usa imports con `.js` para poder ejecutarse en Node (importador).
+- `npm test` ejecuta los tests de todos los paquetes (30 en total). El typecheck de la web hace `next typegen` antes.
+
 **Pendiente:** despliegue de prueba en Cloudflare (cuando Vic cree la cuenta) · Fase 2 (Supabase: esquema, RLS y auth) · importar el catálogo · `docs/FUNCIONES_OBSERVADAS.md` (cuando REA funcione).
 
 ## 20/11/2026 (2): OK de Vic con cambios

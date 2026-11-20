@@ -1,0 +1,14 @@
+{
+  "name": "@chollesla/db",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pruebas del esquema SQL y de las políticas RLS de Supabase con PGlite (Postgres en WebAssembly).",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.17",
+    "vitest": "^5.1.1"
+  }
+}
