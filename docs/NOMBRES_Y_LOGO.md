@@ -1,6 +1,6 @@
 # Nombres y logo
 
-Fecha: 20/11/2026 · Estado: **Vic elige**
+Fecha: 20/11/2026 · Estado: **elegido «Chollesla»**. Logo: boceto de Vic (`marca/chollesla-boceto-original.png`) redibujado en SVG (`marca/chollesla-icono.svg`, `marca/chollesla-logo.svg`, generados con `marca/generar_logo.mjs`). Colores: rojo `#D90A1C`, negro `#171A20` y blanco. Fuente de la palabra: Fredoka.
 
 ## Riesgo legal en una frase
 «Tesla» es marca registrada y Tesla la defiende. Cuanto **más visible** sea la palabra «Tesla» completa en el nombre, más riesgo: requerimiento, pérdida del dominio por un procedimiento UDRP y rechazo de las apps en Apple o Google. Los nombres que **evocan** Tesla sin contenerla (`tesli-`, `-esla`) son bastante más defendibles, aunque no hay riesgo cero. El uso descriptivo dentro del texto («accesorios **para** Tesla») está permitido.

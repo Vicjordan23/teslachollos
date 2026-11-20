@@ -7,7 +7,8 @@ Fecha: 20/11/2026 · Estado: **aprobado con cambios** (ver §0)
 - **La plataforma es GRATUITA.** No hay cuota de publicador ni destacados de pago, de momento. Se aparcan §3 (planes y precios), la parte de pago de §2 y la Fase 6 del plan. La monetización se decide más adelante.
 - **Ver chollos es público, sin cuenta.** La cuenta gratuita sirve para votar, guardar, crear alertas y reportar.
 - **Se importa el catálogo actual de Vic** (`productos*.json` + `precios*.json`) como chollos oficiales.
-- Nombre y logo: ver `NOMBRES_Y_LOGO.md` (pendiente de elección).
+- **Nombre: Chollesla** (elegido por Vic el 20/11/2026). Logo: boceto de Vic redibujado en SVG en `marca/`.
+- **La comunidad publica gratis y la plataforma pone el afiliado de Vic** cuando la tienda está en sus programas (punto 2 de abajo, aprobado). Hay que buscar más programas de afiliados.
 - Arquitectura recomendada aprobada: monorepo Next.js + Expo + Supabase.
 
 ### Cómo ganar dinero sin cuotas (propuesta, por orden)

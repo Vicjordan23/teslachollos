@@ -1,5 +1,15 @@
 # HANDOFF
 
+## 20/11/2026 (3): nombre, logo y comunidad
+
+**Decidido:** nombre **Chollesla** · logo (boceto de Vic) · la comunidad publica gratis con el afiliado de Vic · buscar más programas de afiliados.
+
+**Hecho:** logo redibujado en SVG (`marca/`).
+
+**REA:** el primer intento (`npx rea-agents@6.10.1 inspect-web-page`) se cortó a los 5 minutos sin datos. Un aviso anterior a Vic decía por error que había terminado bien; corregido. Ahora se instala aparte en el scratchpad. Aviso: REA pide Node ≥ 24.22.1 y aquí hay 24.21.0.
+
+**Pendiente de Vic:** comprar `chollesla.es` y `chollesla.com` (y buscar antes la marca en OEPM y EUIPO).
+
 ## 20/11/2026 (2): OK de Vic con cambios
 
 **Decidido:** plataforma **gratuita** (sin cuotas ni destacados de pago por ahora) · ver chollos sin cuenta · importar su catálogo · arquitectura recomendada aprobada · usar REA **solo** sobre páginas públicas de Chollometro para sacar la lista de funciones.
