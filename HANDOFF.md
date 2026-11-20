@@ -41,7 +41,14 @@
 - `docs/ALTAS_AFILIADOS.md`: enlaces y textos para las altas. Claude rellena lo público; Vic pone datos, contraseña y condiciones. Mejor cuando la web esté publicada.
 - Siguiente: crear el Worker desde el repo con Cloudflare. Build command `npm run cf:build -w apps/web`; deploy command `cd apps/web && npx opennextjs-cloudflare deploy`; raíz del repo `/`. Variable `NEXT_PUBLIC_SITIO` = la dirección de workers.dev hasta tener dominio.
 
-**Pendiente:** despliegue de prueba en Cloudflare (cuando Vic cree la cuenta) · Fase 2 (Supabase: esquema, RLS y auth) · importar el catálogo · `docs/FUNCIONES_OBSERVADAS.md` (cuando REA funcione).
+## 20/11/2026 (8): WEB PUBLICADA y Supabase con el esquema
+
+- **Web en producción:** https://chollesla.victor-martin-juanas.workers.dev (Cloudflare Workers, plan gratis). Worker `chollesla` conectado a GitHub (app de Cloudflare instalada **solo en `teslachollos`**; Vic confirmó con GitHub Mobile). Cada push a `main` despliega solo. Build: `npm run cf:build -w apps/web`. Deploy: `cd apps/web && npx opennextjs-cloudflare deploy`. Raíz `/`. Variable `NODE_VERSION=24`. Vistas previas de rama desactivadas. Primer build: 2 min, OK.
+- Comprobado en producción: portada, paginación, tiendas y fichas dan 200; las rutas inexistentes, 404; `robots.txt` bloquea y la web lleva `noindex`; enlaces de Amazon con `tag=teslaaccesorios-21`; fotos del CDN reducidas.
+- **Supabase:** proyecto `chollesla` (id `qcyqerhinjqwkkmwcbpo`, Central EU Frankfurt, plan gratis); contraseña de la base de datos generada por Supabase y guardada por Vic. Migración `20261120000000_inicial.sql` aplicada en el editor SQL. Verificado: 8 tablas con RLS, 15 políticas, 5 tiendas. La web todavía no lo usa (es estática).
+- Canonical y sitemap apuntan a `https://chollesla.es`. Cuando haya dominio: añadirlo en Cloudflare (Workers → chollesla → Domains), poner `NEXT_PUBLIC_SITIO` y, para lanzar, `NEXT_PUBLIC_INDEXAR=si` en las variables de build.
+
+**Pendiente:** dominio chollesla.es/.com (Vic) · altas de afiliados con la web ya publicada (guía en `docs/ALTAS_AFILIADOS.md`) · fase de usuarios: login con Supabase, votos, guardados y alertas (claves de Supabase como variables o secretos de Cloudflare; Vic las copia, nunca en el chat) (cuando Vic cree la cuenta) · Fase 2 (Supabase: esquema, RLS y auth) · importar el catálogo · `docs/FUNCIONES_OBSERVADAS.md` (cuando REA funcione).
 
 ## 20/11/2026 (2): OK de Vic con cambios
 

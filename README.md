@@ -2,7 +2,7 @@
 
 Comunidad de chollos de accesorios para Tesla: web primero, después apps iOS y Android.
 
-Estado: **Fase 2 aprobada** (plataforma gratuita, ver PRODUCTO §0). Todavía no hay código.
+Estado: **web publicada** en https://chollesla.victor-martin-juanas.workers.dev (sin indexar). Supabase con el esquema aplicado.
 
 - [Producto](docs/PRODUCTO.md)
 - [Arquitectura, costes y dominio](docs/ARQUITECTURA.md)
