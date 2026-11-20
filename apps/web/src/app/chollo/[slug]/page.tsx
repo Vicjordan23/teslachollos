@@ -6,6 +6,9 @@ import { aplicarAfiliado, avisoAfiliado, formatoEuros, precioFinal, TIENDAS } fr
 import { CHOLLOS, cholloPorSlug, formatoFecha } from "@/datos/chollos";
 import { SITIO } from "@/lib/sitio";
 
+// Solo existen las rutas generadas en el build; el resto da 404.
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return CHOLLOS.map((c) => ({ slug: c.slug }));
 }

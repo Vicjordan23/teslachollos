@@ -18,3 +18,8 @@ coverage/
 Thumbs.db
 desktop.ini
 *.log
+
+# Cloudflare / OpenNext
+.open-next/
+.wrangler/
+.dev.vars*

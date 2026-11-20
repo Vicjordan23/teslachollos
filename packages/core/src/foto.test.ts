@@ -1,5 +1,22 @@
 import { describe, expect, it } from "vitest";
-import { urlFoto } from "./foto";
+import { fotoConAncho, urlFoto } from "./foto";
+
+describe("fotoConAncho", () => {
+  it("Amazon: cambia el modificador de tamaño o lo añade", () => {
+    expect(fotoConAncho("https://m.media-amazon.com/images/I/61n8sLuvvrL._AC_SL1200_.jpg", 384)).toBe(
+      "https://m.media-amazon.com/images/I/61n8sLuvvrL._AC_SL384_.jpg",
+    );
+    expect(fotoConAncho("https://m.media-amazon.com/images/I/61n8sLuvvrL.jpg", 640)).toBe(
+      "https://m.media-amazon.com/images/I/61n8sLuvvrL._AC_SL640_.jpg",
+    );
+  });
+  it("Shopify: añade width y conserva la versión", () => {
+    expect(fotoConAncho("https://cdn.shopify.com/s/files/1/a.jpg?v=17", 256)).toBe("https://cdn.shopify.com/s/files/1/a.jpg?v=17&width=256");
+  });
+  it("otros: sin cambios", () => {
+    expect(fotoConAncho("/icon.svg", 64)).toBe("/icon.svg");
+  });
+});
 
 describe("urlFoto", () => {
   it("acepta Amazon y Shopify tal cual", () => {

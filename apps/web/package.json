@@ -3,11 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prebuild": "npm run build --workspace @chollesla/core",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "typecheck": "next typegen && tsc --noEmit"
+    "lint": "eslint --ignore-pattern \".open-next/**\" --ignore-pattern \".wrangler/**\"",
+    "typecheck": "next typegen && tsc --noEmit",
+    "cf:build": "opennextjs-cloudflare build",
+    "cf:deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf:preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview"
   },
   "dependencies": {
     "@chollesla/core": "*",
@@ -16,6 +20,7 @@
     "react-dom": "19.3.0"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "^1.20.18",
     "@tailwindcss/turbopack": "4.3.3",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -23,6 +28,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.4.6",
     "tailwindcss": "4.3.3",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.165.0"
   }
 }

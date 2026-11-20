@@ -5,6 +5,9 @@ import { Paginacion } from "@/components/Paginacion";
 import { Rejilla } from "@/components/Rejilla";
 import { CHOLLOS, pagina, totalPaginas } from "@/datos/chollos";
 
+// Solo existen las rutas generadas en el build; el resto da 404.
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return Array.from({ length: totalPaginas(CHOLLOS) - 1 }, (_, i) => ({ n: String(i + 2) }));
 }
