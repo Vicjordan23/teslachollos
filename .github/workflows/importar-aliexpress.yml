@@ -28,9 +28,10 @@ jobs:
       - run: npm run build -w packages/core
       - name: Importar
         env:
-          ALIEXPRESS_APP_KEY: ${{ secrets.ALIEXPRESS_APP_KEY }}
-          ALIEXPRESS_APP_SECRET: ${{ secrets.ALIEXPRESS_APP_SECRET }}
-          ALIEXPRESS_TRACKING_ID: ${{ secrets.ALIEXPRESS_TRACKING_ID }}
+          # Admite los nombres de secreto más habituales.
+          ALIEXPRESS_APP_KEY: ${{ secrets.ALIEXPRESS_APP_KEY || secrets.ALIEXPRESS_KEY || secrets.ALI_APP_KEY || secrets.AE_APP_KEY || secrets.APP_KEY }}
+          ALIEXPRESS_APP_SECRET: ${{ secrets.ALIEXPRESS_APP_SECRET || secrets.ALIEXPRESS_SECRET || secrets.ALI_APP_SECRET || secrets.AE_APP_SECRET || secrets.APP_SECRET }}
+          ALIEXPRESS_TRACKING_ID: ${{ secrets.ALIEXPRESS_TRACKING_ID || secrets.ALIEXPRESS_TRACKING || secrets.ALI_TRACKING_ID || secrets.AE_TRACKING_ID || secrets.TRACKING_ID }}
         run: node scripts/importar-aliexpress.mjs
       - name: Comprobar que la web compila con los datos nuevos
         run: npm test && npm run typecheck

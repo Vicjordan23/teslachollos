@@ -10,7 +10,7 @@ const campo = "w-full rounded-xl border border-borde bg-white px-4 py-2.5 outlin
 /** Formulario para que la comunidad publique un chollo (gratis, con el afiliado de Chollesla). */
 export function FormPublicar() {
   const { sesion, alias, listo } = useEstado();
-  const [datos, setDatos] = useState({ enlace: "", titulo: "", precio: "", modelos: "", descripcion: "", foto: "" });
+  const [datos, setDatos] = useState({ enlace: "", titulo: "", precio: "", modelos: "", descripcion: "", foto: "", caduca: "" });
   const [acepto, setAcepto] = useState(false);
   const [estado, setEstado] = useState<"" | "enviando" | "error">("");
   const [mensaje, setMensaje] = useState("");
@@ -94,6 +94,11 @@ export function FormPublicar() {
         <span className="font-medium">Foto (opcional)</span>
         <input type="url" value={datos.foto} onChange={cambiar("foto")} placeholder="Dirección de la imagen del producto en la tienda" className={campo} />
         <span className="text-sm text-texto-suave">Solo fotos de la propia tienda (Amazon, Shopify o AliExpress). Clic derecho en la foto → «Copiar dirección de imagen».</span>
+      </label>
+      <label className="flex flex-col gap-1">
+        <span className="font-medium">¿Hasta cuándo dura la oferta? (opcional)</span>
+        <input type="date" value={datos.caduca} onChange={cambiar("caduca")} className={`${campo} sm:w-60`} />
+        <span className="text-sm text-texto-suave">Si no lo sabes, déjalo vacío: caduca solo a los 30 días o si la comunidad lo reporta.</span>
       </label>
       <label className="flex items-start gap-2 text-sm">
         <input type="checkbox" required checked={acepto} onChange={(e) => setAcepto(e.target.checked)} className="mt-1" />

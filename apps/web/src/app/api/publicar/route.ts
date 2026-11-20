@@ -29,9 +29,16 @@ export async function POST(req: Request) {
   if (!((await perfil.json()) as unknown[]).length) return respuesta({ error: "Elige antes tu alias en tu cuenta." }, 403);
 
   let b: Borrador;
+  let caduca: string | null = null;
   try {
     const j = (await req.json()) as Record<string, unknown>;
     const texto = (k: string) => (typeof j[k] === "string" ? (j[k] as string).slice(0, 2500) : "");
+    // Fecha de fin opcional (aaaa-mm-dd), entre mañana y dentro de un año.
+    const fin = texto("caduca");
+    if (/^\d{4}-\d{2}-\d{2}$/.test(fin)) {
+      const t = Date.parse(`${fin}T23:59:59+01:00`);
+      if (t > Date.now() && t < Date.now() + 366 * 86_400_000) caduca = new Date(t).toISOString();
+    }
     b = { titulo: texto("titulo"), enlace: texto("enlace"), precio: texto("precio"), descripcion: texto("descripcion"), modelos: texto("modelos"), foto: texto("foto") };
   } catch {
     return respuesta({ error: "Datos no válidos." }, 400);
@@ -61,7 +68,7 @@ export async function POST(req: Request) {
   const alta = await servicio("chollos", {
     method: "POST",
     headers: { Prefer: "return=minimal" },
-    body: JSON.stringify({ ...p.chollo, slug, tipo: "comunidad", autor: usuario.id, estado: confiable ? "publicado" : "pendiente" }),
+    body: JSON.stringify({ ...p.chollo, slug, tipo: "comunidad", autor: usuario.id, caduca, estado: confiable ? "publicado" : "pendiente" }),
   });
   if (!alta?.ok) return respuesta({ error: "No se pudo guardar el chollo." }, 500);
   return respuesta({ slug, estado: confiable ? "publicado" : "pendiente" }, 201);

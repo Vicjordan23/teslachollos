@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { MisChollos } from "@/components/MisChollos";
 import { aliasCreado, useEstado } from "@/lib/interacciones";
 import { supabase } from "@/lib/supabase";
 
@@ -129,12 +130,14 @@ export function MiCuenta() {
           ["/guardados", "Mis guardados"],
           ["/alertas", "Mis alertas"],
           ["/publicar", "Publicar un chollo"],
+          ...(alias ? [[`/u/${alias}`, "Mi perfil público"]] : []),
         ].map(([href, texto]) => (
           <Link key={href} href={href} className="rounded-full border border-borde bg-white px-4 py-2 hover:border-verde/40">
             {texto}
           </Link>
         ))}
       </nav>
+      <MisChollos />
       <button
         type="button"
         onClick={async () => {
