@@ -6,9 +6,19 @@
 
 **Hecho:** logo redibujado en SVG (`marca/`).
 
-**REA:** el primer intento (`npx rea-agents@6.10.1 inspect-web-page`) se cortó a los 5 minutos sin datos. Un aviso anterior a Vic decía por error que había terminado bien; corregido. Ahora se instala aparte en el scratchpad. Aviso: REA pide Node ≥ 24.22.1 y aquí hay 24.21.0.
+**REA:** el primer intento (`npx rea-agents@6.10.1 inspect-web-page`) se cortó a los 5 minutos sin datos. Un aviso anterior a Vic decía por error que había terminado bien; corregido. Se instaló aparte en el scratchpad (`npm install rea-agents@6.10.1`, sin `setup` y sin scripts nativos), pero **se niega a ejecutarse**: exige Node ≥ 24.22.1 y el PC tiene 24.21.0. Falta el permiso de Vic para descargar un Node nuevo (portable o actualización).
 
 **Pendiente de Vic:** comprar `chollesla.es` y `chollesla.com` (y buscar antes la marca en OEPM y EUIPO).
+
+## 20/11/2026 (4): Fase 1, esqueleto (hecho y probado en local)
+
+- Monorepo npm workspaces: `apps/web` (Next.js 16.4.6, React 19, Tailwind 4, App Router, `src/`) + `packages/core` (`@chollesla/core`).
+- `packages/core`: tiendas de Vic con dominios y descuentos; `aplicarAfiliado()` pone el afiliado de Vic y quita los ajenos (Amazon `/dp/ASIN?tag=`, Hansshow `bg_ref`, Jowua `ghref`+`discount`, Tesery `/es-es/`+GoAffPro, EVDANCE envuelto en Awin); limpia afiliados y `utm` en otras tiendas; marca los acortadores para resolverlos en el servidor; rechaza URLs no web o con credenciales. También `avisoAfiliado()` (texto literal de Amazon), `precioFinal()` (misma regla que `publicar_siguiente.py`), `formatoEuros()` y `porcentajeAhorro()`. **15 tests en verde.**
+- Web: portada provisional con la marca (icono SVG, Fredoka, rojo y negro, tema claro y oscuro) y una ficha de ejemplo real que usa `@chollesla/core`. Probada a 375 px sin scroll horizontal. Pie: «no es una web oficial de Tesla».
+- CI: `.github/workflows/ci.yml` (Node 24: `npm ci`, test, build, lint).
+- Comprobado en local: `npm test`, `npm run build`, `npm run lint`, `npm run typecheck`.
+
+**Pendiente:** despliegue de prueba en Cloudflare (cuando Vic cree la cuenta) · Fase 2 (Supabase: esquema, RLS y auth) · importar el catálogo · `docs/FUNCIONES_OBSERVADAS.md` (cuando REA funcione).
 
 ## 20/11/2026 (2): OK de Vic con cambios
 
