@@ -16,6 +16,22 @@
   --ambar: #b45309;
   --ambar-claro: #fff4e0;
   --borde: #e2e8f0;
+
+  /* Ficha oscura (decisión de Vic, 20/11/2026: copia visual fiel). */
+  --ficha: #1f2123;
+  --ficha-chip: #151617;
+  --ficha-texto: #ffffff;
+  --ficha-suave: #b4b8bc;
+  --ficha-borde: #3a3d40;
+  --ficha-precio: #ff6a00;
+  --ficha-boton: #ff6a00;
+  --ficha-boton-hover: #ff7d1f;
+  --ficha-frio: #5aa2ff;
+  --ficha-calor: #ef7b7b;
+  --ficha-descuento: #1d5a2e;
+  --ficha-descuento-texto: #62e583;
+  --ficha-aviso: #4a1313;
+  --ficha-aviso-texto: #ff7a7a;
 }
 
 @theme inline {
@@ -32,6 +48,20 @@
   --color-ambar: var(--ambar);
   --color-ambar-claro: var(--ambar-claro);
   --color-borde: var(--borde);
+  --color-ficha: var(--ficha);
+  --color-ficha-chip: var(--ficha-chip);
+  --color-ficha-texto: var(--ficha-texto);
+  --color-ficha-suave: var(--ficha-suave);
+  --color-ficha-borde: var(--ficha-borde);
+  --color-ficha-precio: var(--ficha-precio);
+  --color-ficha-boton: var(--ficha-boton);
+  --color-ficha-boton-hover: var(--ficha-boton-hover);
+  --color-ficha-frio: var(--ficha-frio);
+  --color-ficha-calor: var(--ficha-calor);
+  --color-ficha-descuento: var(--ficha-descuento);
+  --color-ficha-descuento-texto: var(--ficha-descuento-texto);
+  --color-ficha-aviso: var(--ficha-aviso);
+  --color-ficha-aviso-texto: var(--ficha-aviso-texto);
   --font-sans: var(--font-fredoka), system-ui, sans-serif;
 }
 

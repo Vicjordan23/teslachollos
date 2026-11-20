@@ -1,5 +1,14 @@
 # HANDOFF
 
+## 20/11/2026 (10): ficha oscura estilo Chollometro
+
+- **Petición de Vic:** que las fichas tengan el mismo aspecto que la de Chollometro. Se le avisó de que chocaba con la regla anti plagio y eligió «copia visual fiel»; la excepción queda en `CLAUDE.md`.
+- `TarjetaChollo.tsx` rehecha: panel blanco de foto a la izquierda (arriba en móvil); píldora de temperatura con ▾/▴ redondos azul y rojo; chip del precio con fecha (rojo oscuro, en el lugar de la cuenta atrás, porque el catálogo no tiene caducidad y no se inventa); título en negrita; precio naranja, tachado y `-N%` en verde; «Disponible en **Tienda**»; «Compartido por **Chollesla**» con el icono; descripción a 2 líneas (solo desde `sm`); pie con compartir y guardar (iconos), código con copiar y botón naranja «Ir al chollo» con icono.
+- Colores nuevos `--ficha-*` en `globals.css`. `AccionesChollo.tsx` con estilo oscuro y `Compartir` solo icono.
+- No hay comentarios (la cuenta gratuita no los tiene), así que no se pinta el icono de comentarios. Sin autor real ni caducidad hasta que haya publicadores.
+- Probado: typecheck, lint, 35 tests y vista en 375 px y de escritorio. La página sigue con fondo claro; solo las fichas son oscuras.
+- Nota: `@chollesla/core` hay que compilarlo (`npm run build -w packages/core`) antes del typecheck en un clon nuevo.
+
 ## 20/11/2026 (3): nombre, logo y comunidad
 
 **Decidido:** nombre **Chollesla** · logo (boceto de Vic) · la comunidad publica gratis con el afiliado de Vic · buscar más programas de afiliados.

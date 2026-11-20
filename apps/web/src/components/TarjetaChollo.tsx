@@ -8,6 +8,8 @@ export interface DatosChollo {
   slug: string;
   titulo: string;
   modelos: string;
+  /** Descripción corta (se recorta a 2 líneas). */
+  descripcion?: string;
   /** Enlace a la tienda tal como llega (la tarjeta pone el afiliado de Vic). */
   enlace: string;
   /** Foto real del producto (Amazon o Shopify). */
@@ -22,7 +24,9 @@ export interface DatosChollo {
   temperatura?: number;
 }
 
-/** Ficha horizontal (opción A elegida por Vic): foto a la izquierda, datos y acciones a la derecha. */
+const ICONO = "size-4 shrink-0";
+
+/** Ficha oscura horizontal: foto en panel blanco a la izquierda; temperatura, título, precio, tienda y botón a la derecha. */
 export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChollo; prioridad?: boolean }) {
   const enlace = aplicarAfiliado(chollo.enlace);
   const tienda = enlace.estado === "ok" && enlace.tienda ? TIENDAS[enlace.tienda] : null;
@@ -31,59 +35,99 @@ export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChol
   const foto = urlFoto(chollo.foto);
   const ficha = `/chollo/${chollo.slug}`;
   const temperatura = chollo.temperatura ?? 0;
+  const colorTemp = temperatura < 0 ? "text-ficha-frio" : temperatura >= 100 ? "text-ficha-calor" : "text-ficha-suave";
 
   return (
-    <article className="flex gap-3 rounded-2xl border border-tarjeta-borde bg-tarjeta p-3 sm:gap-4 sm:p-4">
+    <article className="flex flex-col gap-3 rounded-xl bg-ficha p-3 text-ficha-texto sm:flex-row sm:gap-5 sm:p-4">
       <Link
         href={ficha}
         tabIndex={-1}
         aria-hidden
-        className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-white sm:h-36 sm:w-36"
+        className="relative h-48 w-full shrink-0 overflow-hidden rounded-lg bg-white sm:h-auto sm:min-h-52 sm:w-52 sm:self-stretch"
       >
         {foto && (
-          <Image src={foto} alt="" fill priority={prioridad} sizes="(max-width: 640px) 96px, 144px" className="object-contain p-2" />
+          <Image src={foto} alt="" fill priority={prioridad} sizes="(max-width: 640px) 100vw, 208px" className="object-contain p-2" />
         )}
       </Link>
 
-      <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-        <div className="flex items-center justify-between gap-2 text-xs text-texto-suave">
-          <div className="flex items-center gap-1 rounded-full border border-borde bg-white px-1 py-0.5">
-            <Link href="/entrar" aria-label="Voto negativo" className="rounded-full px-1.5 text-base leading-none hover:bg-fondo">
-              ▾
+      <div className="flex min-w-0 flex-1 flex-col gap-2 sm:gap-2.5">
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-1.5 rounded-full bg-ficha-chip p-1">
+            <Link
+              href="/entrar"
+              aria-label="Voto negativo"
+              className="grid size-7 place-items-center rounded-full border-2 border-ficha-frio text-ficha-frio"
+            >
+              <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M12 5v14M6 13l6 6 6-6" />
+              </svg>
             </Link>
-            <span className="min-w-8 text-center text-sm font-medium text-ambar">{temperatura}°</span>
-            <Link href="/entrar" aria-label="Voto positivo" className="rounded-full px-1.5 text-base leading-none hover:bg-fondo">
-              ▴
+            <span className={`min-w-10 text-center text-base font-bold ${colorTemp}`}>{temperatura}°</span>
+            <Link
+              href="/entrar"
+              aria-label="Voto positivo"
+              className="grid size-7 place-items-center rounded-full border-2 border-ficha-calor text-ficha-calor"
+            >
+              <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M12 19V5M6 11l6-6 6 6" />
+              </svg>
             </Link>
           </div>
-          <div className="flex items-center gap-2">
-            {chollo.oficial && <span className="rounded-full bg-verde-claro px-2 py-0.5 font-medium text-verde">Oficial</span>}
-            <span>Precio del {formatoFecha(chollo.fecha)}</span>
-          </div>
+          <span className="flex items-center gap-1.5 rounded-md bg-ficha-aviso px-2.5 py-1.5 text-xs text-ficha-aviso-texto sm:text-sm">
+            <svg viewBox="0 0 24 24" className={ICONO} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 7v5l3 2" />
+            </svg>
+            <span>
+              <span className="hidden sm:inline">Precio del </span>
+              {formatoFecha(chollo.fecha)}
+            </span>
+          </span>
         </div>
 
-        <h2 className="line-clamp-2 text-base font-medium leading-snug sm:text-lg">
+        <h2 className="line-clamp-2 text-base font-bold leading-snug sm:text-xl">
           <Link href={ficha} className="hover:underline">
             {chollo.titulo}
           </Link>
         </h2>
 
-        <div className="flex flex-wrap items-baseline gap-x-2">
-          <span className="text-xl font-semibold text-verde sm:text-2xl">
-            {chollo.desde && <span className="text-sm font-medium">Desde </span>}
-            {formatoEuros(final)}
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-sm text-ficha-suave">
+          <span className="flex items-baseline gap-2">
+            <span className="text-2xl font-extrabold text-ficha-precio sm:text-3xl">
+              {chollo.desde && <span className="text-sm font-medium">Desde </span>}
+              {formatoEuros(final)}
+            </span>
+            {final < chollo.precioTienda && <span className="text-sm line-through sm:text-base">{formatoEuros(chollo.precioTienda)}</span>}
           </span>
-          {final < chollo.precioTienda && <span className="text-sm text-texto-suave line-through">{formatoEuros(chollo.precioTienda)}</span>}
-          {ahorro > 0 && <span className="rounded-md bg-verde-claro px-1.5 text-xs font-medium text-verde">-{ahorro} %</span>}
-          {tienda && <span className="text-sm text-texto-suave">· {tienda.nombre}</span>}
+          {ahorro > 0 && <span className="rounded-md bg-ficha-descuento px-1.5 py-0.5 text-sm font-bold text-ficha-descuento-texto sm:text-base">-{ahorro}%</span>}
+          {tienda && (
+            <>
+              <span className="hidden h-6 w-px bg-ficha-borde sm:block" aria-hidden />
+              <span>
+                Disponible en <strong className="font-bold text-ficha-texto">{tienda.nombre}</strong>
+              </span>
+            </>
+          )}
+          {chollo.oficial && (
+            <span className="flex items-center gap-1.5">
+              <Image src="/icon.svg" alt="" width={22} height={22} unoptimized className="rounded-full" />
+              <span className="hidden sm:inline">Compartido por</span> <strong className="font-bold text-ficha-texto">Chollesla</strong>
+            </span>
+          )}
         </div>
 
-        <div className="mt-auto flex flex-wrap items-center justify-between gap-2 pt-1">
-          <div className="flex gap-3 text-sm text-texto-suave">
-            <Link href="/entrar" className="hover:text-texto">
-              Guardar
-            </Link>
+        {chollo.descripcion && (
+          <p className="line-clamp-2 hidden text-[15px] leading-relaxed text-ficha-suave sm:block">{chollo.descripcion}</p>
+        )}
+
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-2">
+          <div className="flex items-center gap-4">
             <Compartir ruta={ficha} titulo={chollo.titulo} />
+            <Link href="/entrar" title="Guardar" aria-label="Guardar" className="text-ficha-suave hover:text-ficha-texto">
+              <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden>
+                <path d="M6 3h12v18l-6-4-6 4z" />
+              </svg>
+            </Link>
           </div>
           <div className="flex items-center gap-2">
             {tienda?.codigo && <CopiarCodigo codigo={tienda.codigo} />}
@@ -92,9 +136,12 @@ export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChol
                 href={enlace.url}
                 rel="sponsored nofollow noopener"
                 target="_blank"
-                className="rounded-full bg-verde-boton px-4 py-1.5 text-sm font-medium text-white hover:bg-verde-boton-hover"
+                className="flex items-center gap-2 rounded-full bg-ficha-boton px-5 py-2.5 text-sm font-extrabold text-white hover:bg-ficha-boton-hover sm:px-8 sm:py-3 sm:text-base"
               >
                 Ir al chollo
+                <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />
+                </svg>
               </a>
             )}
           </div>

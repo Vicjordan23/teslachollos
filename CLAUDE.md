@@ -6,6 +6,8 @@ Proyecto distinto del agente de publicación de Telegram y Facebook (`G:\Mi unid
 
 ## Reglas que no se olvidan
 - Nada de plagio: ni nombre, logo, textos, diseño ni código de otras webs de chollos. Solo ideas genéricas. No descompilar apps, no usar API internas ajenas y no copiar contenidos de forma automática.
+- **Excepción decidida por Vic (20/11/2026):** la ficha de chollo copia la maquetación y los colores de la ficha de Chollometro (tema oscuro, naranja). Sigue prohibido copiar su nombre, logo, textos, código o contenidos.
+- Vic da autonomía total en este proyecto: no pedirle permiso por cada cambio. Siguen siendo solo de Vic: contraseñas, captchas, aceptar términos y compras.
 - Sin puntuaciones ni opiniones inventadas. Sin imágenes generadas por IA salvo autorización de Vic.
 - Precio final visible en cada chollo (después del código de descuento).
 - Cada tienda con su enlace de afiliado, sin mezclar. Oficiales: Amazon `?tag=teslaaccesorios-21`; Jowua código ACCESORIOSTESLA; Hansshow `?bg_ref=nBeGMuizu9` y código VICTOR; Tesery `?ref=AccesoriosTesla&utm_medium=affiliate&utm_source=goaffpro` y código ACCESORIOSTESLA; EVDANCE (Awin) código EVEU20.
