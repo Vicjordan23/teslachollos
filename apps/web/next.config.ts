@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "m.media-amazon.com", pathname: "/images/**" },
       { protocol: "https", hostname: "cdn.shopify.com", pathname: "/s/files/**" },
+      { protocol: "https", hostname: "ae01.alicdn.com" },
+      { protocol: "https", hostname: "ae-pic-a1.aliexpress-media.com" },
     ],
   },
   // Sin cacheComponents: OpenNext aún no lo soporta del todo en Cloudflare, y la web es estática.

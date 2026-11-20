@@ -22,6 +22,10 @@ export interface DatosChollo {
   /** Fecha del precio, ISO (aaaa-mm-dd). */
   fecha: string;
   oficial?: boolean;
+  /** Alias del autor (chollos de la comunidad). */
+  autor?: string | null;
+  /** Ruta de la ficha (por defecto /chollo/<slug>; los de la comunidad, /c/<slug>). */
+  ruta?: string;
 }
 
 const ICONO = "size-4 shrink-0";
@@ -34,7 +38,7 @@ export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChol
   const final = precioFinal(chollo.precioTienda, tienda?.id ?? null);
   const ahorro = porcentajeAhorro(final, chollo.precioTienda);
   const foto = urlFoto(chollo.foto);
-  const ficha = `/chollo/${chollo.slug}`;
+  const ficha = chollo.ruta ?? `/chollo/${chollo.slug}`;
 
   return (
     <article className="flex flex-col gap-3 rounded-xl bg-ficha p-3 text-ficha-texto sm:flex-row sm:gap-5 sm:p-4">
@@ -86,6 +90,11 @@ export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChol
                 Disponible en <strong className="font-bold text-ficha-texto">{tienda.nombre}</strong>
               </span>
             </>
+          )}
+          {!chollo.oficial && chollo.autor && (
+            <span>
+              <span className="hidden sm:inline">Compartido por</span> <strong className="font-bold text-ficha-texto">@{chollo.autor}</strong>
+            </span>
           )}
           {chollo.oficial && (
             <span className="flex items-center gap-1.5">

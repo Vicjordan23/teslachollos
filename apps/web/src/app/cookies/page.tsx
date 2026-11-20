@@ -12,6 +12,10 @@ export default function Cookies() {
         mostramos ningún aviso de cookies.
       </p>
       <p>
+        Si entras en tu cuenta, el navegador guarda tu sesión en su almacenamiento local (localStorage) para que no tengas
+        que entrar en cada visita. Es estrictamente necesario para el servicio que pides y desaparece al cerrar sesión.
+      </p>
+      <p>
         Cloudflare, que aloja la web, puede usar cookies técnicas de seguridad (por ejemplo, para frenar bots) cuando
         detecta tráfico sospechoso. Son necesarias para el servicio y están exentas de consentimiento (art. 22.2 de la
         LSSI).
@@ -21,7 +25,7 @@ export default function Cookies() {
         afiliados. Las gestiona la tienda con su propia política.
       </p>
       <p>
-        Si algún día añadimos cookies que no sean técnicas (cuentas de usuario, analítica o publicidad), actualizaremos
+        Si algún día añadimos cookies que no sean técnicas (analítica o publicidad), actualizaremos
         esta página y, si hace falta, te pediremos permiso antes. Más información en la{" "}
         <Link href="/privacidad">política de privacidad</Link>.
       </p>

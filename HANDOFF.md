@@ -1,5 +1,29 @@
 # HANDOFF
 
+## 20/11/2026 (16): comunidad con Supabase (código listo; se activa con las claves de Vic)
+
+Todo se activa solo cuando existen las variables; sin ellas la web sigue como antes («muy pronto»).
+
+- **Cuentas:** entrar con enlace por email (sin contraseña, PKCE, sesión en localStorage). `/entrar`, `/auth/confirmar`, `/cuenta` (alias obligatorio antes de votar, cerrar sesión). Botón de la cabecera con `@alias`.
+- **Temperatura y guardados** en cada ficha (`components/Interacciones.tsx`, estado en `lib/interacciones.ts`): las fichas siguen estáticas y piden temperatura, voto y guardado de todas a la vez a Supabase. `/guardados`.
+- **Sincronización del catálogo:** `scripts/sincronizar-supabase.mjs` + acción «Sincronizar Supabase» (al cambiar `oficiales.json` o a mano). Upsert por `id_externo` = `tienda:id`; los que desaparecen pasan a `retirado`. Probado contra el esquema con PGlite: entran los 1.594.
+- **Alertas:** `/alertas` (palabra, modelo, tipo, precio máximo; máx. 20), botón «Crear alerta con esta búsqueda» en `/buscar`. Envío diario por email con `scripts/enviar-alertas.mjs` + acción «Enviar alertas» (Resend). Los emails enlazan a nuestra ficha, nunca a Amazon (regla de Amazon).
+- **Reportar** en la ficha (motivos: precio, caducado, no Tesla, spam, ilegal, otro) → tabla `reportes`.
+- **Publicar** (`/publicar` + `POST /api/publicar`): valida con `prepararPublicacion()` de core (tiendas de Vic + Tesla y AliExpress limpios), pone el afiliado de Vic, resuelve acortadores, máx. 5 al día, evita duplicados; los 5 primeros de cada persona quedan `pendiente`. Fichas de la comunidad en `/c/<slug>` y listado `/comunidad` (Nuevos / Más calientes 7 días). `/ir/<slug>` también sirve los de la comunidad.
+- **Moderación:** de momento en Supabase → Table Editor (`chollos.estado` de `pendiente` a `publicado`; tabla `reportes`). Panel propio, más adelante.
+- **Legal:** `/condiciones` nuevas; privacidad y cookies ampliadas (email, alias, Supabase en Fráncfort, sesión en localStorage). Borradores.
+- Migración nueva `supabase/migrations/20261121000000_alertas_y_comunidad.sql` (ventana de avisos, límite de alertas, categoría). **Hay que aplicarla en el editor SQL.**
+- Fotos: se admiten también las del CDN de AliExpress.
+- Probado: 40 + 12 tests, typecheck, lint, build de producción, y en el navegador con un Supabase simulado (votar, guardar, publicar, comunidad, `/ir`).
+
+**Pendiente de Vic (en este orden):**
+1. Supabase → SQL Editor: ejecutar `20261121000000_alertas_y_comunidad.sql`.
+2. Supabase → Authentication → URL Configuration: Site URL `https://chollesla.victor-martin-juanas.workers.dev` y Redirect URL `https://chollesla.victor-martin-juanas.workers.dev/**`.
+3. Cloudflare → Workers → chollesla → Settings: variables de build `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_ANON_KEY`; secreto de runtime `SUPABASE_SERVICE_ROLE_KEY`. Relanzar el build.
+4. GitHub → repo → Settings → Secrets → Actions: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`; lanzar a mano «Sincronizar Supabase».
+5. Resend (cuenta gratis): SMTP en Supabase (Authentication → SMTP) y secretos `RESEND_API_KEY` y `ALERTAS_REMITENTE` en GitHub. Resend solo envía a cualquiera con un **dominio verificado** → hace falta el dominio.
+6. AliExpress: tracking ID de Portals y de dónde salen los productos.
+
 ## 20/11/2026 (15): filtro por modelo y orden (en main)
 
 - Vic pide: «implementa todo lo que puedas de Chollometro», incluir AliExpress, y dice que ya tiene Supabase. Pedido a Vic: claves de Supabase en Cloudflare (URL y anon como variables; service_role como secreto), URL de Auth, cuenta de Resend para emails, y para AliExpress el tracking ID de Portals y la fuente de los productos.

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useChollo, useEstado } from "@/lib/interacciones";
-import { supabase } from "@/lib/supabase";
+import { CUENTAS_ACTIVAS, supabase } from "@/lib/supabase";
 
 const MOTIVOS = [
   ["precio", "El precio no es correcto"],
@@ -40,7 +40,7 @@ export function Reportar({ slug }: { slug: string }) {
     setEstado(error ? (error.code === "23505" ? "repetido" : "error") : "enviado");
   };
 
-  if (!supabase()) return null;
+  if (!CUENTAS_ACTIVAS) return null;
   if (estado === "enviado" || estado === "repetido") {
     return (
       <p className="text-sm text-texto-suave">

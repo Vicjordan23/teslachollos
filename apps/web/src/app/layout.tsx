@@ -28,6 +28,7 @@ const MENU = [
   { href: "/", texto: "Chollos" },
   { href: "/modelo/model-y", texto: "Model Y" },
   { href: "/modelo/model-3", texto: "Model 3" },
+  { href: "/comunidad", texto: "Comunidad" },
   { href: "/alertas", texto: "Alertas" },
 ];
 
@@ -74,6 +75,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <Link href="/aviso-legal" className="hover:text-texto hover:underline">Aviso legal</Link>
               <Link href="/privacidad" className="hover:text-texto hover:underline">Privacidad</Link>
               <Link href="/cookies" className="hover:text-texto hover:underline">Cookies</Link>
+              <Link href="/condiciones" className="hover:text-texto hover:underline">Condiciones de uso</Link>
             </nav>
           </div>
         </footer>

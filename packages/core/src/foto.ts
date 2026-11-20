@@ -2,7 +2,7 @@
  * Fotos de producto: siempre la foto real de la tienda enlazada (nunca generada por IA).
  * Solo se aceptan hosts conocidos, para no mostrar imágenes de cualquier sitio.
  */
-export const HOSTS_FOTO = ["m.media-amazon.com", "cdn.shopify.com"] as const;
+export const HOSTS_FOTO = ["m.media-amazon.com", "cdn.shopify.com", "ae01.alicdn.com", "ae-pic-a1.aliexpress-media.com"] as const;
 
 /** Proxy de imágenes que usaba el agente de Instagram; en la web se usa la foto original. */
 const PROXY = "wsrv.nl";

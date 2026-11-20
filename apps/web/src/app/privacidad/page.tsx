@@ -10,8 +10,8 @@ export default function Privacidad() {
   return (
     <Legal titulo="Política de privacidad">
       <p>
-        Hoy Chollesla se puede usar <strong>sin cuenta y sin dar ningún dato personal</strong>. Cuando haya cuentas de
-        usuario, esta política se ampliará antes de activarlas.
+        Chollesla se puede usar <strong>sin cuenta y sin dar ningún dato personal</strong>. Si creas una cuenta, tratamos
+        los datos que se explican abajo.
       </p>
 
       <h2>Responsable</h2>
@@ -35,6 +35,16 @@ export default function Privacidad() {
           <strong>Fotos de producto</strong>: se cargan directamente desde los servidores de Amazon y Shopify, que
           reciben tu IP al mostrarlas, como en cualquier imagen enlazada.
         </li>
+        <li>
+          <strong>Si creas una cuenta</strong>: tu email (para entrar con un enlace y para las alertas), tu alias público, tus
+          votos, guardados, alertas, reportes y los chollos que publicas. Base legal: la ejecución de las condiciones de uso
+          que aceptas (art. 6.1.b del RGPD). Se conservan mientras tengas la cuenta; si pides borrarla, se eliminan, salvo
+          lo que haya que guardar por ley.
+        </li>
+        <li>
+          <strong>Emails de alertas</strong>: solo si creas alertas. Puedes borrarlas cuando quieras en la página de
+          alertas.
+        </li>
       </ul>
       <p>No usamos cookies publicitarias, analítica con cookies ni perfiles. No vendemos ni cedemos datos.</p>
 
@@ -46,10 +56,17 @@ export default function Privacidad() {
       </p>
 
       <h2>Encargados y transferencias</h2>
-      <p>
-        Cloudflare, Inc. aloja la web. Es una empresa de EE. UU. adherida al Marco de Privacidad de Datos UE-EE. UU. y que
-        ofrece cláusulas contractuales tipo de la Comisión Europea.
-      </p>
+      <ul>
+        <li>
+          Cloudflare, Inc. aloja la web. Es una empresa de EE. UU. adherida al Marco de Privacidad de Datos UE-EE. UU. y
+          que ofrece cláusulas contractuales tipo de la Comisión Europea.
+        </li>
+        <li>Supabase guarda las cuentas y sus datos en servidores de la UE (Fráncfort, Alemania).</li>
+        <li>
+          Los emails (enlace para entrar y alertas) se envían a través de un proveedor de envío de correo con contrato de
+          encargo y garantías del RGPD.
+        </li>
+      </ul>
 
       <h2>Tus derechos</h2>
       <p>
