@@ -41,13 +41,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="es" className={`${fredoka.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <header className="border-b border-borde bg-fondo">
-          <div className="mx-auto flex max-w-[1640px] items-center gap-3 px-4 py-3">
+          <div className="mx-auto flex max-w-[1250px] items-center gap-3 px-4 py-3">
             <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="Chollesla, inicio">
-              <Image src="/icon.svg" alt="" width={40} height={40} priority />
-              <span className="text-3xl font-semibold tracking-tight">chollesla</span>
+              <Image src="/icon.svg" alt="" width={36} height={36} priority />
+              <span className="text-2xl font-semibold tracking-tight">chollesla</span>
             </Link>
             <details className="group relative hidden shrink-0 md:block">
-              <summary className="flex h-12 cursor-pointer list-none items-center gap-2 rounded-full border border-borde bg-superficie px-5 font-medium marker:hidden">
+              <summary className="flex h-10 cursor-pointer list-none items-center gap-2 rounded-full border border-white/35 bg-superficie px-4 text-sm font-bold marker:hidden">
                 <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
                   <path d="M4 7h16M4 12h16M4 17h16" />
                 </svg>
@@ -64,7 +64,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             </details>
             <CajaBusqueda className="hidden min-w-0 flex-1 sm:block" />
             <div className="ml-auto flex items-center gap-3 sm:ml-0">
-              <Link href="/alertas" className="hidden shrink-0 items-center gap-2 px-2 font-semibold hover:text-verde-boton lg:flex">
+              <Link href="/alertas" className="hidden shrink-0 items-center gap-2 px-3 text-sm font-bold hover:text-verde-boton lg:flex">
                 <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                   <path d="M6 9a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 21h4" />
                 </svg>
@@ -73,18 +73,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <BotonCuenta />
               <Link
                 href="/publicar"
-                className="hidden shrink-0 items-center gap-2 rounded-full border border-verde-boton px-5 py-2.5 font-semibold text-verde-boton hover:bg-verde-boton hover:text-white sm:flex"
+                className="hidden shrink-0 items-center gap-2 rounded-full border border-verde-boton px-5 py-2 text-sm font-bold text-verde-boton hover:bg-verde-boton hover:text-white sm:flex"
               >
                 <span className="text-xl leading-none">+</span> Comparte
               </Link>
             </div>
           </div>
-          <div className="mx-auto max-w-[1640px] px-4 pb-3 sm:hidden">
+          <div className="mx-auto max-w-[1250px] px-4 pb-3 sm:hidden">
             <CajaBusqueda />
           </div>
-          <nav aria-label="Menú principal" className="mx-auto flex max-w-[1640px] items-center gap-1 overflow-x-auto px-4 pb-3 text-lg">
+          <nav aria-label="Menú principal" className="mx-auto flex max-w-[1250px] items-center gap-1 overflow-x-auto px-4 pb-3 text-sm font-bold">
             <details className="group relative shrink-0">
-              <summary className="flex cursor-pointer list-none items-center gap-2 rounded-lg px-3 py-2 font-medium marker:hidden hover:text-verde-boton">
+              <summary className="flex cursor-pointer list-none items-center gap-2 rounded-lg px-3 py-2 font-bold marker:hidden hover:text-verde-boton">
                 Categorías <span aria-hidden className="text-xs">▾</span>
               </summary>
               <div className={DESPLEGABLE}>
@@ -96,7 +96,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               </div>
             </details>
             <details className="group relative shrink-0">
-              <summary className="flex cursor-pointer list-none items-center gap-2 rounded-lg bg-superficie px-3 py-2 font-medium marker:hidden hover:text-verde-boton">
+              <summary className="flex cursor-pointer list-none items-center gap-2 rounded-lg bg-superficie px-3 py-2 font-bold marker:hidden hover:text-verde-boton">
                 Modelos <span aria-hidden className="text-xs">▾</span>
               </summary>
               <div className={DESPLEGABLE}>
@@ -108,11 +108,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               </div>
             </details>
             {MENU.map((m) => (
-              <Link key={m.href} href={m.href} className="shrink-0 rounded-lg px-3 py-2 font-medium hover:text-verde-boton">
+              <Link key={m.href} href={m.href} className="shrink-0 rounded-lg px-3 py-2 font-bold hover:text-verde-boton">
                 {m.texto}
               </Link>
             ))}
-            <a href={TELEGRAM} target="_blank" rel="noopener" className="shrink-0 rounded-lg px-3 py-2 font-medium hover:text-verde-boton">
+            <a href={TELEGRAM} target="_blank" rel="noopener" className="shrink-0 rounded-lg px-3 py-2 font-bold hover:text-verde-boton">
               Telegram
             </a>
           </nav>
@@ -121,7 +121,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <div className="flex flex-1 flex-col">{children}</div>
 
         <footer className="border-t border-borde bg-superficie px-4 py-6 text-sm text-texto-suave">
-          <div className="mx-auto flex max-w-[1640px] flex-col gap-2">
+          <div className="mx-auto flex max-w-[1250px] flex-col gap-2">
             <p>Chollesla no es una web oficial de Tesla ni está relacionada con Tesla, Inc.</p>
             <p>
               Los enlaces a tiendas son de afiliado: Chollesla puede ganar una comisión si compras, sin coste extra para

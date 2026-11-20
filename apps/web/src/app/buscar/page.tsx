@@ -24,7 +24,7 @@ export default async function Buscar({ searchParams }: PageProps<"/buscar">) {
   const partes = [modelo && nombreModelo(modelo), categoria && nombreCategoria(categoria)].filter(Boolean).join(" · ");
 
   return (
-    <main className="mx-auto flex w-full max-w-[1640px] flex-1 flex-col gap-5 px-4 py-6">
+    <main className="mx-auto flex w-full max-w-[1250px] flex-1 flex-col gap-5 px-4 py-6">
       <section className="flex flex-col gap-3">
         <h1 className="text-2xl font-semibold sm:text-3xl">{q ? `Resultados para «${q}»` : `Chollos${partes ? `: ${partes}` : ""}`}</h1>
         {q && partes && <p className="text-texto-suave">Filtrado por {partes}</p>}

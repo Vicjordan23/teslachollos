@@ -3,9 +3,9 @@
 /* Paleta de Chollesla (modo oscuro, copia de la estructura visual de Chollómetro por decisión de Vic):
    fondo gris claro, fichas azul muy suave, precio y botón en verde, temperatura en ámbar. */
 :root {
-  --fondo: #0e0e0f;
-  --superficie: #1b1c1d;
-  --tarjeta: #1f2123;
+  --fondo: #000000;
+  --superficie: #1d1f20;
+  --tarjeta: #1d1f20;
   --tarjeta-borde: #3a3d40;
   --texto: #f2f3f4;
   --texto-suave: #a9adb2;
@@ -18,7 +18,7 @@
   --borde: #323436;
 
   /* Ficha oscura (decisión de Vic, 20/11/2026: copia visual fiel). */
-  --ficha: #1f2123;
+  --ficha: #1d1f20;
   --ficha-chip: #151617;
   --ficha-texto: #ffffff;
   --ficha-suave: #b4b8bc;

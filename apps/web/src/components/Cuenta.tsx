@@ -10,7 +10,7 @@ import { supabase } from "@/lib/supabase";
 /** Botón de la cabecera: «Entrar» o el alias. */
 export function BotonCuenta() {
   const { sesion, alias } = useEstado();
-  const clase = "flex shrink-0 items-center gap-2 px-2 py-1.5 font-semibold hover:text-verde-boton";
+  const clase = "flex shrink-0 items-center gap-2 px-3 py-1.5 text-sm font-bold hover:text-verde-boton";
   if (!sesion) {
     return (
       <Link href="/entrar" className={clase}>

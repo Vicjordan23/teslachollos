@@ -34,7 +34,7 @@ export default async function PaginaTienda({ params }: PageProps<"/tienda/[tiend
   const t = TIENDAS[id];
   const lista = chollosDeTienda(id);
   return (
-    <main className="mx-auto flex w-full max-w-[1640px] flex-1 flex-col gap-5 px-4 py-6">
+    <main className="mx-auto flex w-full max-w-[1250px] flex-1 flex-col gap-5 px-4 py-6">
       <section className="flex flex-col gap-3">
         <h1 className="text-3xl font-semibold">Chollos de {t.nombre} para tu Tesla</h1>
         {t.codigo && (

@@ -5,7 +5,7 @@ import { CHOLLOS, pagina, totalPaginas } from "@/datos/chollos";
 
 export default function Inicio() {
   return (
-    <main className="mx-auto flex w-full max-w-[1640px] flex-1 flex-col gap-5 px-4 py-6">
+    <main className="mx-auto flex w-full max-w-[1250px] flex-1 flex-col gap-5 px-4 py-6">
       <Filtros filtro={{}} />
       <section className="flex flex-col gap-1">
         <h1 className="text-3xl font-semibold">Chollos destacados</h1>

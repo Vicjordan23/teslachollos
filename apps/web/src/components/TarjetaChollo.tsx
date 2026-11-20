@@ -43,7 +43,7 @@ export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChol
   const ficha = chollo.ruta ?? `/chollo/${chollo.slug}`;
 
   return (
-    <article className="flex flex-col gap-3 rounded-xl bg-ficha p-3 text-ficha-texto sm:flex-row sm:gap-5 sm:p-4">
+    <article className="flex flex-col gap-3 rounded-lg bg-ficha p-3 text-ficha-texto sm:flex-row sm:gap-5 sm:p-4">
       <Link
         href={ficha}
         tabIndex={-1}

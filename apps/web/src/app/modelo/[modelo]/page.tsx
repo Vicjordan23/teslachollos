@@ -31,7 +31,7 @@ export default async function PaginaModelo({ params }: PageProps<"/modelo/[model
   if (!id) notFound();
   const lista = chollosDeModelo(id);
   return (
-    <main className="mx-auto flex w-full max-w-[1640px] flex-1 flex-col gap-5 px-4 py-6">
+    <main className="mx-auto flex w-full max-w-[1250px] flex-1 flex-col gap-5 px-4 py-6">
       <section className="flex flex-col gap-3">
         <h1 className="text-2xl font-semibold sm:text-3xl">Accesorios para Tesla {nombreModelo(id)}</h1>
         <p className="text-texto-suave">{lista.length.toLocaleString("es-ES")} chollos compatibles, incluidos los universales.</p>

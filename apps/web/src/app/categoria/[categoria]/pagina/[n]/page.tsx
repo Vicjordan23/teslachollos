@@ -35,7 +35,7 @@ export default async function PaginaCategoriaN({ params }: PageProps<"/categoria
   const r = await resolver(params);
   if (!r) notFound();
   return (
-    <main className="mx-auto flex w-full max-w-[1640px] flex-1 flex-col gap-5 px-4 py-6">
+    <main className="mx-auto flex w-full max-w-[1250px] flex-1 flex-col gap-5 px-4 py-6">
       <section className="flex flex-col gap-3">
         <h1 className="text-2xl font-semibold">
           {nombreCategoria(r.id)} para tu Tesla · página {r.num}

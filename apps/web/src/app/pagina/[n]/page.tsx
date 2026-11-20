@@ -26,7 +26,7 @@ export default async function PaginaListado({ params }: PageProps<"/pagina/[n]">
   const n = numero((await params).n);
   if (!n) notFound();
   return (
-    <main className="mx-auto flex w-full max-w-[1640px] flex-1 flex-col gap-5 px-4 py-6">
+    <main className="mx-auto flex w-full max-w-[1250px] flex-1 flex-col gap-5 px-4 py-6">
       <section className="flex flex-col gap-3">
         <h1 className="text-2xl font-semibold">Chollos en accesorios para tu Tesla · página {n}</h1>
         <Filtros filtro={{}} />
