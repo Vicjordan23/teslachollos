@@ -50,7 +50,8 @@ const cabeceras = { apikey: clave, Authorization: `Bearer ${clave}`, "Content-Ty
 async function pedir(ruta, opciones = {}) {
   const r = await fetch(`${url}/rest/v1/${ruta}`, { ...opciones, headers: { ...cabeceras, ...opciones.headers } });
   if (!r.ok) throw new Error(`${opciones.method ?? "GET"} ${ruta.split("?")[0]}: ${r.status} ${await r.text()}`);
-  return r.status === 204 ? null : r.json();
+  const t = await r.text();
+  return t ? JSON.parse(t) : null; // return=minimal devuelve 201 sin cuerpo
 }
 
 // 1) Alta o actualización por id_externo, en tandas.

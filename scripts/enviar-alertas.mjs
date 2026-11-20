@@ -18,7 +18,8 @@ const cab = { apikey: clave, Authorization: `Bearer ${clave}`, "Content-Type": "
 async function pedir(ruta, opciones = {}) {
   const r = await fetch(`${url}${ruta}`, { ...opciones, headers: { ...cab, ...opciones.headers } });
   if (!r.ok) throw new Error(`${opciones.method ?? "GET"} ${ruta.split("?")[0]}: ${r.status} ${await r.text()}`);
-  return r.status === 204 ? null : r.json();
+  const t = await r.text();
+  return t ? JSON.parse(t) : null; // return=minimal devuelve 201 sin cuerpo
 }
 
 const ahora = new Date().toISOString();

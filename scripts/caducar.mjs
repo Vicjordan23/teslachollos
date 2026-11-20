@@ -10,7 +10,8 @@ const cab = { apikey: clave, Authorization: `Bearer ${clave}`, "Content-Type": "
 const pedir = async (ruta, op = {}) => {
   const r = await fetch(`${url}/rest/v1/${ruta}`, { ...op, headers: { ...cab, ...op.headers } });
   if (!r.ok) throw new Error(`${ruta.split("?")[0]}: ${r.status} ${await r.text()}`);
-  return r.status === 204 ? null : r.json();
+  const t = await r.text();
+  return t ? JSON.parse(t) : null; // return=minimal devuelve 201 sin cuerpo
 };
 const ahora = new Date();
 const hace30 = new Date(ahora.getTime() - 30 * 86_400_000).toISOString();
