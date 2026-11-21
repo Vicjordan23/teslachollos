@@ -2,6 +2,7 @@
 
 ## 21/11/2026 (23) — Banner de Telegram y navegación en colores
 - Franja azul Telegram arriba de todo (logo grande en `apps/web/public/telegram.webp`, «Únete al canal de Telegram», botón «Unirme gratis») enlazada a t.me/teslaaccesorios. Navegación principal con una pastilla de color por apartado.
+- Fix: los desplegables Categorías/Modelos quedaban cortados por `overflow-x-auto` de la barra; ahora la barra usa `flex-wrap` y la cabecera `relative z-30`.
 - Respuesta a Vic sobre el dominio: la web NO va en WordPress/Hostinger; es Next.js en Cloudflare Workers. Falta comprar chollesla.es (lo compra Vic), apuntarlo a Cloudflare, `NEXT_PUBLIC_SITIO`, `NEXT_PUBLIC_INDEXAR=si`, Auth URLs de Supabase.
 
 ## 20/11/2026 (22) — Títulos en español y panel lateral sin fijar

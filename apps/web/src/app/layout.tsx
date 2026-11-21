@@ -53,7 +53,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             Unirme gratis →
           </span>
         </a>
-        <header className="border-b border-borde border-t-2 border-t-verde-boton bg-superficie">
+        <header className="relative z-30 border-b border-borde border-t-2 border-t-verde-boton bg-superficie">
           <div className="mx-auto flex max-w-[1250px] items-center gap-3 px-4 py-3">
             <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="Chollesla, inicio">
               <Image src="/icon.svg" alt="" width={36} height={36} priority />
@@ -95,7 +95,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <div className="mx-auto max-w-[1250px] px-4 pb-3 sm:hidden">
             <CajaBusqueda />
           </div>
-          <nav aria-label="Menú principal" className="mx-auto flex max-w-[1250px] items-center gap-2 overflow-x-auto px-4 pb-3 text-sm font-bold">
+          <nav aria-label="Menú principal" className="mx-auto flex max-w-[1250px] flex-wrap items-center gap-2 px-4 pb-3 text-sm font-bold">
             <details className="group relative shrink-0">
               <summary className="flex cursor-pointer list-none items-center gap-2 rounded bg-[#ff3d1f] px-4 py-2 text-white marker:hidden hover:brightness-110">
                 Categorías <span aria-hidden className="text-xs">▾</span>
