@@ -71,6 +71,7 @@ export function versionesDeModelo(modelo: IdModelo) {
 
 export function nombreVersion(id: IdVersion): string {
   const v = VERSIONES.find((x) => x.id === id)!;
+  if (v.nombre.startsWith("Model")) return v.nombre;
   return `${v.modelo === "model-3" ? "Model 3" : "Model Y"} ${v.nombre}`;
 }
 
@@ -137,4 +138,41 @@ export function versionesDe(texto: string): IdVersion[] {
     for (const x of v) salida.add(x);
   }
   return VERSIONES.map((v) => v.id).filter((id) => salida.has(id));
+}
+
+export interface EtiquetaModelo {
+  /** Identificador estable (sirve para el color): «model-3», «model-y-juniper», «universal»… */
+  id: string;
+  texto: string;
+  modelo: IdModelo | null;
+  version: IdVersion | null;
+}
+
+/**
+ * Cuadros de compatibilidad de un chollo, uno por modelo o versión: «Model Y» si vale para todas sus versiones,
+ * «Model Y Juniper» si solo para algunas, y «Todos los Tesla» si es universal.
+ */
+export function etiquetasDe(texto: string): EtiquetaModelo[] {
+  const modelos = modelosDe(texto);
+  const versiones = versionesDe(texto);
+  if (modelos.length === MODELOS.length && versiones.length === VERSIONES.length) {
+    return [{ id: "universal", texto: "Todos los Tesla", modelo: null, version: null }];
+  }
+  const salida: EtiquetaModelo[] = [];
+  for (const m of MODELOS) {
+    if (!modelos.includes(m.id)) continue;
+    const propias = VERSIONES.filter((v) => v.modelo === m.id && versiones.includes(v.id));
+    if (propias.length === 0) {
+      salida.push({ id: m.id, texto: m.nombre, modelo: m.id, version: null });
+      continue;
+    }
+    const basicas = VERSIONES.filter((v) => v.modelo === m.id && v.id !== "model-y-l");
+    if (basicas.every((v) => propias.some((p) => p.id === v.id))) {
+      salida.push({ id: m.id, texto: m.nombre, modelo: m.id, version: null });
+      for (const v of propias.filter((v) => v.id === "model-y-l")) salida.push({ id: v.id, texto: nombreVersion(v.id), modelo: m.id, version: v.id });
+    } else {
+      for (const v of propias) salida.push({ id: v.id, texto: nombreVersion(v.id), modelo: m.id, version: v.id });
+    }
+  }
+  return salida;
 }

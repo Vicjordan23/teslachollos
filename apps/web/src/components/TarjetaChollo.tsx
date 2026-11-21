@@ -3,6 +3,7 @@ import Link from "next/link";
 import { aplicarAfiliado, formatoEuros, porcentajeAhorro, precioFinal, TIENDAS, urlFoto } from "@chollesla/core";
 import { Compartir, CopiarCodigo } from "@/components/AccionesChollo";
 import { Guardar, Temperatura } from "@/components/Interacciones";
+import { EtiquetasModelo } from "@/components/EtiquetasModelo";
 import { enlaceSalida } from "@/lib/salida";
 import { formatoFecha } from "@/datos/chollos";
 
@@ -108,6 +109,8 @@ export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChol
             </span>
           )}
         </div>
+
+        {chollo.modelos && <EtiquetasModelo modelos={chollo.modelos} />}
 
         {chollo.descripcion && (
           <p className="line-clamp-2 hidden text-[15px] leading-relaxed text-ficha-suave sm:block">{chollo.descripcion}</p>

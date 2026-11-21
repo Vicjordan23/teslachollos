@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { modelosDe, versionesDe } from "./modelos";
+import { etiquetasDe, modelosDe, versionesDe } from "./modelos";
 
 const TODOS = ["model-y", "model-3", "model-s", "model-x", "cybertruck"];
 
@@ -59,5 +59,18 @@ describe("versionesDe", () => {
     expect(versionesDe("Model 3")).toEqual(["model-3-antiguo", "model-3-highland", "model-3-standard"]);
     expect(versionesDe("Coches con conector Tipo 2")).toHaveLength(7);
     expect(versionesDe("Model S y Model X")).toEqual([]);
+  });
+});
+
+describe("etiquetasDe", () => {
+  const textos = (t: string) => etiquetasDe(t).map((e) => e.texto);
+  it("un cuadro por modelo o versión", () => {
+    expect(textos("Model Y Juniper y Model 3 Highland")).toEqual(["Model Y Juniper", "Model Y Standard", "Model 3 Highland", "Model 3 Standard"]);
+    expect(textos("Model 3 y Model Y")).toEqual(["Model Y", "Model 3"]);
+    expect(textos("Model Y Juniper (no para la versión Standard)")).toEqual(["Model Y Juniper"]);
+    expect(textos("Model S y Model X")).toEqual(["Model S", "Model X"]);
+  });
+  it("universal", () => {
+    expect(textos("Coches con conector Tipo 2")).toEqual(["Todos los Tesla"]);
   });
 });

@@ -4,6 +4,7 @@
 - `@chollesla/core` `modelos.ts`: `VERSIONES`, `versionesDe(texto)`, `versionesDeModelo`, `nombreVersion`. Model 3: Antiguo (2017-2023), Highland (2024+), Standard. Model Y: Antiguo (2020-2024), Juniper (2025+), Standard, Model Y L. Solo estos dos modelos tienen versiones.
 - Reglas (con tests): Highland/Juniper o los años 2024+/2025+ = generación nueva, que incluye su Standard salvo «no para New Standard»; años anteriores = Antiguo; modelo sin versión ni años = todas (Model Y L solo si se nombra); universal = todas. Se deduce del texto `modelos` de cada chollo; no hay campo nuevo en la base de datos.
 - Web: filtro «Versión» en el panel Filtrar al elegir Model 3 o Model Y (`/buscar?modelo=…&version=…`, no indexada); la ficha del chollo muestra sus versiones compatibles como enlaces. Pendiente: probar en producción y revisar casos dudosos del catálogo (p. ej. «Model 3 y Model Y» sin años cuenta como todas las versiones).
+- Cuadros de colores de compatibilidad (`components/EtiquetasModelo.tsx`, `etiquetasDe` en core): uno por modelo o versión en cada tarjeta y en la ficha (p. ej. «Model Y Juniper», «Model 3 Highland»; «Model Y» si vale para todas sus versiones; «Todos los Tesla» si es universal). El menú «Modelos» de la cabecera lista las versiones de Model 3 y Model Y bajo cada modelo.
 
 ## 21/11/2026 (31) — Search Console
 - Propiedad de dominio `chollesla.es` verificada por DNS (TXT `google-site-verification=…` en la raíz de Cloudflare; no borrarlo). Sitemap `https://chollesla.es/sitemap.xml` enviado el 21/11/2026.

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Barlow, Rajdhani } from "next/font/google";
-import { AVISO_AMAZON, CATEGORIAS, MODELOS } from "@chollesla/core";
+import { AVISO_AMAZON, CATEGORIAS, MODELOS, versionesDeModelo } from "@chollesla/core";
 import { CajaBusqueda } from "@/components/CajaBusqueda";
 import { Analitica } from "@/components/Analitica";
 import { CierraMenus } from "@/components/CierraMenus";
@@ -116,9 +116,20 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               </summary>
               <div className={DESPLEGABLE}>
                 {MODELOS.map((m) => (
-                  <Link key={m.id} href={`/modelo/${m.id}`} className={ENLACE_MENU}>
-                    {m.nombre}
-                  </Link>
+                  <div key={m.id} className="flex flex-col">
+                    <Link href={`/modelo/${m.id}`} className={ENLACE_MENU}>
+                      {m.nombre}
+                    </Link>
+                    {versionesDeModelo(m.id).map((v) => (
+                      <Link
+                        key={v.id}
+                        href={`/buscar?modelo=${m.id}&version=${v.id}`}
+                        className="flex items-center gap-2 rounded py-1.5 pl-8 pr-3 text-sm font-medium text-texto-suave hover:bg-fondo hover:text-verde-boton"
+                      >
+                        {v.nombre} <span className="text-xs opacity-70">{v.detalle}</span>
+                      </Link>
+                    ))}
+                  </div>
                 ))}
               </div>
             </details>
