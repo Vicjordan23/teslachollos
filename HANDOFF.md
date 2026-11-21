@@ -1,5 +1,11 @@
 # HANDOFF
 
+## 21/11/2026 (25) — Google Tag Manager con aviso de cookies; web + Telegram + logo en todas las publicaciones
+- **GTM** (`GTM-5J53DMFM`, o `NEXT_PUBLIC_GTM_ID`): `components/Analitica.tsx`, montado en `layout.tsx`. No se carga nada de Google hasta que la persona pulsa «Aceptar» en el aviso inferior (decisión en localStorage `chollesla-analitica`); «Rechazar» no carga nada. Se usó el arranque estándar de GTM (`gtm.start` + `gtm.js`) en lugar del `gtag()` pegado por Vic. `/cookies` actualizada. Sin compilar en local: revisar el build de Cloudflare.
+- **Telegram/Facebook/Instagram/X** (repo tesla-telegram, `marca.py`): todas las publicaciones llevan la web y el canal. Telegram además sube la foto con franja blanca con el logo «chollesla» (`marca/logo-letras.png`) y botones «Más chollos en la web» y «Canal de Telegram». La URL de la web sale de `marca.WEB` (o variable `WEB_URL`): **cuando chollesla.es esté activo, cambiar `WEB` a `https://chollesla.es`**. `AVISO` (texto para fijar) reescrito con la web. El workflow «Publicar en Telegram» instala Pillow. Probado con un envío real (#728).
+- Incidente: un primer commit dejó roto `publicar_siguiente.py` (error de codificación al editar con Python y heredoc) unos minutos; corregido en 4961387. Editar siempre con la herramienta de edición, no con scripts por heredoc.
+- Facebook e Instagram llevan web y canal en el texto pero la foto sin logo (Instagram exige una URL pública de la imagen; hay que alojar las imágenes con logo en algún sitio).
+
 ## 21/11/2026 (24) — Dominio chollesla.es (en curso)
 - Vic compró chollesla.es en Hostinger. Añadido a Cloudflare (plan Free, sin registros DNS todavía) y en Hostinger los nameservers cambiados a `johnathan.ns.cloudflare.com` y `rita.ns.cloudflare.com`. Cloudflare está esperando la propagación (de minutos a 24 h).
 - Falta cuando Cloudflare diga «Active»: Worker `chollesla` → Ajustes → Dominios y rutas → añadir `chollesla.es` (y `www`); variable de build `NEXT_PUBLIC_SITIO=https://chollesla.es` + «Retry build»; Supabase → Authentication → URL Configuration (Site URL y `https://chollesla.es/**`); luego `NEXT_PUBLIC_INDEXAR=si`. No cambiar la Site URL de Supabase antes de que el dominio funcione (rompería el login).

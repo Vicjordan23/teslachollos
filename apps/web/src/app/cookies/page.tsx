@@ -8,8 +8,13 @@ export default function Cookies() {
   return (
     <Legal titulo="Política de cookies">
       <p>
-        <strong>Chollesla no instala cookies</strong> ni guarda nada en tu navegador para seguirte. Por eso no te
-        mostramos ningún aviso de cookies.
+        Chollesla solo usa cookies de analítica si tú lo aceptas en el aviso que aparece al entrar. Sin tu permiso no se
+        carga nada de Google y puedes rechazarlas con el mismo botón.
+      </p>
+      <p>
+        <strong>Analítica (opcional):</strong> si aceptas, cargamos Google Tag Manager y Google Analytics (Google Ireland
+        Ltd.) para medir visitas y páginas más vistas de forma agregada. Instalan cookies como <code>_ga</code>. Puedes
+        cambiar de opinión borrando los datos del sitio en tu navegador; el aviso volverá a salir.
       </p>
       <p>
         Si entras en tu cuenta, el navegador guarda tu sesión en su almacenamiento local (localStorage) para que no tengas
@@ -25,8 +30,8 @@ export default function Cookies() {
         afiliados. Las gestiona la tienda con su propia política.
       </p>
       <p>
-        Si algún día añadimos cookies que no sean técnicas (analítica o publicidad), actualizaremos
-        esta página y, si hace falta, te pediremos permiso antes. Más información en la{" "}
+        Si algún día añadimos otras cookies que no sean técnicas, actualizaremos esta página y te pediremos permiso antes.
+        Más información en la{" "}
         <Link href="/privacidad">política de privacidad</Link>.
       </p>
     </Legal>
