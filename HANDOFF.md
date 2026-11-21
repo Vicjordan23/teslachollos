@@ -1,5 +1,10 @@
 # HANDOFF
 
+## 21/11/2026 (26) — chollesla.es activo y conectado al Worker
+- Cloudflare marcó chollesla.es «Active» (NS `johnathan`/`rita`). Añadidos como dominios personalizados del Worker `chollesla`: `chollesla.es` y `www.chollesla.es`.
+- Variable de build `NEXT_PUBLIC_SITIO=https://chollesla.es` guardada; este commit lanza el build que la aplica.
+- Pendiente (en este orden): comprobar que `https://chollesla.es` carga; Supabase → Authentication → URL Configuration (Site URL `https://chollesla.es` y redirección `https://chollesla.es/**`, dejando también la de workers.dev hasta probar); probar login, voto, guardado y alerta en el dominio nuevo; luego `NEXT_PUBLIC_INDEXAR=si`; cambiar `WEB` en `marca.py` de tesla-telegram a `https://chollesla.es`.
+
 ## 21/11/2026 (25) — Google Tag Manager con aviso de cookies; web + Telegram + logo en todas las publicaciones
 - **GTM** (`GTM-5J53DMFM`, o `NEXT_PUBLIC_GTM_ID`): `components/Analitica.tsx`, montado en `layout.tsx`. No se carga nada de Google hasta que la persona pulsa «Aceptar» en el aviso inferior (decisión en localStorage `chollesla-analitica`); «Rechazar» no carga nada. Se usó el arranque estándar de GTM (`gtm.start` + `gtm.js`) en lugar del `gtag()` pegado por Vic. `/cookies` actualizada. Sin compilar en local: revisar el build de Cloudflare.
 - **Telegram/Facebook/Instagram/X** (repo tesla-telegram, `marca.py`): todas las publicaciones llevan la web y el canal. Telegram además sube la foto con franja blanca con el logo «chollesla» (`marca/logo-letras.png`) y botones «Más chollos en la web» y «Canal de Telegram». La URL de la web sale de `marca.WEB` (o variable `WEB_URL`): **cuando chollesla.es esté activo, cambiar `WEB` a `https://chollesla.es`**. `AVISO` (texto para fijar) reescrito con la web. El workflow «Publicar en Telegram» instala Pillow. Probado con un envío real (#728).
