@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { buscar, nombreCategoria, nombreModelo } from "@chollesla/core";
+import { buscar, nombreCategoria, nombreModelo, nombreVersion } from "@chollesla/core";
 import { Filtros } from "@/components/Filtros";
 import { Rejilla } from "@/components/Rejilla";
-import { CHOLLOS, chollosDeModelo, ordenar, pagina, totalPaginas } from "@/datos/chollos";
+import { CHOLLOS, chollosDeModelo, chollosDeVersion, ordenar, pagina, totalPaginas } from "@/datos/chollos";
 import { leerFiltro, urlFiltro } from "@/lib/explorar";
 
 // Búsquedas y combinaciones de filtros: no se indexan (contenido duplicado y combinaciones infinitas).
@@ -11,9 +11,10 @@ export const metadata: Metadata = { title: "Buscar", robots: { index: false, fol
 
 export default async function Buscar({ searchParams }: PageProps<"/buscar">) {
   const { p, ...filtro } = leerFiltro(await searchParams);
-  const { q, modelo, categoria, orden = "destacados" } = filtro;
+  const { q, modelo, version, categoria, orden = "destacados" } = filtro;
   let lista = q ? buscar(CHOLLOS, q) : CHOLLOS;
-  if (modelo) lista = chollosDeModelo(modelo, lista);
+  if (version) lista = chollosDeVersion(version, lista);
+  else if (modelo) lista = chollosDeModelo(modelo, lista);
   if (categoria) lista = lista.filter((c) => c.categoria === categoria);
   // Con búsqueda y orden «destacados», manda la relevancia.
   if (!(q && orden === "destacados")) lista = ordenar(lista, orden);
@@ -21,7 +22,7 @@ export default async function Buscar({ searchParams }: PageProps<"/buscar">) {
   const n = Math.min(total, p);
   const ruta = (num: number) => urlFiltro({ ...filtro, orden }, num);
   const boton = "rounded-full border border-borde bg-superficie px-3 py-1.5";
-  const partes = [modelo && nombreModelo(modelo), categoria && nombreCategoria(categoria)].filter(Boolean).join(" · ");
+  const partes = [version ? nombreVersion(version) : modelo && nombreModelo(modelo), categoria && nombreCategoria(categoria)].filter(Boolean).join(" · ");
 
   return (
     <main className="mx-auto flex w-full max-w-[1250px] flex-1 flex-col gap-5 px-4 py-6">

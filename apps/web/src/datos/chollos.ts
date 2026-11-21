@@ -1,4 +1,4 @@
-import { modelosDe, precioFinal, porcentajeAhorro, type IdCategoria, type IdModelo, type IdTienda } from "@chollesla/core";
+import { modelosDe, versionesDe, precioFinal, porcentajeAhorro, type IdCategoria, type IdModelo, type IdTienda, type IdVersion } from "@chollesla/core";
 import aliexpress from "./aliexpress.json";
 import datos from "./oficiales.json";
 
@@ -83,6 +83,13 @@ const MODELOS_DE = new Map(CHOLLOS.map((c) => [c.slug, modelosDe(c.modelos)]));
 /** Chollos compatibles con un modelo (incluye los universales, como los cables Tipo 2). */
 export function chollosDeModelo(modelo: IdModelo, lista: CholloOficial[] = CHOLLOS): CholloOficial[] {
   return lista.filter((c) => MODELOS_DE.get(c.slug)?.includes(modelo));
+}
+
+const VERSIONES_DE = new Map(CHOLLOS.map((c) => [c.slug, versionesDe(c.modelos)]));
+
+/** Chollos compatibles con una versión concreta (Model 3 Highland, Model Y Juniper…). */
+export function chollosDeVersion(version: IdVersion, lista: CholloOficial[] = CHOLLOS): CholloOficial[] {
+  return lista.filter((c) => VERSIONES_DE.get(c.slug)?.includes(version));
 }
 
 export const ORDENES = [

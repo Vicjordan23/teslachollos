@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { aplicarAfiliado, formatoEuros, nombreCategoria, porcentajeAhorro, precioFinal, TIENDAS } from "@chollesla/core";
+import { aplicarAfiliado, formatoEuros, nombreCategoria, nombreVersion, porcentajeAhorro, precioFinal, TIENDAS, VERSIONES, versionesDe } from "@chollesla/core";
 import { CHOLLOS, cholloPorSlug, formatoFecha } from "@/datos/chollos";
 import { Guardar, Temperatura } from "@/components/Interacciones";
 import { Reportar } from "@/components/Reportar";
 import { enlaceSalida } from "@/lib/salida";
+import { urlFiltro } from "@/lib/explorar";
 import { SITIO } from "@/lib/sitio";
 
 // Solo existen las rutas generadas en el build; el resto da 404.
@@ -37,6 +38,7 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
   const enlace = aplicarAfiliado(c.enlace);
   const salida = enlaceSalida(c.slug, enlace, c.enlaceAfiliado);
   const ahorro = porcentajeAhorro(final, c.precioTienda);
+  const versiones = versionesDe(c.modelos);
 
   // Datos estructurados de producto: sin valoraciones ni opiniones (regla de Vic: nada inventado).
   const jsonLd = {
@@ -83,6 +85,20 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
           </div>
           <h1 className="text-2xl font-semibold leading-snug sm:text-3xl">{c.titulo}</h1>
           <p className="text-texto-suave">{c.modelos}</p>
+          {versiones.length > 0 && versiones.length < VERSIONES.length && (
+            <ul aria-label="Versiones compatibles" className="flex flex-wrap gap-1.5">
+              {versiones.map((id) => (
+                <li key={id}>
+                  <Link
+                    href={urlFiltro({ modelo: VERSIONES.find((v) => v.id === id)!.modelo, version: id })}
+                    className="rounded-full border border-borde bg-superficie px-2.5 py-0.5 text-sm hover:border-verde-boton"
+                  >
+                    {nombreVersion(id)}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
           {c.descripcion && <p className="text-lg text-texto">{c.descripcion}</p>}
 
           <div className="flex flex-wrap items-baseline gap-x-3">
