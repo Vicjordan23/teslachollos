@@ -1,5 +1,9 @@
 # HANDOFF
 
+## 21/11/2026 (23) — Banner de Telegram y navegación en colores
+- Franja azul Telegram arriba de todo (logo grande en `apps/web/public/telegram.webp`, «Únete al canal de Telegram», botón «Unirme gratis») enlazada a t.me/teslaaccesorios. Navegación principal con una pastilla de color por apartado.
+- Respuesta a Vic sobre el dominio: la web NO va en WordPress/Hostinger; es Next.js en Cloudflare Workers. Falta comprar chollesla.es (lo compra Vic), apuntarlo a Cloudflare, `NEXT_PUBLIC_SITIO`, `NEXT_PUBLIC_INDEXAR=si`, Auth URLs de Supabase.
+
 ## 20/11/2026 (22) — Títulos en español y panel lateral sin fijar
 - `scripts/traducir-titulos.mjs` traduce al español títulos y descripciones de `aliexpress.json` y `oficiales.json` (traductor gratuito de Google, caché en `scripts/traducciones.json`; si falla deja el original). Se ejecuta en el workflow «Importar AliExpress» tras importar. Para el catálogo oficial hay que ejecutarlo a mano tras `importar-catalogo.mjs`. Tras traducir, lanzar «Sincronizar Supabase» para que la base tenga los títulos nuevos.
 - Panel «Los mayores descuentos»: ya no es `sticky` (se quedaba fijo y cortado); se desplaza con la página.

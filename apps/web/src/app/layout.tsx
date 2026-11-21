@@ -38,6 +38,21 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="es" className={`${cuerpo.variable} ${display.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
+        <a
+          href={TELEGRAM}
+          target="_blank"
+          rel="noopener"
+          className="flex items-center justify-center gap-4 bg-gradient-to-r from-[#1c93d1] via-[#2aabee] to-[#1c93d1] px-4 py-3 text-white hover:brightness-110"
+        >
+          <Image src="/telegram.webp" alt="" width={64} height={64} unoptimized className="size-12 shrink-0 sm:size-16" />
+          <span className="flex flex-col text-left leading-tight sm:flex-row sm:items-center sm:gap-5">
+            <span className="font-display text-xl font-bold uppercase tracking-wide sm:text-3xl">Únete al canal de Telegram</span>
+            <span className="text-sm font-medium opacity-95 sm:text-lg">Un chollo nuevo para tu Tesla cada 30 minutos</span>
+          </span>
+          <span className="hidden shrink-0 rounded-full bg-white px-6 py-2.5 font-display text-lg font-bold uppercase text-[#1c93d1] shadow-lg sm:block">
+            Unirme gratis →
+          </span>
+        </a>
         <header className="border-b border-borde border-t-2 border-t-verde-boton bg-superficie">
           <div className="mx-auto flex max-w-[1250px] items-center gap-3 px-4 py-3">
             <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="Chollesla, inicio">
@@ -80,9 +95,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <div className="mx-auto max-w-[1250px] px-4 pb-3 sm:hidden">
             <CajaBusqueda />
           </div>
-          <nav aria-label="Menú principal" className="mx-auto flex max-w-[1250px] items-center gap-1 overflow-x-auto px-4 pb-3 text-sm font-bold">
+          <nav aria-label="Menú principal" className="mx-auto flex max-w-[1250px] items-center gap-2 overflow-x-auto px-4 pb-3 text-sm font-bold">
             <details className="group relative shrink-0">
-              <summary className="flex cursor-pointer list-none items-center gap-2 rounded-lg px-3 py-2 font-bold marker:hidden hover:text-verde-boton">
+              <summary className="flex cursor-pointer list-none items-center gap-2 rounded bg-[#ff3d1f] px-4 py-2 text-white marker:hidden hover:brightness-110">
                 Categorías <span aria-hidden className="text-xs">▾</span>
               </summary>
               <div className={DESPLEGABLE}>
@@ -94,7 +109,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               </div>
             </details>
             <details className="group relative shrink-0">
-              <summary className="flex cursor-pointer list-none items-center gap-2 rounded-lg bg-superficie px-3 py-2 font-bold marker:hidden hover:text-verde-boton">
+              <summary className="flex cursor-pointer list-none items-center gap-2 rounded bg-[#2f7dff] px-4 py-2 text-white marker:hidden hover:brightness-110">
                 Modelos <span aria-hidden className="text-xs">▾</span>
               </summary>
               <div className={DESPLEGABLE}>
@@ -105,12 +120,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 ))}
               </div>
             </details>
-            {MENU.map((m) => (
-              <Link key={m.href} href={m.href} className="shrink-0 rounded-lg px-3 py-2 font-bold hover:text-verde-boton">
+            {MENU.map((m, i) => (
+              <Link
+                key={m.href}
+                href={m.href}
+                className={`shrink-0 rounded px-4 py-2 hover:brightness-110 ${["bg-[#b6ff3b] text-black", "bg-[#a855f7] text-white", "bg-[#ffb020] text-black"][i % 3]}`}
+              >
                 {m.texto}
               </Link>
             ))}
-            <a href={TELEGRAM} target="_blank" rel="noopener" className="shrink-0 rounded-lg px-3 py-2 font-bold hover:text-verde-boton">
+            <a href={TELEGRAM} target="_blank" rel="noopener" className="shrink-0 rounded bg-[#2aabee] px-4 py-2 text-white hover:brightness-110">
               Telegram
             </a>
           </nav>
