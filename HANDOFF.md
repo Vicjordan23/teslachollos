@@ -1,5 +1,9 @@
 # HANDOFF
 
+## 21/11/2026 (30) — Resend probado y plantillas de email en español
+- Probado por Vic: el login por email llega desde `no-reply@chollesla.es` a Recibidos (no spam); Resend lo marca «Delivered».
+- Supabase → Auth → Emails → Templates: traducidas al español «Magic link or OTP» (la del login) y «Confirm sign up». Sin tocar (la web no las usa): Invite, Change email, Reset password, Reauthentication. Plantilla simple sin logo; mejora posible: diseño con logo.
+
 ## 21/11/2026 (29) — Resend (emails de login desde chollesla.es)
 - Resend: dominio `chollesla.es` verificado (región eu-west-1). Registros en Cloudflare (DNS only): TXT `resend._domainkey`, CNAME `rsend` y `send`, TXT `_dmarc` (`v=DMARC1; p=none;`).
 - Supabase → Auth → Emails → SMTP: activado, remitente `no-reply@chollesla.es` / «Chollesla», host `smtp.resend.com`, puerto 465, usuario `resend`; la clave de API la puso Vic (no está en ningún archivo).
