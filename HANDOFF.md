@@ -1,5 +1,11 @@
 # HANDOFF
 
+## 21/11/2026 (27) — Supabase con chollesla.es, indexación activada, Telegram sin enlace al canal
+- Supabase: Site URL `https://chollesla.es` y redirección `https://chollesla.es/**` (se mantiene la de workers.dev). Login por email probado por Vic en el dominio nuevo: funciona.
+- Build: añadida `NEXT_PUBLIC_INDEXAR=si` (este commit lanza el build). Pendiente después: Search Console + enviar `https://chollesla.es/sitemap.xml`.
+- tesla-telegram: `marca.WEB` = `https://chollesla.es`; en Telegram ya no se enlaza el canal (ni botón ni pie: `PIE_TELEGRAM`); Facebook, Instagram y X siguen con web + canal. Commit 8a122ab.
+- Pendiente: pegar y fijar el texto `AVISO` en el canal (`--aviso`), y revisar el fallo de Instagram (run #71).
+
 ## 21/11/2026 (26) — chollesla.es activo y conectado al Worker
 - Cloudflare marcó chollesla.es «Active» (NS `johnathan`/`rita`). Añadidos como dominios personalizados del Worker `chollesla`: `chollesla.es` y `www.chollesla.es`.
 - Variable de build `NEXT_PUBLIC_SITIO=https://chollesla.es` guardada; este commit lanza el build que la aplica.
