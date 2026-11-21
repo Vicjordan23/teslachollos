@@ -5,6 +5,7 @@ import { Barlow, Rajdhani } from "next/font/google";
 import { AVISO_AMAZON, CATEGORIAS, MODELOS } from "@chollesla/core";
 import { CajaBusqueda } from "@/components/CajaBusqueda";
 import { Analitica } from "@/components/Analitica";
+import { CierraMenus } from "@/components/CierraMenus";
 import { BotonCuenta } from "@/components/Cuenta";
 import { INDEXAR, SITIO } from "@/lib/sitio";
 import "./globals.css";
@@ -160,6 +161,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </div>
         </footer>
         <Analitica />
+        <CierraMenus />
       </body>
     </html>
   );

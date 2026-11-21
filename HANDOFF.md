@@ -1,5 +1,8 @@
 # HANDOFF
 
+## 21/11/2026 (28) — Menús desplegables se cierran al elegir
+- `components/CierraMenus.tsx` (cliente) cierra los `<details>` del menú principal (Categorías, Modelos…) al cambiar de ruta y al hacer clic fuera. Antes quedaban abiertos porque el layout no se remonta al navegar. Pendiente: probar en producción.
+
 ## 21/11/2026 (27) — Supabase con chollesla.es, indexación activada, Telegram sin enlace al canal
 - Supabase: Site URL `https://chollesla.es` y redirección `https://chollesla.es/**` (se mantiene la de workers.dev). Login por email probado por Vic en el dominio nuevo: funciona.
 - Build: añadida `NEXT_PUBLIC_INDEXAR=si` (este commit lanza el build). Pendiente después: Search Console + enviar `https://chollesla.es/sitemap.xml`.
