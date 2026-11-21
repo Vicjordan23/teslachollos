@@ -1,5 +1,9 @@
 # HANDOFF
 
+## 21/11/2026 (31) — Search Console
+- Propiedad de dominio `chollesla.es` verificada por DNS (TXT `google-site-verification=…` en la raíz de Cloudflare; no borrarlo). Sitemap `https://chollesla.es/sitemap.xml` enviado el 21/11/2026.
+- Siguiente: en unos días revisar Páginas/Rendimiento en Search Console; añadir GA4 dentro de GTM.
+
 ## 21/11/2026 (30) — Resend probado y plantillas de email en español
 - Probado por Vic: el login por email llega desde `no-reply@chollesla.es` a Recibidos (no spam); Resend lo marca «Delivered».
 - Supabase → Auth → Emails → Templates: traducidas al español «Magic link or OTP» (la del login) y «Confirm sign up». Sin tocar (la web no las usa): Invite, Change email, Reset password, Reauthentication. Plantilla simple sin logo; mejora posible: diseño con logo.
