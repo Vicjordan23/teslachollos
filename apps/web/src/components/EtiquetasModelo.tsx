@@ -5,11 +5,11 @@ import { urlFiltro } from "@/lib/explorar";
 // Un color por modelo y versión (fondo y texto), para reconocerlos de un vistazo.
 const COLORES: Record<string, string> = {
   "model-3": "bg-[#2f7dff] text-white",
-  "model-3-antiguo": "bg-[#5b6b8c] text-white",
+  "model-3-legacy": "bg-[#5b6b8c] text-white",
   "model-3-highland": "bg-[#1d4ed8] text-white",
   "model-3-standard": "bg-[#06b6d4] text-black",
   "model-y": "bg-[#a855f7] text-white",
-  "model-y-antiguo": "bg-[#6d4aa8] text-white",
+  "model-y-legacy": "bg-[#6d4aa8] text-white",
   "model-y-juniper": "bg-[#ff3d1f] text-white",
   "model-y-standard": "bg-[#ffb020] text-black",
   "model-y-l": "bg-[#ec4899] text-white",
