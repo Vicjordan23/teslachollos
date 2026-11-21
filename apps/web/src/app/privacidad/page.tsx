@@ -28,8 +28,9 @@ export default function Privacidad() {
           funcione y sea segura (art. 6.1.f del RGPD).
         </li>
         <li>
-          <strong>Clics en «Ir al chollo»</strong>: se anota qué chollo y qué tienda, sin la IP ni ningún identificador
-          tuyo, para saber qué ofertas interesan. Los registros se borran automáticamente en pocos días.
+          <strong>Clics en «Ir al chollo»</strong>: se anota qué chollo, qué tienda y el día, sin la IP ni ningún
+          identificador tuyo, para saber qué ofertas interesan. Son recuentos sin datos personales y se conservan para
+          las estadísticas de la web. Los registros técnicos del servidor se borran automáticamente en pocos días.
         </li>
         <li>
           <strong>Fotos de producto</strong>: se cargan directamente desde los servidores de Amazon y Shopify, que

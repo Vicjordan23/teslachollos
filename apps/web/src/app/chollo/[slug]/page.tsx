@@ -6,7 +6,7 @@ import { aplicarAfiliado, formatoEuros, nombreCategoria, porcentajeAhorro, preci
 import { CHOLLOS, cholloPorSlug, formatoFecha } from "@/datos/chollos";
 import { Guardar, Temperatura } from "@/components/Interacciones";
 import { Reportar } from "@/components/Reportar";
-import { enlaceSalida } from "@/lib/salida";
+import { atributosSalida, enlaceSalida } from "@/lib/salida";
 import { EtiquetasModelo } from "@/components/EtiquetasModelo";
 import { SITIO } from "@/lib/sitio";
 
@@ -111,6 +111,7 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
               href={salida}
               rel="sponsored nofollow noopener"
               target="_blank"
+              {...atributosSalida(c.slug, c.titulo, c.tienda, salida)}
               className="mt-2 w-fit rounded-full bg-verde-boton px-6 py-3 text-lg font-medium text-white hover:bg-verde-boton-hover"
             >
               Ir al chollo en {t.nombre}

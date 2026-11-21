@@ -8,7 +8,7 @@ import { Guardar, Temperatura } from "@/components/Interacciones";
 import { Reportar } from "@/components/Reportar";
 import { formatoFecha } from "@/datos/chollos";
 import { CAMPOS } from "@/lib/comunidad";
-import { enlaceSalida } from "@/lib/salida";
+import { atributosSalida, enlaceSalida } from "@/lib/salida";
 import { leer, type CholloComunidad } from "@/lib/supabase-servidor";
 
 async function cargar(slug: string): Promise<CholloComunidad | null> {
@@ -89,7 +89,7 @@ export default async function FichaComunidad({ params }: PageProps<"/c/[slug]">)
             publicó; la comunidad lo puede reportar si no es correcto.
           </p>
           {salida && c.estado === "publicado" && (
-            <a href={salida} rel="sponsored nofollow noopener" target="_blank" className="mt-2 w-fit rounded-full bg-verde-boton px-6 py-3 text-lg font-medium text-white hover:bg-verde-boton-hover">
+            <a href={salida} rel="sponsored nofollow noopener" target="_blank" {...atributosSalida(c.slug, c.titulo, c.tienda, salida)} className="mt-2 w-fit rounded-full bg-verde-boton px-6 py-3 text-lg font-medium text-white hover:bg-verde-boton-hover">
               Ir al chollo{tienda ? ` en ${tienda.nombre}` : ""}
             </a>
           )}

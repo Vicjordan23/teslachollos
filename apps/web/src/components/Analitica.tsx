@@ -36,6 +36,24 @@ export function Analitica() {
     setDecidido(guardado !== null);
   }, []);
 
+  useEffect(() => {
+    // Evento para Google Analytics (vía Tag Manager) cuando alguien pulsa «Ir al chollo». Solo se envía si aceptó las cookies.
+    const alPulsar = (e: MouseEvent) => {
+      const enlace = (e.target as Element | null)?.closest?.("a[data-ir-slug]") as HTMLAnchorElement | null;
+      if (!enlace || leer() !== "si") return;
+      const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
+      w.dataLayer = w.dataLayer ?? [];
+      w.dataLayer.push({
+        event: "ir_al_chollo",
+        chollo_slug: enlace.dataset.irSlug,
+        chollo_titulo: enlace.dataset.irTitulo,
+        tienda: enlace.dataset.irTienda,
+      });
+    };
+    document.addEventListener("click", alPulsar);
+    return () => document.removeEventListener("click", alPulsar);
+  }, []);
+
   function decidir(valor: "si" | "no") {
     try {
       localStorage.setItem(CLAVE, valor);

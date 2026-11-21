@@ -1,27 +1,38 @@
 "use client";
 
 import { useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
-/** Cierra los menús desplegables (<details>) de la cabecera al elegir una opción
- *  (cambio de ruta) y al hacer clic fuera de ellos. El layout no se remonta al navegar,
+const ABIERTOS = "header details[open], nav[aria-label='Menú principal'] details[open]";
+
+/** Cierra los menús desplegables (<details>) de la cabecera al elegir una opción (cambio de ruta o de filtros),
+ *  al pulsar un enlace dentro del menú y al hacer clic fuera. El layout no se remonta al navegar,
  *  así que sin esto el menú se quedaba abierto. */
 export function CierraMenus() {
   const ruta = usePathname();
+  const consulta = useSearchParams().toString();
 
   useEffect(() => {
-    document.querySelectorAll<HTMLDetailsElement>("nav[aria-label='Menú principal'] details[open]").forEach((d) => d.removeAttribute("open"));
-  }, [ruta]);
+    document.querySelectorAll<HTMLDetailsElement>(ABIERTOS).forEach((d) => d.removeAttribute("open"));
+  }, [ruta, consulta]);
 
   useEffect(() => {
-    const fuera = (e: Event) => {
-      const destino = e.target as Node | null;
-      document.querySelectorAll<HTMLDetailsElement>("nav[aria-label='Menú principal'] details[open]").forEach((d) => {
+    const alPulsar = (e: Event) => {
+      const destino = e.target as Element | null;
+      document.querySelectorAll<HTMLDetailsElement>(ABIERTOS).forEach((d) => {
         if (!destino || !d.contains(destino)) d.removeAttribute("open");
       });
     };
-    document.addEventListener("pointerdown", fuera);
-    return () => document.removeEventListener("pointerdown", fuera);
+    const alElegir = (e: Event) => {
+      const enlace = (e.target as Element | null)?.closest?.("details a[href]");
+      if (enlace) enlace.closest("details")?.removeAttribute("open");
+    };
+    document.addEventListener("pointerdown", alPulsar);
+    document.addEventListener("click", alElegir);
+    return () => {
+      document.removeEventListener("pointerdown", alPulsar);
+      document.removeEventListener("click", alElegir);
+    };
   }, []);
 
   return null;

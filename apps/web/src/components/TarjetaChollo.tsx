@@ -4,7 +4,7 @@ import { aplicarAfiliado, formatoEuros, porcentajeAhorro, precioFinal, TIENDAS, 
 import { Compartir, CopiarCodigo } from "@/components/AccionesChollo";
 import { Guardar, Temperatura } from "@/components/Interacciones";
 import { EtiquetasModelo } from "@/components/EtiquetasModelo";
-import { enlaceSalida } from "@/lib/salida";
+import { atributosSalida, enlaceSalida } from "@/lib/salida";
 import { formatoFecha } from "@/datos/chollos";
 
 export interface DatosChollo {
@@ -128,6 +128,7 @@ export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChol
                 href={salida}
                 rel="sponsored nofollow noopener"
                 target="_blank"
+                {...atributosSalida(chollo.slug, chollo.titulo, tienda?.id ?? null, salida)}
                 className="flex items-center gap-2 rounded bg-ficha-boton px-5 py-2.5 text-sm font-extrabold text-white hover:bg-ficha-boton-hover sm:px-8 sm:py-3 sm:text-base"
               >
                 Ir al chollo
