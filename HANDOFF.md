@@ -1,5 +1,10 @@
 # HANDOFF
 
+## 21/11/2026 (29) — Resend (emails de login desde chollesla.es)
+- Resend: dominio `chollesla.es` verificado (región eu-west-1). Registros en Cloudflare (DNS only): TXT `resend._domainkey`, CNAME `rsend` y `send`, TXT `_dmarc` (`v=DMARC1; p=none;`).
+- Supabase → Auth → Emails → SMTP: activado, remitente `no-reply@chollesla.es` / «Chollesla», host `smtp.resend.com`, puerto 465, usuario `resend`; la clave de API la puso Vic (no está en ningún archivo).
+- Pendiente: probar un login por email y ver el envío en Resend → Emails; traducir las plantillas de Supabase (siguen en inglés).
+
 ## 21/11/2026 (28) — Menús desplegables se cierran al elegir
 - `components/CierraMenus.tsx` (cliente) cierra los `<details>` del menú principal (Categorías, Modelos…) al cambiar de ruta y al hacer clic fuera. Antes quedaban abiertos porque el layout no se remonta al navegar. Pendiente: probar en producción.
 
