@@ -1,5 +1,13 @@
 # HANDOFF
 
+## 22/11/2026 (33) — Clics en «Ir al chollo» y panel de afiliados
+
+- Tablas `clics_ir`, `ingresos_afiliados`, `administradores` (migración 20261123000000, ya ejecutada). Cada clic anota chollo y tienda, sin IP ni identificador; se ignoran robots. `/ir/<slug>` (no Amazon) lo anota en el servidor; Amazon va directo y avisa con `ping` a `/api/clic/<slug>` (Firefox no lo envía). Probado en producción: 302 y 204 con fila en `clics_ir`.
+- Evento `ir_al_chollo` al `dataLayer` (solo con cookies aceptadas) con chollo_slug, chollo_titulo y tienda. **Pendiente:** disparador + etiqueta GA4 en GTM-5J53DMFM y colección «Chollesla» en la biblioteca de GA4.
+- Panel `/admin/afiliados` (solo `administradores`): clics por chollo, tienda y día + alta manual de pedidos, ventas y comisión por programa. Importación automática por API: pendiente de claves de cada red.
+- Menús de la cabecera: ahora se cierran al elegir una opción (también si solo cambian los filtros) y al pulsar fuera.
+- Instagram: bloqueo de Meta 2207051 persiste. Afiliados: Shop4Tesla, Yeslak, TeslaGX en revisión; TESMAG enviado; EVBASE activo, a la espera de su respuesta (IVA/aduanas, euros) antes de importar.
+
 ## 21/11/2026 (32) — Filtro por versión del Model 3 y del Model Y
 - `@chollesla/core` `modelos.ts`: `VERSIONES`, `versionesDe(texto)`, `versionesDeModelo`, `nombreVersion`. Model 3: Legacy (2017-2023), Highland (2024+), Standard. Model Y: Legacy (2020-2024), Juniper (2025+), Standard, Model Y L. Solo estos dos modelos tienen versiones.
 - Reglas (con tests): Highland/Juniper o los años 2024+/2025+ = generación nueva; **Standard es una versión aparte y solo cuenta si el texto la nombra** (corregido por Vic); años anteriores = Legacy; modelo sin versión ni años = todas (Model Y L solo si se nombra); universal = todas. Se deduce del texto `modelos` de cada chollo; no hay campo nuevo en la base de datos.
