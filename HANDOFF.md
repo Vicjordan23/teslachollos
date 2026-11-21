@@ -1,5 +1,9 @@
 # HANDOFF
 
+## 21/11/2026 (24) — Dominio chollesla.es (en curso)
+- Vic compró chollesla.es en Hostinger. Añadido a Cloudflare (plan Free, sin registros DNS todavía) y en Hostinger los nameservers cambiados a `johnathan.ns.cloudflare.com` y `rita.ns.cloudflare.com`. Cloudflare está esperando la propagación (de minutos a 24 h).
+- Falta cuando Cloudflare diga «Active»: Worker `chollesla` → Ajustes → Dominios y rutas → añadir `chollesla.es` (y `www`); variable de build `NEXT_PUBLIC_SITIO=https://chollesla.es` + «Retry build»; Supabase → Authentication → URL Configuration (Site URL y `https://chollesla.es/**`); luego `NEXT_PUBLIC_INDEXAR=si`. No cambiar la Site URL de Supabase antes de que el dominio funcione (rompería el login).
+
 ## 21/11/2026 (23) — Banner de Telegram y navegación en colores
 - Franja azul Telegram arriba de todo (logo grande en `apps/web/public/telegram.webp`, «Únete al canal de Telegram», botón «Unirme gratis») enlazada a t.me/teslaaccesorios. Navegación principal con una pastilla de color por apartado.
 - Fix: los desplegables Categorías/Modelos quedaban cortados por `overflow-x-auto` de la barra; ahora la barra usa `flex-wrap` y la cabecera `relative z-30`.
