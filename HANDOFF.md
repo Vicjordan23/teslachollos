@@ -1,5 +1,13 @@
 # HANDOFF
 
+## 22/11/2026 (36) — Precios al día y tema claro por defecto
+
+- Fuera el cartel «Precio de esta semana». Ahora la tarjeta solo avisa («Precio sin revisar desde hace N días») si el precio pasa de 7 días (`AvisoPrecio`); la ficha pone «Precio revisado el dd/mm/aaaa». Pie con «Última revisión» (fecha más reciente del catálogo).
+- Caducidad en la web (`datos/chollos.ts`): un producto con más de 10 días sin precio nuevo no se muestra; se mide contra la revisión más reciente del catálogo para que, si la actualización se parase, la web no se vacíe. La regla de Telegram (quitar el precio a los 10 días) hace que el importador ya no los traiga.
+- Revisión diaria, sin tandas (la carga es pequeña: 1.392 productos son de tiendas Shopify sin API key y solo 202 de Amazon): `tesla-telegram` `actualizar_precios.yml` corre cada día 07:30 UTC; la web `importar-catalogo.yml` (nuevo) importa a las 08:30 UTC, traduce, comprueba, sube `oficiales.json` y sincroniza Supabase; `importar-aliexpress.yml` pasa de semanal a diario.
+- **Pendiente de Vic:** crear en el repo teslachollos el secreto `TG_LECTURA` (token fine-grained de solo lectura, Contents: Read, sobre `Vicjordan23/tesla-telegram`, que es privado). Sin él la acción avisa y no importa. Hasta entonces el catálogo oficial de la web solo se actualiza a mano con `node scripts/importar-catalogo.mjs <carpeta tg>` (hoy se hizo: precios del 19/11, 249 cambios, 2 productos nuevos).
+- Tema claro por defecto (`data-tema="claro"` en `<html>`; quien eligió oscuro lo conserva).
+
 ## 22/11/2026 (35) — SEO y retoques
 
 - Quitadas las siluetas de Tesla del menú y del selector (Vic quiere fotos frontales reales; si no se pueden, nada). Menús y filtros solo Model 3 y Model Y; Model Y L, S y X ya no se ofrecen (las etiquetas de chollos siguen).
