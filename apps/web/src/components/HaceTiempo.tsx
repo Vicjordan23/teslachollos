@@ -9,7 +9,7 @@ function textoHace(iso: string): string | null {
   const dias = Math.round((Date.UTC(hoy.getFullYear(), hoy.getMonth(), hoy.getDate()) - Date.UTC(a, m - 1, d)) / 86400000);
   if (dias <= 0) return "hoy";
   if (dias === 1) return "ayer";
-  if (dias < 14) return `hace ${dias} días`;
+  if (dias <= 7) return "esta semana";
   if (dias < 60) return `hace ${Math.floor(dias / 7)} semanas`;
   return `hace ${Math.floor(dias / 30)} meses`;
 }
