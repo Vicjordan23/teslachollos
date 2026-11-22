@@ -3,7 +3,7 @@ import Link from "next/link";
 import { buscar, nombreCategoria, nombreModelo, nombreVersion } from "@chollesla/core";
 import { Filtros } from "@/components/Filtros";
 import { Rejilla } from "@/components/Rejilla";
-import { CHOLLOS, chollosDeModelo, chollosDeVersion, ordenar, pagina, totalPaginas } from "@/datos/chollos";
+import { CHOLLOS, chollosDeModelo, chollosDeVersion, filtrarExtra, ordenar, pagina, totalPaginas } from "@/datos/chollos";
 import { leerFiltro, urlFiltro } from "@/lib/explorar";
 
 // Búsquedas y combinaciones de filtros: no se indexan (contenido duplicado y combinaciones infinitas).
@@ -16,6 +16,7 @@ export default async function Buscar({ searchParams }: PageProps<"/buscar">) {
   if (version) lista = chollosDeVersion(version, lista);
   else if (modelo) lista = chollosDeModelo(modelo, lista);
   if (categoria) lista = lista.filter((c) => c.categoria === categoria);
+  lista = filtrarExtra(lista, filtro);
   // Con búsqueda y orden «destacados», manda la relevancia.
   if (!(q && orden === "destacados")) lista = ordenar(lista, orden);
   const total = totalPaginas(lista);

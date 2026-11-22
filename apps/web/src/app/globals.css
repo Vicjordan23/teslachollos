@@ -86,3 +86,36 @@ body {
   color: var(--texto);
   font-family: var(--font-sans);
 }
+
+/* Tema claro (opcional, lo elige la persona con el botón sol/luna de la cabecera). El oscuro sigue siendo el de la marca. */
+:root[data-tema="claro"] {
+  --fondo: #f3f4f6;
+  --superficie: #ffffff;
+  --tarjeta: #ffffff;
+  --tarjeta-borde: #d9dde3;
+  --texto: #14171b;
+  --texto-suave: #5b616a;
+  --verde: #2d7a00;
+  --verde-claro: #e6f4d8;
+  --ambar: #b26a00;
+  --ambar-claro: #fff1d6;
+  --borde: #d9dde3;
+  --ficha: #ffffff;
+  --ficha-chip: #eef0f3;
+  --ficha-texto: #14171b;
+  --ficha-suave: #5b616a;
+  --ficha-borde: #d9dde3;
+  --ficha-precio: #d62d10;
+  --ficha-frio: #1f6fd1;
+  --ficha-calor: #c43b3b;
+  --ficha-descuento: #e3f5cf;
+  --ficha-descuento-texto: #2d6a00;
+  --ficha-aviso: #fde4e4;
+  --ficha-aviso-texto: #b42323;
+}
+:root[data-tema="claro"] {
+  color-scheme: light;
+}
+:root[data-tema="claro"] body {
+  background-image: none;
+}

@@ -7,6 +7,7 @@ import { CajaBusqueda } from "@/components/CajaBusqueda";
 import { Analitica } from "@/components/Analitica";
 import { Suspense } from "react";
 import { CierraMenus } from "@/components/CierraMenus";
+import { SCRIPT_TEMA, SelectorTema } from "@/components/SelectorTema";
 import { BotonCuenta } from "@/components/Cuenta";
 import { INDEXAR, SITIO } from "@/lib/sitio";
 import "./globals.css";
@@ -39,7 +40,10 @@ const ENLACE_MENU = "flex items-center gap-2 rounded px-3 py-2 text-texto hover:
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es" className={`${cuerpo.variable} ${display.variable} h-full antialiased`}>
+    <html lang="es" className={`${cuerpo.variable} ${display.variable} h-full antialiased`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: SCRIPT_TEMA }} />
+      </head>
       <body className="min-h-full flex flex-col">
         <a
           href={TELEGRAM}
@@ -86,6 +90,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 </svg>
                 Crear alerta
               </Link>
+              <SelectorTema />
               <BotonCuenta />
               <Link
                 href="/publicar"

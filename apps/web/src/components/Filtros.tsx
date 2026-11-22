@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { CATEGORIAS, MODELOS, versionesDeModelo } from "@chollesla/core";
 import { chollosDeCategoria, ORDENES } from "@/datos/chollos";
-import { urlFiltro, type Filtro } from "@/lib/explorar";
+import { DESCUENTOS_MIN, PRECIOS_MAX, TIENDAS_FILTRO, urlFiltro, type Filtro } from "@/lib/explorar";
 
 const chip = (activo: boolean) =>
   `shrink-0 rounded px-3 py-1.5 text-sm ${activo ? "bg-verde-boton text-white" : "border border-borde bg-superficie text-texto hover:border-verde-boton"}`;
@@ -26,8 +26,19 @@ export function Filtros({ filtro }: { filtro: Filtro }) {
     </Link>
   );
   const nFiltros = (modelo ? 1 : 0) + (version ? 1 : 0) + (categoria ? 1 : 0);
+  // Accesos rápidos combinables: pulsar uno activo lo quita.
+  const rapido = (activo: boolean, cambio: Partial<Filtro>, quitar: Partial<Filtro>, texto: string) => (
+    <Link key={texto} href={href(activo ? quitar : cambio)} className={chip(activo)} aria-pressed={activo}>
+      {texto}
+    </Link>
+  );
   return (
     <div className="flex flex-col gap-3">
+      <nav aria-label="Accesos rápidos" className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
+        {PRECIOS_MAX.map((m) => rapido(filtro.max === m, { max: m }, { max: undefined }, `Menos de ${m} €`))}
+        {DESCUENTOS_MIN.map((d) => rapido(filtro.dto === d, { dto: d }, { dto: undefined }, `Más de ${d} % de descuento`))}
+        {TIENDAS_FILTRO.map((t) => rapido(filtro.tienda === t.id, { tienda: t.id }, { tienda: undefined }, t.nombre === "Tiendas oficiales" ? "En tiendas oficiales" : `En ${t.nombre}`))}
+      </nav>
       <div className="flex items-center justify-between gap-3 border-b border-borde">
         <nav aria-label="Orden" className="-mb-px flex gap-1 overflow-x-auto">
           {ORDENES.map((o) => (
