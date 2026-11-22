@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { SITIO } from "@/lib/sitio";
 
-/** Copia el código de descuento al portapapeles (estilo de la ficha oscura). */
-export function CopiarCodigo({ codigo }: { codigo: string }) {
+/** Cupón de descuento: etiqueta «Cupón», el código y «Copiar». Pulsarlo copia el código al portapapeles. */
+export function CopiarCodigo({ codigo, grande = false }: { codigo: string; grande?: boolean }) {
   const [copiado, setCopiado] = useState(false);
   return (
     <button
@@ -13,15 +13,23 @@ export function CopiarCodigo({ codigo }: { codigo: string }) {
         try {
           await navigator.clipboard.writeText(codigo);
           setCopiado(true);
-          setTimeout(() => setCopiado(false), 1500);
+          setTimeout(() => setCopiado(false), 2000);
         } catch {
           /* sin permiso de portapapeles: el código sigue visible */
         }
       }}
-      className="rounded-lg border border-dashed border-ficha-borde px-2.5 py-1 text-sm font-medium text-ficha-texto hover:bg-ficha-chip"
-      aria-label={`Copiar el código ${codigo}`}
+      className={`flex items-center gap-2 rounded-lg border border-dashed border-verde-boton bg-ficha-chip text-ficha-texto hover:bg-ficha-borde ${grande ? "px-3 py-2 text-base" : "px-2.5 py-1.5 text-sm"}`}
+      aria-label={`Copiar el cupón ${codigo}`}
+      title="Copia el cupón de descuento"
     >
-      {copiado ? "¡Copiado!" : codigo}
+      <span className="text-xs font-semibold uppercase tracking-wide text-ficha-suave">Cupón</span>
+      <strong className="font-bold tracking-wide">{codigo}</strong>
+      <span className="flex items-center gap-1 rounded bg-verde-boton px-1.5 py-0.5 text-xs font-bold text-white">
+        <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          {copiado ? <path d="M5 13l4 4L19 7" /> : (<><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15V6a2 2 0 0 1 2-2h9" /></>)}
+        </svg>
+        {copiado ? "¡Copiado!" : "Copiar"}
+      </span>
     </button>
   );
 }

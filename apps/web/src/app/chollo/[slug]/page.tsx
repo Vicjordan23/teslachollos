@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { aplicarAfiliado, formatoEuros, nombreCategoria, porcentajeAhorro, precioFinal, TIENDAS } from "@chollesla/core";
-import { CompartirFicha } from "@/components/AccionesChollo";
+import { CompartirFicha, CopiarCodigo } from "@/components/AccionesChollo";
 import { HaceTiempo } from "@/components/HaceTiempo";
 import { CHOLLOS, cholloPorSlug, chollosDeCategoria, formatoFecha } from "@/datos/chollos";
 import { Guardar, Temperatura } from "@/components/Interacciones";
@@ -123,10 +123,14 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
             {ahorro > 0 && <span className="rounded-md bg-verde-claro px-2 text-sm font-medium text-verde">-{ahorro} %</span>}
           </div>
           {t.codigo && (
-            <p>
-              Con el código <strong className="rounded bg-verde-claro px-1.5 py-0.5 font-semibold text-verde">{t.codigo}</strong> en{" "}
-              {t.nombre}
-            </p>
+            <div className="flex flex-col gap-1.5">
+              <p>
+                Precio con el cupón de descuento de {t.nombre}. Si la tienda te lo pide al pagar, cópialo y pégalo:
+              </p>
+              <div>
+                <CopiarCodigo codigo={t.codigo} grande />
+              </div>
+            </div>
           )}
           <p className="text-sm text-texto-suave">
             Precio de <HaceTiempo fecha={c.fecha} alternativa={formatoFecha(c.fecha)} /> ({formatoFecha(c.fecha)}); puede variar.
