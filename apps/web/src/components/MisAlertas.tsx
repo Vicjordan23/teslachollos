@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { CATEGORIAS, formatoEuros, MODELOS, nombreCategoria, nombreModelo, type IdCategoria, type IdModelo } from "@chollesla/core";
+import { CATEGORIAS, formatoEuros, MODELOS, MODELOS_WEB, nombreCategoria, nombreModelo, type IdCategoria, type IdModelo } from "@chollesla/core";
 import { useEstado } from "@/lib/interacciones";
 import { supabase } from "@/lib/supabase";
 
@@ -95,7 +95,7 @@ export function MisAlertas() {
         <div className="grid gap-3 sm:grid-cols-3">
           <select value={modelo} onChange={(e) => setModelo(e.target.value)} aria-label="Modelo" className={campo}>
             <option value="">Cualquier modelo</option>
-            {MODELOS.map((m) => (
+            {MODELOS_WEB.map((m) => (
               <option key={m.id} value={m.id}>
                 {m.nombre}
               </option>

@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Barlow, Rajdhani } from "next/font/google";
-import { AVISO_AMAZON, CATEGORIAS, MODELOS, versionesDeModelo } from "@chollesla/core";
+import { AVISO_AMAZON, CATEGORIAS, MODELOS_WEB, versionesDeModelo } from "@chollesla/core";
+import { SilueTesla } from "@/components/SilueTesla";
 import { CajaBusqueda } from "@/components/CajaBusqueda";
 import { Analitica } from "@/components/Analitica";
 import { Suspense } from "react";
@@ -121,9 +122,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 Modelos <span aria-hidden className="text-xs">▾</span>
               </summary>
               <div className={DESPLEGABLE}>
-                {MODELOS.map((m) => (
+                {MODELOS_WEB.map((m) => (
                   <div key={m.id} className="flex flex-col">
-                    <Link href={`/modelo/${m.id}`} className={ENLACE_MENU}>
+                    <Link href={`/modelo/${m.id}`} className={`${ENLACE_MENU} items-center gap-3`}>
+                      <SilueTesla modelo={m.id} />
                       {m.nombre}
                     </Link>
                     {versionesDeModelo(m.id).map((v) => (

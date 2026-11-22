@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CATEGORIAS, MODELOS, versionesDeModelo } from "@chollesla/core";
+import { CATEGORIAS, MODELOS_WEB as MODELOS, versionesDeModelo } from "@chollesla/core";
 import { chollosDeCategoria, ORDENES } from "@/datos/chollos";
 import { DESCUENTOS_MIN, PRECIOS_MAX, TIENDAS_FILTRO, urlFiltro, type Filtro } from "@/lib/explorar";
 

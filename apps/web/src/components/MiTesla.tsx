@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { MODELOS as TODOS, VERSIONES, versionesDeModelo, type IdModelo, type IdVersion } from "@chollesla/core";
+import { MODELOS_WEB as MODELOS, VERSIONES, versionesDeModelo, type IdModelo, type IdVersion } from "@chollesla/core";
 import { urlFiltro } from "@/lib/explorar";
+import { SilueTesla } from "@/components/SilueTesla";
 
 const CLAVE = "chollesla-mi-tesla";
-const MODELOS = TODOS.filter((m) => m.id === "model-3" || m.id === "model-y");
 interface Eleccion {
   modelo: IdModelo;
   version?: IdVersion;
@@ -75,7 +75,8 @@ export function MiTesla() {
       <h2 className="text-xl font-semibold">¿Qué Tesla tienes?</h2>
       <div className="flex flex-wrap gap-2">
         {MODELOS.map((m) => (
-          <button key={m.id} type="button" className={boton(modelo?.id === m.id)} onClick={() => (guardar({ modelo: m.id }), setEditando(true))}>
+          <button key={m.id} type="button" className={`${boton(modelo?.id === m.id)} flex items-center gap-2`} onClick={() => (guardar({ modelo: m.id }), setEditando(true))}>
+            <SilueTesla modelo={m.id} className="h-5 w-12" />
             {m.nombre}
           </button>
         ))}

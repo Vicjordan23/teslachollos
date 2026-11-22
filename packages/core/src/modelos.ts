@@ -65,8 +65,12 @@ export const VERSIONES: { id: IdVersion; modelo: "model-3" | "model-y"; nombre: 
   { id: "model-y-l", modelo: "model-y", nombre: "Model Y L", detalle: "6 plazas, más larga" },
 ];
 
+/** Modelos que la web ofrece para elegir (la web es de Model 3 y Model Y). */
+export const MODELOS_WEB = MODELOS.filter((m) => m.id === "model-3" || m.id === "model-y");
+
+/** Versiones que se ofrecen en los menús y filtros. «Model Y L» sigue existiendo para etiquetar chollos, pero no se ofrece. */
 export function versionesDeModelo(modelo: IdModelo) {
-  return VERSIONES.filter((v) => v.modelo === modelo);
+  return VERSIONES.filter((v) => v.modelo === modelo && v.id !== "model-y-l");
 }
 
 export function nombreVersion(id: IdVersion): string {
