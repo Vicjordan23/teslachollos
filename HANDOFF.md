@@ -1,5 +1,11 @@
 # HANDOFF
 
+## 22/11/2026 (35) — SEO y retoques
+
+- Quitadas las siluetas de Tesla del menú y del selector (Vic quiere fotos frontales reales; si no se pueden, nada). Menús y filtros solo Model 3 y Model Y; Model Y L, S y X ya no se ofrecen (las etiquetas de chollos siguen).
+- Indicador de precio: «hoy», «ayer» o «esta semana» (hasta 7 días); no se inventan fechas. Pendiente: refresco diario por tandas (~280 productos/día) en tesla-telegram `actualizar_precios.yml`, hoy solo lunes.
+- SEO (skill ecc:seo): título y descripción propios por ficha (recortados, con precio y descuento), título de la home, categorías, modelos y tiendas con recuento, Open Graph y Twitter, JSON-LD Organization, WebSite (buscador), Product con estado nuevo, BreadcrumbList, bloque «Más <categoría> para tu Tesla» como enlazado interno, robots (api, admin, cuenta…) y sitemap con tiendas y comunidad.
+
 ## 22/11/2026 (34) — Mejoras de la web (lista de ChatGPT)
 
 - Tema claro/oscuro: botón sol/luna en la cabecera (`SelectorTema`, clave `chollesla-tema`); por defecto sigue oscuro. Variables en `globals.css` bajo `:root[data-tema="claro"]`, script en `<head>` para evitar parpadeo.
