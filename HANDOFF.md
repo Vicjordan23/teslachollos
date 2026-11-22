@@ -1,5 +1,15 @@
 # HANDOFF
 
+## 22/11/2026 (34) — Mejoras de la web (lista de ChatGPT)
+
+- Tema claro/oscuro: botón sol/luna en la cabecera (`SelectorTema`, clave `chollesla-tema`); por defecto sigue oscuro. Variables en `globals.css` bajo `:root[data-tema="claro"]`, script en `<head>` para evitar parpadeo.
+- Filtros rápidos (`Filtros.tsx`): menos de 10/20/50 €, más de 30 % de descuento, Amazon, AliExpress y tiendas oficiales. Parámetros `max`, `dto`, `tienda` en `/buscar` (`lib/explorar.ts`, `filtrarExtra` en `datos/chollos.ts`). Se combinan entre sí y con modelo/versión/categoría.
+- «¿Qué Tesla tienes?» (`MiTesla.tsx`) en la home: solo Model 3 y Model Y, con su versión (Legacy, Highland, Juniper, Standard, Model Y L). Se guarda en localStorage (`chollesla-mi-tesla`) y lleva a los accesorios compatibles con `urlFiltro`.
+- «Hace X tiempo» (`HaceTiempo.tsx`) en tarjetas y ficha: se calcula en el navegador desde la fecha del precio (no hay fecha de publicación); no marca ofertas como caducadas.
+- «Últimos chollos» (`UltimosChollos.tsx`): 6 con la fecha de precio más reciente, encima del catálogo en la home.
+- Botón «Compartir chollo» en la ficha (`CompartirFicha`): menú nativo del móvil o WhatsApp, Telegram y copiar enlace.
+- Pendiente: Vic debe revisar el aspecto del tema claro; marcar `ir_al_chollo` como evento clave en GA4 cuando aparezca; colección «Chollesla» en GA4.
+
 ## 22/11/2026 (33) — Clics en «Ir al chollo» y panel de afiliados
 
 - Tablas `clics_ir`, `ingresos_afiliados`, `administradores` (migración 20261123000000, ya ejecutada). Cada clic anota chollo y tienda, sin IP ni identificador; se ignoran robots. `/ir/<slug>` (no Amazon) lo anota en el servidor; Amazon va directo y avisa con `ping` a `/api/clic/<slug>` (Firefox no lo envía). Probado en producción: 302 y 204 con fila en `clics_ir`.

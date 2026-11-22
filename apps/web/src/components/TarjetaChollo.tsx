@@ -6,6 +6,7 @@ import { Guardar, Temperatura } from "@/components/Interacciones";
 import { EtiquetasModelo } from "@/components/EtiquetasModelo";
 import { atributosSalida, enlaceSalida } from "@/lib/salida";
 import { formatoFecha } from "@/datos/chollos";
+import { HaceTiempo } from "@/components/HaceTiempo";
 
 export interface DatosChollo {
   slug: string;
@@ -65,8 +66,8 @@ export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChol
               <path d="M12 7v5l3 2" />
             </svg>
             <span>
-              <span className="hidden sm:inline">Precio del </span>
-              {formatoFecha(chollo.fecha)}
+              <span className="hidden sm:inline">Precio de </span>
+              <HaceTiempo fecha={chollo.fecha} alternativa={formatoFecha(chollo.fecha)} />
             </span>
           </span>
         </div>

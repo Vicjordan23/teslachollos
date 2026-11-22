@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { SITIO } from "@/lib/sitio";
 
 /** Copia el código de descuento al portapapeles (estilo de la ficha oscura). */
 export function CopiarCodigo({ codigo }: { codigo: string }) {
@@ -56,5 +57,60 @@ export function Compartir({ ruta, titulo }: { ruta: string; titulo: string }) {
       </svg>
       {hecho && <span className="text-xs">Copiado</span>}
     </button>
+  );
+}
+
+/** Botón «Compartir chollo» de la ficha: menú nativo del móvil o, si no hay, WhatsApp, Telegram y copiar el enlace. */
+export function CompartirFicha({ ruta, titulo }: { ruta: string; titulo: string }) {
+  const [abierto, setAbierto] = useState(false);
+  const [copiado, setCopiado] = useState(false);
+  const url = `${SITIO}${ruta}`;
+  const texto = encodeURIComponent(`${titulo} ${url}`);
+  const estilo = "rounded border border-borde bg-superficie px-3 py-2 text-sm font-medium hover:border-verde-boton";
+  return (
+    <div className="flex flex-col gap-2">
+      <button
+        type="button"
+        className={`${estilo} w-fit`}
+        onClick={async () => {
+          if (typeof navigator !== "undefined" && navigator.share) {
+            try {
+              await navigator.share({ title: titulo, url });
+            } catch {
+              /* la persona canceló */
+            }
+            return;
+          }
+          setAbierto((v) => !v);
+        }}
+      >
+        Compartir chollo
+      </button>
+      {abierto && (
+        <div className="flex flex-wrap gap-2">
+          <a className={estilo} href={`https://wa.me/?text=${texto}`} target="_blank" rel="noopener noreferrer">
+            WhatsApp
+          </a>
+          <a className={estilo} href={`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(titulo)}`} target="_blank" rel="noopener noreferrer">
+            Telegram
+          </a>
+          <button
+            type="button"
+            className={estilo}
+            onClick={async () => {
+              try {
+                await navigator.clipboard.writeText(url);
+                setCopiado(true);
+                setTimeout(() => setCopiado(false), 1500);
+              } catch {
+                /* sin permiso de portapapeles */
+              }
+            }}
+          >
+            {copiado ? "¡Enlace copiado!" : "Copiar enlace"}
+          </button>
+        </div>
+      )}
+    </div>
   );
 }

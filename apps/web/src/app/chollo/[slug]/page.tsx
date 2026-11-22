@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { aplicarAfiliado, formatoEuros, nombreCategoria, porcentajeAhorro, precioFinal, TIENDAS } from "@chollesla/core";
+import { CompartirFicha } from "@/components/AccionesChollo";
+import { HaceTiempo } from "@/components/HaceTiempo";
 import { CHOLLOS, cholloPorSlug, formatoFecha } from "@/datos/chollos";
 import { Guardar, Temperatura } from "@/components/Interacciones";
 import { Reportar } from "@/components/Reportar";
@@ -101,7 +103,9 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
               {t.nombre}
             </p>
           )}
-          <p className="text-sm text-texto-suave">Precio del {formatoFecha(c.fecha)}; puede variar.</p>
+          <p className="text-sm text-texto-suave">
+            Precio de <HaceTiempo fecha={c.fecha} alternativa={formatoFecha(c.fecha)} /> ({formatoFecha(c.fecha)}); puede variar.
+          </p>
           {c.tienda === "evdance" && (
             <p className="text-sm text-texto-suave">Ojo: EVDANCE envía desde la UE y cobra gastos de envío a España.</p>
           )}
@@ -117,6 +121,7 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
               Ir al chollo en {t.nombre}
             </a>
           )}
+          <CompartirFicha ruta={`/chollo/${c.slug}`} titulo={c.titulo} />
           <Reportar slug={c.slug} />
         </div>
       </article>

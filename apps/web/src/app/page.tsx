@@ -1,4 +1,6 @@
 import { Filtros } from "@/components/Filtros";
+import { MiTesla } from "@/components/MiTesla";
+import { UltimosChollos } from "@/components/UltimosChollos";
 import { Paginacion } from "@/components/Paginacion";
 import { Rejilla } from "@/components/Rejilla";
 import { CHOLLOS, pagina, totalPaginas } from "@/datos/chollos";
@@ -6,7 +8,9 @@ import { CHOLLOS, pagina, totalPaginas } from "@/datos/chollos";
 export default function Inicio() {
   return (
     <main className="mx-auto flex w-full max-w-[1250px] flex-1 flex-col gap-5 px-4 py-6">
+      <MiTesla />
       <Filtros filtro={{}} />
+      <UltimosChollos />
       <section className="flex flex-col gap-1">
         <h1 className="text-3xl font-semibold">Accesorios Tesla al mejor precio</h1>
         <p className="text-texto-suave">
