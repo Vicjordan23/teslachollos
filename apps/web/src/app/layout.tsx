@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Barlow, Rajdhani } from "next/font/google";
 import { AVISO_AMAZON, CATEGORIAS, MODELOS_WEB, versionesDeModelo } from "@chollesla/core";
-import { SilueTesla } from "@/components/SilueTesla";
 import { CajaBusqueda } from "@/components/CajaBusqueda";
 import { Analitica } from "@/components/Analitica";
 import { Suspense } from "react";
@@ -23,7 +22,10 @@ export const metadata: Metadata = {
     template: "%s · Chollesla",
   },
   description:
-    "Chollos de accesorios para Tesla en España con el precio final después del código de descuento.",
+    "Chollos de accesorios para Tesla Model 3 y Model Y en España con el precio final después del código de descuento.",
+  applicationName: "Chollesla",
+  openGraph: { siteName: "Chollesla", locale: "es_ES", type: "website" },
+  twitter: { card: "summary_large_image" },
   robots: INDEXAR ? undefined : { index: false, follow: false },
 };
 
@@ -44,6 +46,22 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="es" className={`${cuerpo.variable} ${display.variable} h-full antialiased`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: SCRIPT_TEMA }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              { "@context": "https://schema.org", "@type": "Organization", name: "Chollesla", url: SITIO, logo: `${SITIO}/icon.svg`, sameAs: [TELEGRAM] },
+              {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                name: "Chollesla",
+                url: SITIO,
+                inLanguage: "es-ES",
+                potentialAction: { "@type": "SearchAction", target: `${SITIO}/buscar?q={termino}`, "query-input": "required name=termino" },
+              },
+            ]).replace(/</g, "\\u003c"),
+          }}
+        />
       </head>
       <body className="min-h-full flex flex-col">
         <a
@@ -124,8 +142,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <div className={DESPLEGABLE}>
                 {MODELOS_WEB.map((m) => (
                   <div key={m.id} className="flex flex-col">
-                    <Link href={`/modelo/${m.id}`} className={`${ENLACE_MENU} items-center gap-3`}>
-                      <SilueTesla modelo={m.id} />
+                    <Link href={`/modelo/${m.id}`} className={ENLACE_MENU}>
                       {m.nombre}
                     </Link>
                     {versionesDeModelo(m.id).map((v) => (

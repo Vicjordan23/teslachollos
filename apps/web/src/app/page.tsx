@@ -1,9 +1,16 @@
+import type { Metadata } from "next";
 import { Filtros } from "@/components/Filtros";
 import { MiTesla } from "@/components/MiTesla";
 import { UltimosChollos } from "@/components/UltimosChollos";
 import { Paginacion } from "@/components/Paginacion";
 import { Rejilla } from "@/components/Rejilla";
 import { CHOLLOS, pagina, totalPaginas } from "@/datos/chollos";
+
+export const metadata: Metadata = {
+  title: { absolute: "Accesorios Tesla baratos: chollos Model 3 y Model Y | Chollesla" },
+  description: `Más de ${Math.floor(CHOLLOS.length / 100) * 100} accesorios para Tesla Model 3 y Model Y con el precio final ya calculado tras el código de descuento. Amazon, AliExpress y tiendas oficiales.`,
+  alternates: { canonical: "/" },
+};
 
 export default function Inicio() {
   return (

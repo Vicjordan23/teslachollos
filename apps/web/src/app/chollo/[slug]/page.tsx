@@ -5,12 +5,14 @@ import { notFound } from "next/navigation";
 import { aplicarAfiliado, formatoEuros, nombreCategoria, porcentajeAhorro, precioFinal, TIENDAS } from "@chollesla/core";
 import { CompartirFicha } from "@/components/AccionesChollo";
 import { HaceTiempo } from "@/components/HaceTiempo";
-import { CHOLLOS, cholloPorSlug, formatoFecha } from "@/datos/chollos";
+import { CHOLLOS, cholloPorSlug, chollosDeCategoria, formatoFecha } from "@/datos/chollos";
 import { Guardar, Temperatura } from "@/components/Interacciones";
 import { Reportar } from "@/components/Reportar";
 import { atributosSalida, enlaceSalida } from "@/lib/salida";
 import { EtiquetasModelo } from "@/components/EtiquetasModelo";
 import { SITIO } from "@/lib/sitio";
+import { acortar } from "@/lib/seo";
+import { TiraChollos } from "@/components/TiraChollos";
 
 // Solo existen las rutas generadas en el build; el resto da 404.
 export const dynamicParams = false;
@@ -23,12 +25,20 @@ export async function generateMetadata({ params }: PageProps<"/chollo/[slug]">):
   const c = cholloPorSlug((await params).slug);
   if (!c) return {};
   const t = TIENDAS[c.tienda];
-  const precio = formatoEuros(precioFinal(c.precioTienda, c.tienda));
+  const final = precioFinal(c.precioTienda, c.tienda);
+  const precio = formatoEuros(final);
+  const ahorro = porcentajeAhorro(final, c.precioTienda);
+  const titulo = `${acortar(c.titulo, 46)} por ${precio}`;
+  const descripcion = acortar(
+    `${acortar(c.titulo, 70)}: ${precio}${ahorro > 0 ? ` (-${ahorro} %)` : ""} con el precio final ya calculado${t.codigo ? ` usando el código ${t.codigo}` : ""} en ${t.nombre}. Compatible con ${acortar(c.modelos, 45)}.`,
+    158,
+  );
   return {
-    title: `${c.titulo} por ${precio}`,
-    description: `${c.descripcion} ${t.codigo ? `Precio con el código ${t.codigo} en ${t.nombre}.` : `En ${t.nombre}.`}`.trim(),
+    title: titulo,
+    description: descripcion,
     alternates: { canonical: `/chollo/${c.slug}` },
-    openGraph: { title: `${c.titulo} por ${precio}`, images: [c.foto], type: "website" },
+    openGraph: { title: titulo, description: descripcion, url: `/chollo/${c.slug}`, images: [c.foto], type: "website" },
+    twitter: { card: "summary_large_image", title: titulo, description: descripcion, images: [c.foto] },
   };
 }
 
@@ -46,20 +56,35 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
     "@context": "https://schema.org",
     "@type": "Product",
     name: c.titulo,
+    url: `${SITIO}/chollo/${c.slug}`,
     description: c.descripcion || undefined,
+    category: nombreCategoria(c.categoria),
     image: [c.foto],
     offers: {
       "@type": "Offer",
       price: (final / 100).toFixed(2),
       priceCurrency: "EUR",
+      itemCondition: "https://schema.org/NewCondition",
       url: `${SITIO}/chollo/${c.slug}`,
       seller: { "@type": "Organization", name: t.nombre },
     },
   };
 
+  const migas = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: SITIO },
+      { "@type": "ListItem", position: 2, name: nombreCategoria(c.categoria), item: `${SITIO}/categoria/${c.categoria}` },
+      { "@type": "ListItem", position: 3, name: acortar(c.titulo, 80), item: `${SITIO}/chollo/${c.slug}` },
+    ],
+  };
+  const relacionados = chollosDeCategoria(c.categoria).filter((x) => x.slug !== c.slug).slice(0, 6);
+
   return (
     <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-5 px-4 py-6">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(migas).replace(/</g, "\\u003c") }} />
       <nav className="text-sm text-texto-suave">
         <Link href="/" className="hover:underline">
           Inicio
@@ -125,6 +150,7 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
           <Reportar slug={c.slug} />
         </div>
       </article>
+      <TiraChollos titulo={`Más ${nombreCategoria(c.categoria).toLowerCase()} para tu Tesla`} etiqueta="Chollos relacionados" lista={relacionados} />
     </main>
   );
 }

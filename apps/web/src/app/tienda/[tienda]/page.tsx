@@ -21,10 +21,14 @@ export async function generateMetadata({ params }: PageProps<"/tienda/[tienda]">
   const id = tiendaValida((await params).tienda);
   if (!id) return {};
   const t = TIENDAS[id];
+  const n = chollosDeTienda(id).length;
+  const titulo = `Chollos de ${t.nombre} para Tesla Model 3 y Model Y`;
+  const descripcion = `${n.toLocaleString("es-ES")} accesorios para Tesla en ${t.nombre} con el precio final${t.codigo ? ` usando el código ${t.codigo}` : " ya calculado"}.`;
   return {
-    title: `Chollos de ${t.nombre} para Tesla`,
-    description: `Accesorios para Tesla en ${t.nombre} con el precio final${t.codigo ? ` usando el código ${t.codigo}` : ""}.`,
+    title: titulo,
+    description: descripcion,
     alternates: { canonical: `/tienda/${id}` },
+    openGraph: { title: titulo, description: descripcion, url: `/tienda/${id}` },
   };
 }
 

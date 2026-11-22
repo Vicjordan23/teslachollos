@@ -19,10 +19,14 @@ function modeloValido(id: string): IdModelo | null {
 export async function generateMetadata({ params }: PageProps<"/modelo/[modelo]">): Promise<Metadata> {
   const id = modeloValido((await params).modelo);
   if (!id) return {};
+  const n = chollosDeModelo(id).length;
+  const titulo = `Accesorios para Tesla ${nombreModelo(id)}: ${n.toLocaleString("es-ES")} chollos`;
+  const descripcion = `Accesorios compatibles con el Tesla ${nombreModelo(id)} con el precio final tras el código de descuento: alfombrillas, fundas, cargadores, organizadores y más. Amazon, AliExpress y tiendas oficiales.`;
   return {
-    title: `Accesorios para Tesla ${nombreModelo(id)} en oferta`,
-    description: `Chollos de accesorios para el Tesla ${nombreModelo(id)} con el precio final tras el código de descuento.`,
+    title: titulo,
+    description: descripcion,
     alternates: { canonical: `/modelo/${id}` },
+    openGraph: { title: titulo, description: descripcion, url: `/modelo/${id}` },
   };
 }
 
