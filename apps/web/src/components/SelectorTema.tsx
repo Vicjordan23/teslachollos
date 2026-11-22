@@ -8,12 +8,12 @@ const CLAVE = "chollesla-tema";
 /** Script que se ejecuta antes de pintar para aplicar el tema elegido y evitar el parpadeo. */
 export const SCRIPT_TEMA = `try{var t=localStorage.getItem("${CLAVE}");if(t==="claro"||t==="oscuro")document.documentElement.dataset.tema=t}catch(e){}`;
 
-/** Botón sol/luna de la cabecera. Recuerda la elección en este navegador; si no se elige nada, la web es oscura. */
+/** Botón sol/luna de la cabecera. Recuerda la elección en este navegador; si no se elige nada, la web es clara. */
 export function SelectorTema() {
-  const [tema, setTema] = useState<Tema>("oscuro");
+  const [tema, setTema] = useState<Tema>("claro");
 
   useEffect(() => {
-    setTema(document.documentElement.dataset.tema === "claro" ? "claro" : "oscuro");
+    setTema(document.documentElement.dataset.tema === "oscuro" ? "oscuro" : "claro");
   }, []);
 
   const cambiar = () => {

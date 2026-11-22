@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Barlow, Rajdhani } from "next/font/google";
+import { formatoFecha, ULTIMA_REVISION } from "@/datos/chollos";
 import { FotoCoche } from "@/components/FotoCoche";
 import { AVISO_AMAZON, CATEGORIAS, MODELOS_WEB, versionesDeModelo } from "@chollesla/core";
 import { CajaBusqueda } from "@/components/CajaBusqueda";
@@ -44,7 +45,7 @@ const ENLACE_MENU = "flex items-center gap-2 rounded px-3 py-2 text-texto hover:
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es" className={`${cuerpo.variable} ${display.variable} h-full antialiased`} suppressHydrationWarning>
+    <html lang="es" className={`${cuerpo.variable} ${display.variable} h-full antialiased`} data-tema="claro" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: SCRIPT_TEMA }} />
         <script
@@ -183,6 +184,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <footer className="border-t border-borde bg-superficie px-4 py-6 text-sm text-texto-suave">
           <div className="mx-auto flex max-w-[1250px] flex-col gap-2">
             <p>Chollesla no es una web oficial de Tesla ni está relacionada con Tesla, Inc.</p>
+            <p>Precios revisados con frecuencia en cada tienda. Última revisión: {formatoFecha(ULTIMA_REVISION)}. Pueden cambiar sin aviso.</p>
             <p>
               Los enlaces a tiendas son de afiliado: Chollesla puede ganar una comisión si compras, sin coste extra para
               ti. {AVISO_AMAZON}

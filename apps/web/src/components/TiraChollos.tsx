@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { formatoEuros, urlFoto } from "@chollesla/core";
-import { ahorroDe, finalDe, formatoFecha, type CholloOficial } from "@/datos/chollos";
-import { HaceTiempo } from "@/components/HaceTiempo";
+import { ahorroDe, finalDe, type CholloOficial } from "@/datos/chollos";
 
 /** Fila de chollos pequeños con foto, precio final y descuento (últimos chollos, relacionados…). */
 export function TiraChollos({ titulo, etiqueta, lista, prioridad = 0 }: { titulo: string; etiqueta: string; lista: CholloOficial[]; prioridad?: number }) {
@@ -26,9 +25,6 @@ export function TiraChollos({ titulo, etiqueta, lista, prioridad = 0 }: { titulo
                 <span className="line-clamp-2 text-sm font-medium leading-snug">{c.titulo}</span>
                 <span className="mt-auto flex items-baseline justify-between gap-2">
                   <span className="text-lg font-extrabold text-ficha-precio">{formatoEuros(finalDe(c))}</span>
-                  <span className="text-xs text-texto-suave">
-                    <HaceTiempo fecha={c.fecha} alternativa={formatoFecha(c.fecha)} />
-                  </span>
                 </span>
               </Link>
             </li>

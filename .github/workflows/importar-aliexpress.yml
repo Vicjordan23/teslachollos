@@ -1,10 +1,10 @@
 name: Importar AliExpress
 
-# Cada lunes (y a mano desde la pestaña Actions): busca accesorios para Tesla con la API de afiliados de AliExpress,
+# Cada día (y a mano desde la pestaña Actions): busca accesorios para Tesla con la API de afiliados de AliExpress,
 # actualiza apps/web/src/datos/aliexpress.json y lo sube a main (Cloudflare despliega solo).
 on:
   schedule:
-    - cron: "43 4 * * 1"
+    - cron: "43 4 * * *"
   workflow_dispatch:
 
 permissions:

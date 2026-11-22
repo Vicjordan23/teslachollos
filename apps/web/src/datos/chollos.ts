@@ -62,7 +62,16 @@ function intercalar(lista: CholloOficial[]): CholloOficial[] {
   return salida;
 }
 
-export const CHOLLOS: CholloOficial[] = intercalar([...(datos as unknown as CholloOficial[]), ...(aliexpress as unknown as CholloOficial[])]);
+const TODOS: CholloOficial[] = [...(datos as unknown as CholloOficial[]), ...(aliexpress as unknown as CholloOficial[])];
+
+/** Fecha de la revisión de precios más reciente del catálogo (aaaa-mm-dd). */
+export const ULTIMA_REVISION = TODOS.reduce((max, c) => (c.fecha > max ? c.fecha : max), "");
+
+/** Un producto que lleva más de 10 días sin precio nuevo (agotado o retirado) deja de mostrarse. Se mide contra la última revisión del catálogo, así que si la actualización se parase no se vaciaría la web. */
+const DIAS_CADUCIDAD = 10;
+const LIMITE = ULTIMA_REVISION ? new Date(Date.parse(ULTIMA_REVISION) - DIAS_CADUCIDAD * 86_400_000).toISOString().slice(0, 10) : "";
+
+export const CHOLLOS: CholloOficial[] = intercalar(TODOS.filter((c) => c.fecha >= LIMITE));
 
 const PORSLUG = new Map(CHOLLOS.map((c) => [c.slug, c]));
 

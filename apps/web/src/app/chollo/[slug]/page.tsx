@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { aplicarAfiliado, formatoEuros, nombreCategoria, porcentajeAhorro, precioFinal, TIENDAS } from "@chollesla/core";
 import { CompartirFicha, CopiarCodigo } from "@/components/AccionesChollo";
-import { HaceTiempo } from "@/components/HaceTiempo";
+import { AvisoPrecio } from "@/components/AvisoPrecio";
 import { CHOLLOS, cholloPorSlug, chollosDeCategoria, formatoFecha } from "@/datos/chollos";
 import { Guardar, Temperatura } from "@/components/Interacciones";
 import { Reportar } from "@/components/Reportar";
@@ -132,9 +132,8 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
               </div>
             </div>
           )}
-          <p className="text-sm text-texto-suave">
-            Precio de <HaceTiempo fecha={c.fecha} alternativa={formatoFecha(c.fecha)} /> ({formatoFecha(c.fecha)}); puede variar.
-          </p>
+          <p className="text-sm text-texto-suave">Precio revisado el {formatoFecha(c.fecha)}; puede variar.</p>
+          <AvisoPrecio fecha={c.fecha} className="w-fit" />
           {c.tienda === "evdance" && (
             <p className="text-sm text-texto-suave">Ojo: EVDANCE envía desde la UE y cobra gastos de envío a España.</p>
           )}

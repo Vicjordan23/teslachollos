@@ -1,0 +1,78 @@
+name: Importar catálogo oficial
+
+# Cada día, una hora después de que el agente de Telegram actualice los precios (tesla-telegram, 07:30 UTC), copia el
+# catálogo con los precios nuevos a apps/web/src/datos/oficiales.json y lo sube a main (Cloudflare despliega solo).
+# Los productos que llevan más de 10 días sin precio (agotados o retirados) ya no traen precio y desaparecen de la web.
+#
+# Necesita el secreto TG_LECTURA: un token de GitHub de solo lectura (Contents: Read) sobre el repositorio
+# Vicjordan23/tesla-telegram, que es privado. Sin él, esta acción avisa y no hace nada.
+on:
+  schedule:
+    - cron: "30 8 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency: importar-catalogo
+
+jobs:
+  importar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Comprobar el secreto
+        id: secreto
+        env:
+          TG: ${{ secrets.TG_LECTURA }}
+        run: echo "hay=$([ -n "$TG" ] && echo si || echo no)" >> "$GITHUB_OUTPUT"
+      - name: Falta el secreto
+        if: steps.secreto.outputs.hay != 'si'
+        run: echo "::warning::Falta el secreto TG_LECTURA (token de lectura del repositorio tesla-telegram); no se importa el catálogo."
+      - uses: actions/checkout@v4
+        if: steps.secreto.outputs.hay == 'si'
+        with:
+          ref: main
+      - uses: actions/checkout@v4
+        if: steps.secreto.outputs.hay == 'si'
+        with:
+          repository: Vicjordan23/tesla-telegram
+          token: ${{ secrets.TG_LECTURA }}
+          path: tg
+      - uses: actions/setup-node@v4
+        if: steps.secreto.outputs.hay == 'si'
+        with:
+          node-version: 24
+          cache: npm
+      - if: steps.secreto.outputs.hay == 'si'
+        run: npm ci
+      - if: steps.secreto.outputs.hay == 'si'
+        run: npm run build -w packages/core
+      - name: Importar el catálogo
+        if: steps.secreto.outputs.hay == 'si'
+        run: node scripts/importar-catalogo.mjs tg
+      - name: Traducir al español los títulos que vengan en otro idioma
+        if: steps.secreto.outputs.hay == 'si'
+        run: node scripts/traducir-titulos.mjs
+      - name: Comprobar que la web compila con los datos nuevos
+        if: steps.secreto.outputs.hay == 'si'
+        run: npm test && npm run typecheck
+      - name: Subir los cambios
+        id: subir
+        if: steps.secreto.outputs.hay == 'si'
+        run: |
+          if git diff --quiet -- apps/web/src/datos/oficiales.json; then echo "Sin cambios."; echo "hay=no" >> "$GITHUB_OUTPUT"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add apps/web/src/datos/oficiales.json scripts/traducciones.json
+          git commit -m "datos: catálogo oficial y precios actualizados"
+          git push origin HEAD:main
+          echo "hay=si" >> "$GITHUB_OUTPUT"
+      - name: Sincronizar Supabase
+        if: steps.subir.outputs.hay == 'si'
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          if [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then echo "::warning::Sin secretos de Supabase; no se sincroniza."; exit 0; fi
+          node scripts/sincronizar-supabase.mjs

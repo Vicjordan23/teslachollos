@@ -5,8 +5,7 @@ import { Compartir, CopiarCodigo } from "@/components/AccionesChollo";
 import { Guardar, Temperatura } from "@/components/Interacciones";
 import { EtiquetasModelo } from "@/components/EtiquetasModelo";
 import { atributosSalida, enlaceSalida } from "@/lib/salida";
-import { formatoFecha } from "@/datos/chollos";
-import { HaceTiempo } from "@/components/HaceTiempo";
+import { AvisoPrecio } from "@/components/AvisoPrecio";
 
 export interface DatosChollo {
   slug: string;
@@ -60,16 +59,7 @@ export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChol
       <div className="flex min-w-0 flex-1 flex-col gap-2 sm:gap-2.5">
         <div className="flex items-center justify-between gap-2">
           <Temperatura slug={chollo.slug} />
-          <span className="flex items-center gap-1.5 rounded-md bg-ficha-aviso px-2.5 py-1.5 text-xs text-ficha-aviso-texto sm:text-sm">
-            <svg viewBox="0 0 24 24" className={ICONO} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
-              <circle cx="12" cy="12" r="9" />
-              <path d="M12 7v5l3 2" />
-            </svg>
-            <span>
-              <span className="hidden sm:inline">Precio de </span>
-              <HaceTiempo fecha={chollo.fecha} alternativa={formatoFecha(chollo.fecha)} />
-            </span>
-          </span>
+          <AvisoPrecio fecha={chollo.fecha} />
         </div>
 
         <h2 className="line-clamp-2 text-base font-bold leading-snug sm:text-xl">
