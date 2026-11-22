@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Barlow, Rajdhani } from "next/font/google";
+import { FotoCoche } from "@/components/FotoCoche";
 import { AVISO_AMAZON, CATEGORIAS, MODELOS_WEB, versionesDeModelo } from "@chollesla/core";
 import { CajaBusqueda } from "@/components/CajaBusqueda";
 import { Analitica } from "@/components/Analitica";
@@ -143,6 +144,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 {MODELOS_WEB.map((m) => (
                   <div key={m.id} className="flex flex-col">
                     <Link href={`/modelo/${m.id}`} className={ENLACE_MENU}>
+                      <FotoCoche id={m.id} />
                       {m.nombre}
                     </Link>
                     {versionesDeModelo(m.id).map((v) => (
@@ -151,7 +153,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                         href={`/buscar?modelo=${m.id}&version=${v.id}`}
                         className="flex items-center gap-2 rounded py-1.5 pl-8 pr-3 text-sm font-medium text-texto-suave hover:bg-fondo hover:text-verde-boton"
                       >
-                        {v.nombre} <span className="text-xs opacity-70">{v.detalle}</span>
+                        <FotoCoche id={v.id} className="h-7 w-14" />
+                        <span>
+                          {v.nombre} <span className="text-xs opacity-70">{v.detalle}</span>
+                        </span>
                       </Link>
                     ))}
                   </div>

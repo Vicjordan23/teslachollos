@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { MODELOS_WEB as MODELOS, VERSIONES, versionesDeModelo, type IdModelo, type IdVersion } from "@chollesla/core";
 import { urlFiltro } from "@/lib/explorar";
+import { FotoCoche } from "@/components/FotoCoche";
 
 const CLAVE = "chollesla-mi-tesla";
 interface Eleccion {
@@ -53,8 +54,11 @@ export function MiTesla() {
     const nombre = version ? `${modelo.nombre} ${version.nombre}` : modelo.nombre;
     return (
       <section aria-label="Tu Tesla" className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-borde bg-superficie px-4 py-3">
-        <p className="text-sm">
-          <span className="text-texto-suave">Tu Tesla:</span> <b>{nombre}</b>
+        <p className="flex items-center gap-3 text-sm">
+          <FotoCoche id={version?.id ?? modelo.id} className="h-10 w-20" />
+          <span>
+            <span className="text-texto-suave">Tu Tesla:</span> <b>{nombre}</b>
+          </span>
         </p>
         <div className="flex gap-2">
           <Link href={urlFiltro({ modelo: modelo.id, version: version?.id })} className="rounded bg-verde-boton px-4 py-2 text-sm font-semibold text-white hover:bg-verde-boton-hover">
@@ -62,6 +66,9 @@ export function MiTesla() {
           </Link>
           <button type="button" onClick={() => setEditando(true)} className={boton(false)}>
             Cambiar
+          </button>
+          <button type="button" onClick={() => guardar(null)} className={boton(false)} title="Quita tu elección para ver los accesorios de todos los coches">
+            Quitar
           </button>
         </div>
       </section>
@@ -74,7 +81,8 @@ export function MiTesla() {
       <h2 className="text-xl font-semibold">¿Qué Tesla tienes?</h2>
       <div className="flex flex-wrap gap-2">
         {MODELOS.map((m) => (
-          <button key={m.id} type="button" className={`${boton(modelo?.id === m.id)}`} onClick={() => (guardar({ modelo: m.id }), setEditando(true))}>
+          <button key={m.id} type="button" className={`${boton(modelo?.id === m.id)} flex items-center gap-2`} onClick={() => (guardar({ modelo: m.id }), setEditando(true))}>
+            <FotoCoche id={m.id} className="h-6 w-12" />
             {m.nombre}
           </button>
         ))}
@@ -87,13 +95,16 @@ export function MiTesla() {
               <button
                 key={v.id}
                 type="button"
-                className={boton(version?.id === v.id)}
+                className={`${boton(version?.id === v.id)} flex items-center gap-2`}
                 onClick={() => {
                   guardar({ modelo: modelo.id, version: v.id });
                   setEditando(false);
                 }}
               >
-                {v.nombre} <span className="font-normal opacity-70">· {v.detalle}</span>
+                <FotoCoche id={v.id} className="h-8 w-16" />
+                <span>
+                  {v.nombre} <span className="font-normal opacity-70">· {v.detalle}</span>
+                </span>
               </button>
             ))}
           </div>
