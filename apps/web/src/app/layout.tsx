@@ -140,7 +140,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <summary className="flex cursor-pointer list-none items-center gap-2 rounded bg-[#2f7dff] px-4 py-2 text-white marker:hidden hover:brightness-110">
                 Modelos <span aria-hidden className="text-xs">▾</span>
               </summary>
-              <div className={DESPLEGABLE}>
+              <div className={DESPLEGABLE.replace("w-60", "w-80")}>
                 {MODELOS_WEB.map((m) => (
                   <div key={m.id} className="flex flex-col">
                     <Link href={`/modelo/${m.id}`} className={ENLACE_MENU}>
