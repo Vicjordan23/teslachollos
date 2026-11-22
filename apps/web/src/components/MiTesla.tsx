@@ -75,7 +75,7 @@ export function MiTesla() {
       <h2 className="text-xl font-semibold">¿Qué Tesla tienes?</h2>
       <div className="flex flex-wrap gap-2">
         {MODELOS.map((m) => (
-          <button key={m.id} type="button" className={boton(modelo?.id === m.id)} onClick={() => guardar({ modelo: m.id })}>
+          <button key={m.id} type="button" className={boton(modelo?.id === m.id)} onClick={() => (guardar({ modelo: m.id }), setEditando(true))}>
             {m.nombre}
           </button>
         ))}
