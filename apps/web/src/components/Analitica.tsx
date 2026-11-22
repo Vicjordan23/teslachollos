@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 /** Contenedor de Google Tag Manager (analítica). Solo se carga si la persona lo acepta. */
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-5J53DMFM";
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-T78HDVK3";
 const CLAVE = "chollesla-analitica";
 
 function leer(): string | null {
