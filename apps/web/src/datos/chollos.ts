@@ -147,3 +147,30 @@ export function filtrarExtra(lista: CholloOficial[], f: { max?: number; dto?: nu
     return true;
   });
 }
+
+/**
+ * Puerta de calidad para indexar fichas: solo las que tienen una descripción real escrita (no la frase genérica de
+ * plantilla) entran en el sitemap y en Google. El resto sigue accesible (noindex, follow) y enlazada desde los listados.
+ * Revisar con los datos de Search Console y bajar el umbral cuando haya más texto propio.
+ */
+export const MIN_DESCRIPCION = 60;
+export const fichaIndexable = (c: CholloOficial) => c.descripcion.trim().length >= MIN_DESCRIPCION;
+
+/** Chollos de una versión y una categoría (para las páginas «alfombrillas para Model Y Juniper»). */
+export function chollosDeVersionCategoria(version: IdVersion, categoria: IdCategoria): CholloOficial[] {
+  return chollosDeVersion(version).filter((c) => c.categoria === categoria);
+}
+
+/** Resumen real de una lista: cuántos hay, precio final mínimo y máximo y tiendas distintas. */
+export function resumen(lista: CholloOficial[]) {
+  const precios = lista.map(finalDe).sort((a, b) => a - b);
+  return {
+    total: lista.length,
+    minimo: precios[0] ?? 0,
+    maximo: precios[precios.length - 1] ?? 0,
+    tiendas: [...new Set(lista.map((c) => c.tienda))],
+  };
+}
+
+/** Los `n` primeros según el orden de la portada, con las tiendas mezcladas. */
+export const primeros = (lista: CholloOficial[], n: number) => lista.slice(0, n);

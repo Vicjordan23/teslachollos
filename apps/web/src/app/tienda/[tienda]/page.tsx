@@ -5,6 +5,7 @@ import { BarraCategorias } from "@/components/BarraCategorias";
 import { Paginacion } from "@/components/Paginacion";
 import { Rejilla } from "@/components/Rejilla";
 import { chollosDeTienda, pagina, totalPaginas } from "@/datos/chollos";
+import { metaPagina } from "@/lib/seo";
 
 // Solo existen las rutas generadas en el build; el resto da 404.
 export const dynamicParams = false;
@@ -24,12 +25,7 @@ export async function generateMetadata({ params }: PageProps<"/tienda/[tienda]">
   const n = chollosDeTienda(id).length;
   const titulo = `Chollos de ${t.nombre} para Tesla Model 3 y Model Y`;
   const descripcion = `${n.toLocaleString("es-ES")} accesorios para Tesla en ${t.nombre} con el precio final${t.codigo ? ` usando el código ${t.codigo}` : " ya calculado"}.`;
-  return {
-    title: titulo,
-    description: descripcion,
-    alternates: { canonical: `/tienda/${id}` },
-    openGraph: { title: titulo, description: descripcion, url: `/tienda/${id}` },
-  };
+  return metaPagina({ titulo, descripcion, ruta: `/tienda/${id}` });
 }
 
 export default async function PaginaTienda({ params }: PageProps<"/tienda/[tienda]">) {

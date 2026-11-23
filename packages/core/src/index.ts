@@ -7,3 +7,4 @@ export * from "./buscar.js";
 export * from "./modelos.js";
 export * from "./publicar.js";
 export * from "./insignias.js";
+export * from "./seo.js";

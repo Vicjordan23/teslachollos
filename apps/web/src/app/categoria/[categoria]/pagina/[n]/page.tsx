@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CATEGORIAS, nombreCategoria, type IdCategoria } from "@chollesla/core";
+import { metaPagina } from "@/lib/seo";
 import { Filtros } from "@/components/Filtros";
 import { Paginacion } from "@/components/Paginacion";
 import { Rejilla } from "@/components/Rejilla";
@@ -27,7 +28,7 @@ async function resolver(params: PageProps<"/categoria/[categoria]/pagina/[n]">["
 export async function generateMetadata({ params }: PageProps<"/categoria/[categoria]/pagina/[n]">): Promise<Metadata> {
   const r = await resolver(params);
   return r
-    ? { title: `${nombreCategoria(r.id)} para Tesla, página ${r.num}`, alternates: { canonical: `/categoria/${r.id}/pagina/${r.num}` } }
+    ? metaPagina({ titulo: `${nombreCategoria(r.id)} para Tesla, página ${r.num}`, descripcion: `Página ${r.num} de ${nombreCategoria(r.id).toLowerCase()} para Tesla Model 3 y Model Y con el precio final tras el código de descuento.`, ruta: `/categoria/${r.id}/pagina/${r.num}` })
     : {};
 }
 

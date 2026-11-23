@@ -12,6 +12,8 @@ import { CierraMenus } from "@/components/CierraMenus";
 import { SCRIPT_TEMA, SelectorTema } from "@/components/SelectorTema";
 import { BotonCuenta } from "@/components/Cuenta";
 import { INDEXAR, SITIO } from "@/lib/sitio";
+import { OG_POR_DEFECTO } from "@/lib/seo";
+import { HUBS_VERSION } from "@/lib/contenido";
 import "./globals.css";
 
 const cuerpo = Barlow({ variable: "--font-cuerpo", subsets: ["latin"], weight: ["400", "500", "600", "700"] });
@@ -26,8 +28,8 @@ export const metadata: Metadata = {
   description:
     "Chollos de accesorios para Tesla Model 3 y Model Y en España con el precio final después del código de descuento.",
   applicationName: "Chollesla",
-  openGraph: { siteName: "Chollesla", locale: "es_ES", type: "website" },
-  twitter: { card: "summary_large_image" },
+  openGraph: { siteName: "Chollesla", locale: "es_ES", type: "website", images: [OG_POR_DEFECTO] },
+  twitter: { card: "summary_large_image", images: [OG_POR_DEFECTO] },
   robots: INDEXAR ? undefined : { index: false, follow: false },
 };
 
@@ -35,6 +37,8 @@ const TELEGRAM = "https://t.me/teslaaccesorios";
 
 const MENU = [
   { href: "/buscar?orden=descuento", texto: "Ofertas" },
+  { href: "/chollos-tesla-esta-semana", texto: "Esta semana" },
+  { href: "/codigos-descuento", texto: "Códigos" },
   { href: "/comunidad", texto: "Comunidad" },
   { href: "/alertas", texto: "Alertas" },
 ];
@@ -45,7 +49,7 @@ const ENLACE_MENU = "flex items-center gap-2 rounded px-3 py-2 text-texto hover:
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es" className={`${cuerpo.variable} ${display.variable} h-full antialiased`} data-tema="claro" suppressHydrationWarning>
+    <html lang="es-ES" className={`${cuerpo.variable} ${display.variable} h-full antialiased`} data-tema="claro" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: SCRIPT_TEMA }} />
         <script
@@ -59,7 +63,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 name: "Chollesla",
                 url: SITIO,
                 inLanguage: "es-ES",
-                potentialAction: { "@type": "SearchAction", target: `${SITIO}/buscar?q={termino}`, "query-input": "required name=termino" },
               },
             ]).replace(/</g, "\\u003c"),
           }}
@@ -151,7 +154,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                     {versionesDeModelo(m.id).map((v) => (
                       <Link
                         key={v.id}
-                        href={`/buscar?modelo=${m.id}&version=${v.id}`}
+                        href={HUBS_VERSION[v.id] ? `/modelo/${v.id}` : `/buscar?modelo=${m.id}&version=${v.id}`}
                         className="flex items-center gap-2 rounded py-1.5 pl-8 pr-3 text-sm font-medium text-texto-suave hover:bg-fondo hover:text-verde-boton"
                       >
                         <FotoCoche id={v.id} className="h-7 w-14" />
@@ -195,6 +198,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 t.me/teslaaccesorios
               </a>
             </p>
+            <nav aria-label="Guías y accesorios" className="flex flex-wrap gap-x-4 gap-y-1">
+              <Link href="/modelo/model-y-juniper" className="hover:text-texto hover:underline">Accesorios Model Y Juniper</Link>
+              <Link href="/modelo/model-3-highland" className="hover:text-texto hover:underline">Accesorios Model 3 Highland</Link>
+              <Link href="/chollos-tesla-esta-semana" className="hover:text-texto hover:underline">Chollos de esta semana</Link>
+              <Link href="/codigos-descuento" className="hover:text-texto hover:underline">Códigos de descuento</Link>
+              <Link href="/categoria/alfombrillas" className="hover:text-texto hover:underline">Alfombrillas</Link>
+              <Link href="/categoria/carga" className="hover:text-texto hover:underline">Carga</Link>
+              <Link href="/categoria/pantalla" className="hover:text-texto hover:underline">Protectores de pantalla</Link>
+            </nav>
             <nav aria-label="Legal" className="flex flex-wrap gap-x-4 gap-y-1">
               <Link href="/aviso-legal" className="hover:text-texto hover:underline">Aviso legal</Link>
               <Link href="/privacidad" className="hover:text-texto hover:underline">Privacidad</Link>

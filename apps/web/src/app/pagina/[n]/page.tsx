@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { metaPagina } from "@/lib/seo";
 import { Filtros } from "@/components/Filtros";
 import { Paginacion } from "@/components/Paginacion";
 import { Rejilla } from "@/components/Rejilla";
@@ -19,7 +20,7 @@ function numero(n: string): number | null {
 
 export async function generateMetadata({ params }: PageProps<"/pagina/[n]">): Promise<Metadata> {
   const n = numero((await params).n);
-  return n ? { title: `Chollos en accesorios para Tesla, página ${n}`, alternates: { canonical: `/pagina/${n}` } } : {};
+  return n ? metaPagina({ titulo: `Chollos en accesorios para Tesla, página ${n}`, descripcion: `Página ${n} del catálogo de accesorios para Tesla Model 3 y Model Y con el precio final tras el código de descuento.`, ruta: `/pagina/${n}` }) : {};
 }
 
 export default async function PaginaListado({ params }: PageProps<"/pagina/[n]">) {

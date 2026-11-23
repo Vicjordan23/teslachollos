@@ -2,16 +2,18 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { aplicarAfiliado, formatoEuros, nombreCategoria, porcentajeAhorro, precioFinal, TIENDAS } from "@chollesla/core";
+import { acortarSinPuntos, aplicarAfiliado, formatoEuros, jsonLdMigas, nombreCategoria, nombreVersion, porcentajeAhorro, precioFinal, TIENDAS, versionesDe, VERSIONES } from "@chollesla/core";
 import { CompartirFicha, CopiarCodigo } from "@/components/AccionesChollo";
 import { AvisoPrecio } from "@/components/AvisoPrecio";
-import { CHOLLOS, cholloPorSlug, chollosDeCategoria, formatoFecha } from "@/datos/chollos";
+import { CHOLLOS, cholloPorSlug, chollosDeCategoria, fichaIndexable, formatoFecha } from "@/datos/chollos";
+import { JsonLd } from "@/components/JsonLd";
+import { HUBS_VERSION } from "@/lib/contenido";
 import { Guardar, Temperatura } from "@/components/Interacciones";
 import { Reportar } from "@/components/Reportar";
 import { atributosSalida, enlaceSalida } from "@/lib/salida";
 import { EtiquetasModelo } from "@/components/EtiquetasModelo";
 import { SITIO } from "@/lib/sitio";
-import { acortar } from "@/lib/seo";
+import { acortar, metaPagina } from "@/lib/seo";
 import { TiraChollos } from "@/components/TiraChollos";
 
 // Solo existen las rutas generadas en el build; el resto da 404.
@@ -28,18 +30,12 @@ export async function generateMetadata({ params }: PageProps<"/chollo/[slug]">):
   const final = precioFinal(c.precioTienda, c.tienda);
   const precio = formatoEuros(final);
   const ahorro = porcentajeAhorro(final, c.precioTienda);
-  const titulo = `${acortar(c.titulo, 46)} por ${precio}`;
+  const titulo = `${acortarSinPuntos(c.titulo, 52)} por ${precio}`;
   const descripcion = acortar(
     `${acortar(c.titulo, 70)}: ${precio}${ahorro > 0 ? ` (-${ahorro} %)` : ""} con el precio final ya calculado${t.codigo ? ` usando el código ${t.codigo}` : ""} en ${t.nombre}. Compatible con ${acortar(c.modelos, 45)}.`,
     158,
   );
-  return {
-    title: titulo,
-    description: descripcion,
-    alternates: { canonical: `/chollo/${c.slug}` },
-    openGraph: { title: titulo, description: descripcion, url: `/chollo/${c.slug}`, images: [c.foto], type: "website" },
-    twitter: { card: "summary_large_image", title: titulo, description: descripcion, images: [c.foto] },
-  };
+  return metaPagina({ titulo, descripcion, ruta: `/chollo/${c.slug}`, imagen: c.foto, noindex: !fichaIndexable(c) });
 }
 
 export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]">) {
@@ -51,13 +47,17 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
   const salida = enlaceSalida(c.slug, enlace, c.enlaceAfiliado);
   const ahorro = porcentajeAhorro(final, c.precioTienda);
 
+  const compatibles = versionesDe(c.modelos);
   // Datos estructurados de producto: sin valoraciones ni opiniones (regla de Vic: nada inventado).
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: c.titulo,
     url: `${SITIO}/chollo/${c.slug}`,
-    description: c.descripcion || undefined,
+    description: c.descripcion || `${c.titulo}. Accesorio de ${t.nombre} para ${c.modelos}.`,
+    ...(compatibles.length > 0 && compatibles.length < VERSIONES.length
+      ? { isAccessoryOrSparePartFor: compatibles.map((v) => ({ "@type": "Product", name: `Tesla ${nombreVersion(v)}` })) }
+      : {}),
     category: nombreCategoria(c.categoria),
     image: [c.foto],
     offers: {
@@ -70,21 +70,18 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
     },
   };
 
-  const migas = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Inicio", item: SITIO },
-      { "@type": "ListItem", position: 2, name: nombreCategoria(c.categoria), item: `${SITIO}/categoria/${c.categoria}` },
-      { "@type": "ListItem", position: 3, name: acortar(c.titulo, 80), item: `${SITIO}/chollo/${c.slug}` },
-    ],
-  };
+  const migas = jsonLdMigas([
+    { nombre: "Inicio", url: SITIO },
+    { nombre: nombreCategoria(c.categoria), url: `${SITIO}/categoria/${c.categoria}` },
+    { nombre: acortar(c.titulo, 80), url: `${SITIO}/chollo/${c.slug}` },
+  ]);
+  const hubsCompatibles = Object.values(HUBS_VERSION).filter((h) => compatibles.includes(h.version) && compatibles.length < VERSIONES.length);
   const relacionados = chollosDeCategoria(c.categoria).filter((x) => x.slug !== c.slug).slice(0, 6);
 
   return (
     <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-5 px-4 py-6">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(migas).replace(/</g, "\\u003c") }} />
+      <JsonLd datos={jsonLd} />
+      <JsonLd datos={migas} />
       <nav className="text-sm text-texto-suave">
         <Link href="/" className="hover:underline">
           Inicio
@@ -153,6 +150,60 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
           <Reportar slug={c.slug} />
         </div>
       </article>
+      <section aria-label="Datos del chollo" className="flex max-w-3xl flex-col gap-3">
+        <h2 className="text-2xl font-semibold">Datos de este chollo</h2>
+        <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-texto-suave">
+          <dt className="font-medium text-texto">Tienda</dt>
+          <dd>{t.nombre}</dd>
+          <dt className="font-medium text-texto">Precio en la tienda</dt>
+          <dd>{formatoEuros(c.precioTienda)}</dd>
+          {t.codigo && (
+            <>
+              <dt className="font-medium text-texto">Código de descuento</dt>
+              <dd>
+                {t.codigo} ({Math.round(t.descuento * 100)} %){" "}
+                <Link href={`/codigos-descuento/${c.tienda}`} className="text-verde-boton hover:underline">
+                  cómo usarlo
+                </Link>
+              </dd>
+            </>
+          )}
+          <dt className="font-medium text-texto">Precio final</dt>
+          <dd>
+            {c.desde ? "Desde " : ""}
+            {formatoEuros(final)}
+          </dd>
+          <dt className="font-medium text-texto">Categoría</dt>
+          <dd>
+            <Link href={`/categoria/${c.categoria}`} className="text-verde-boton hover:underline">
+              {nombreCategoria(c.categoria)}
+            </Link>
+          </dd>
+          <dt className="font-medium text-texto">Compatible con</dt>
+          <dd>
+            {c.modelos}
+            {hubsCompatibles.length > 0 && (
+              <>
+                {" · "}
+                {hubsCompatibles.map((h, i) => (
+                  <span key={h.version}>
+                    {i > 0 && ", "}
+                    <Link href={`/modelo/${h.version}`} className="text-verde-boton hover:underline">
+                      más para {h.nombre}
+                    </Link>
+                  </span>
+                ))}
+              </>
+            )}
+          </dd>
+          <dt className="font-medium text-texto">Precio revisado</dt>
+          <dd>{formatoFecha(c.fecha)}</dd>
+        </dl>
+        <p className="text-texto-suave">
+          El precio final es el de la tienda con el código de descuento ya aplicado. Antes de pagar, confirma en la tienda el año y la versión de tu coche: los
+          accesorios a medida cambian entre generaciones.
+        </p>
+      </section>
       <TiraChollos titulo={`Más ${nombreCategoria(c.categoria).toLowerCase()} para tu Tesla`} etiqueta="Chollos relacionados" lista={relacionados} />
     </main>
   );

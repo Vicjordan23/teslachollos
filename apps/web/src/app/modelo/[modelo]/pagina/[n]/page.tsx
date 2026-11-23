@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { MODELOS, nombreModelo, type IdModelo } from "@chollesla/core";
+import { MODELOS_WEB, nombreModelo, type IdModelo } from "@chollesla/core";
+import { metaPagina } from "@/lib/seo";
 import { Filtros } from "@/components/Filtros";
 import { Paginacion } from "@/components/Paginacion";
 import { Rejilla } from "@/components/Rejilla";
@@ -9,14 +10,14 @@ import { chollosDeModelo, pagina, totalPaginas } from "@/datos/chollos";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return MODELOS.flatMap((m) =>
+  return MODELOS_WEB.flatMap((m) =>
     Array.from({ length: totalPaginas(chollosDeModelo(m.id)) - 1 }, (_, i) => ({ modelo: m.id, n: String(i + 2) })),
   );
 }
 
 async function resolver(params: PageProps<"/modelo/[modelo]/pagina/[n]">["params"]) {
   const { modelo, n } = await params;
-  if (!MODELOS.some((m) => m.id === modelo) || !/^\d+$/.test(n)) return null;
+  if (!MODELOS_WEB.some((m) => m.id === modelo) || !/^\d+$/.test(n)) return null;
   const id = modelo as IdModelo;
   const lista = chollosDeModelo(id);
   const num = Number(n);
@@ -26,7 +27,7 @@ async function resolver(params: PageProps<"/modelo/[modelo]/pagina/[n]">["params
 export async function generateMetadata({ params }: PageProps<"/modelo/[modelo]/pagina/[n]">): Promise<Metadata> {
   const r = await resolver(params);
   return r
-    ? { title: `Accesorios para Tesla ${nombreModelo(r.id)}, página ${r.num}`, alternates: { canonical: `/modelo/${r.id}/pagina/${r.num}` } }
+    ? metaPagina({ titulo: `Accesorios para Tesla ${nombreModelo(r.id)}, página ${r.num}`, descripcion: `Página ${r.num} de accesorios compatibles con el Tesla ${nombreModelo(r.id)} con el precio final tras el código de descuento.`, ruta: `/modelo/${r.id}/pagina/${r.num}` })
     : {};
 }
 

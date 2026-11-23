@@ -1,5 +1,13 @@
 # HANDOFF
 
+## 23/11/2026 (37) - SEO (agente 4)
+
+- Auditoria, checklist y plantillas en `docs/SEO_CHOLLESLA.md`. Paginas nuevas: `/modelo/model-y-juniper`, `/modelo/model-3-highland`, `/modelo/<version>/<categoria>` (24 paginas, minimo 8 productos), `/chollos-tesla-esta-semana`, `/codigos-descuento` y `/codigos-descuento/<tienda>`. Quitados Model S, Model X y Cybertruck.
+- Puerta de calidad: solo las fichas con descripcion real (>= 60 caracteres, `MIN_DESCRIPCION`) son indexables y entran en el sitemap (322 de 1.896); el resto `noindex, follow`.
+- `metaPagina()` (canonical, hreflang es-ES, OG con imagen), `public/og-chollesla.png` (logo, sin IA), JSON-LD de listados (CollectionPage + ItemList), FAQ y migas, `llms.txt`.
+- Tests: 60 + 15 en verde; typecheck y build en verde. `npm run lint` ya fallaba antes por 5 errores de react-hooks en componentes que no se han tocado.
+- Pendiente de Vic: ver seccion 8 de `docs/SEO_CHOLLESLA.md` (reenviar sitemap, Always Use HTTPS y redireccion de www en Cloudflare).
+
 ## 22/11/2026 (36) — Precios al día y tema claro por defecto
 
 - Fuera el cartel «Precio de esta semana». Ahora la tarjeta solo avisa («Precio sin revisar desde hace N días») si el precio pasa de 7 días (`AvisoPrecio`); la ficha pone «Precio revisado el dd/mm/aaaa». Pie con «Última revisión» (fecha más reciente del catálogo).

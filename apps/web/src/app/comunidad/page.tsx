@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { TarjetaChollo } from "@/components/TarjetaChollo";
+import { metaPagina } from "@/lib/seo";
 import { aTarjeta, CAMPOS } from "@/lib/comunidad";
 import { HAY_SUPABASE, leer, type CholloComunidad } from "@/lib/supabase-servidor";
 
-export const metadata: Metadata = {
-  title: "Chollos de la comunidad",
-  description: "Chollos de accesorios para Tesla compartidos por la comunidad: los más nuevos y los más calientes.",
-  alternates: { canonical: "/comunidad" },
-};
+export const metadata: Metadata = metaPagina({
+  titulo: "Chollos de la comunidad",
+  descripcion: "Chollos de accesorios para Tesla compartidos por la comunidad: los más nuevos y los más calientes.",
+  ruta: "/comunidad",
+});
 
 const ORDEN = {
   nuevos: { nombre: "Nuevos", sql: "creado.desc" },
