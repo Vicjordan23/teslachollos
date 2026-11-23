@@ -1,14 +1,13 @@
 name: Importar catálogo oficial
 
-# Cada día, una hora después de que el agente de Telegram actualice los precios (tesla-telegram, 07:30 UTC), copia el
+# Lo lanza cron-job.org cada día a las 9:50 (hora de Madrid) con un POST a /dispatches (el cron propio de GitHub se quitó el 23/11/2026: no corría a tiempo).
+# Antes: cada día, una hora después de que el agente de Telegram actualice los precios (tesla-telegram, 07:30 UTC), copia el
 # catálogo con los precios nuevos a apps/web/src/datos/oficiales.json y lo sube a main (Cloudflare despliega solo).
 # Los productos que llevan más de 10 días sin precio (agotados o retirados) ya no traen precio y desaparecen de la web.
 #
 # Necesita el secreto TG_LECTURA: un token de GitHub de solo lectura (Contents: Read) sobre el repositorio
 # Vicjordan23/tesla-telegram, que es privado. Sin él, esta acción avisa y no hace nada.
 on:
-  schedule:
-    - cron: "30 8 * * *"
   workflow_dispatch:
 
 permissions:
