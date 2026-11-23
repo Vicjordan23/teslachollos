@@ -88,7 +88,13 @@ Puntuación de 0 a 100 por área, medida sobre producción (`https://chollesla.e
 
 ## 6. Verificación en producción
 
-(Se rellena tras el despliegue; ver HANDOFF.)
+Comprobado el 23/11/2026 con `curl` sobre `https://chollesla.es` tras el despliegue (commit 22af959):
+
+- `robots.txt` y `sitemap.xml` (374 URL: hubs, 24 paginas de version x categoria, codigos, fichas indexables) responden 200; `og-chollesla.png` y `llms.txt` 200.
+- 13 URL nuevas o cambiadas dan 200 (`/modelo/model-s` y `/modelo/<version>/otros` dan 404). Un `<h1>` por pagina, canonical propio, descripcion de 134-158 caracteres, titulos unicos sin «...».
+- Palabras utiles en `<main>`: hubs y paginas de version x categoria 1.900-2.300; `/codigos-descuento/<tienda>` 930-1.740; `/codigos-descuento` 498.
+- JSON-LD valido (se parsea con `json.loads`) y coherente con la pagina: Product (fichas), CollectionPage + ItemList, BreadcrumbList y FAQPage con el mismo texto visible.
+- Pendiente de comprobar por Vic o en la siguiente vuelta: errores de consola en Chrome y Lighthouse/CrUX (la API de PageSpeed no tenia cuota). El HTML gzip de la portada pesa 32 KB.
 
 ## 7. Enlazado desde y hacia el canal `t.me/teslaaccesorios`
 
