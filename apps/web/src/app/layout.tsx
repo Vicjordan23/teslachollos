@@ -39,6 +39,7 @@ const MENU = [
   { href: "/buscar?orden=descuento", texto: "Ofertas" },
   { href: "/chollos-tesla-esta-semana", texto: "Esta semana" },
   { href: "/codigos-descuento", texto: "Códigos" },
+  { href: "/guias", texto: "Guías" },
   { href: "/comunidad", texto: "Comunidad" },
   { href: "/alertas", texto: "Alertas" },
 ];
@@ -203,6 +204,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <Link href="/modelo/model-3-highland" className="hover:text-texto hover:underline">Accesorios Model 3 Highland</Link>
               <Link href="/chollos-tesla-esta-semana" className="hover:text-texto hover:underline">Chollos de esta semana</Link>
               <Link href="/codigos-descuento" className="hover:text-texto hover:underline">Códigos de descuento</Link>
+              <Link href="/guias" className="hover:text-texto hover:underline">Guías de compra</Link>
               <Link href="/categoria/alfombrillas" className="hover:text-texto hover:underline">Alfombrillas</Link>
               <Link href="/categoria/carga" className="hover:text-texto hover:underline">Carga</Link>
               <Link href="/categoria/pantalla" className="hover:text-texto hover:underline">Protectores de pantalla</Link>

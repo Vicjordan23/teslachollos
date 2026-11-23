@@ -3,6 +3,7 @@ import { CATEGORIAS, MODELOS_WEB, TIENDAS } from "@chollesla/core";
 import { CHOLLOS, chollosDeCategoria, chollosDeVersionCategoria, ULTIMA_REVISION } from "@/datos/chollos";
 import { fichaIndexable } from "@/datos/textos";
 import { HUBS_VERSION, IDS_CODIGOS } from "@/lib/contenido";
+import { GUIAS } from "@/lib/guias";
 import { SITIO } from "@/lib/sitio";
 
 /** Mismo mínimo que `app/modelo/[modelo]/[categoria]`: solo se listan las páginas que existen. */
@@ -16,6 +17,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITIO}/`, lastModified: revision, changeFrequency: "daily", priority: 1 },
     { url: `${SITIO}/chollos-tesla-esta-semana`, lastModified: revision, changeFrequency: "daily", priority: 0.9 },
     { url: `${SITIO}/codigos-descuento`, lastModified: revision, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${SITIO}/guias`, lastModified: revision, changeFrequency: "weekly", priority: 0.8 },
+    ...GUIAS.map((g) => ({ url: `${SITIO}/guias/${g.slug}`, lastModified: revision, changeFrequency: "weekly" as const, priority: 0.8 })),
     ...IDS_CODIGOS.map((t) => ({ url: `${SITIO}/codigos-descuento/${t}`, lastModified: revision, changeFrequency: "weekly" as const, priority: 0.8 })),
     ...hubsVersion.map((h) => ({ url: `${SITIO}/modelo/${h.version}`, lastModified: revision, changeFrequency: "daily" as const, priority: 0.9 })),
     ...hubsVersion.flatMap((h) =>

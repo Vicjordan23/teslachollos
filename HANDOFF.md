@@ -1,5 +1,13 @@
 # HANDOFF
 
+## 23/11/2026 (39) - Guías de compra (SEO + tráfico)
+
+- Nuevas páginas editoriales: `/guias` (índice) y `/guias/<slug>` (7 guías) definidas en `apps/web/src/lib/guias.ts`; la plantilla es `app/guias/[slug]/page.tsx`. Guías: accesorios imprescindibles Model Y Juniper y Model 3 Highland, accesorios baratos (< 20 €), cargadores y cables, alfombrillas, organizadores y protectores de pantalla.
+- Contenido: texto de compra general (sin datos inventados ni rankings de «mejores»), lista «Qué mirar antes de comprar», bloques de productos calculados del catálogo real (prefieren fichas indexables; mínimo 3 por bloque, 6 como máximo), enlaces a los hubs `/modelo/...` y `/categoria/...`, FAQ con JSON-LD, Article + ItemList JSON-LD y migas.
+- Enlazadas desde el menú («Guías») y el pie; añadidas al `sitemap.ts` (8 URL nuevas).
+- Verificado en local: `next build` compila y pasa TypeScript (hay timeouts de 60 s de generación estática si el equipo está ocupado; no es del código).
+- Pendiente (Vic): reenviar `sitemap.xml` en Search Console y pedir indexación de `/guias` y de 2-3 guías. Ideas siguientes: guía por tienda, guía «cómo funcionan los códigos», más texto propio en cada guía cuando haya datos de clics.
+
 ## 23/11/2026 (38) - Texto propio por ficha y oleada de indexación
 
 - `packages/core/src/texto-ficha.ts` (+ 18 tests): `generarTextoFicha()`, `crearContexto()`, `validarTextoFicha()`, `datosDelTitulo()`, `shingles()`/`jaccard()`. Genera en el build 200-250 palabras + 3 FAQ por ficha solo con datos reales (título, compatibilidad declarada, categoría, tienda, precio final y código, estadísticas del catálogo, opiniones reales de Amazon). No se toca `oficiales.json`: el importador diario sigue intacto.
