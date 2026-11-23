@@ -154,3 +154,7 @@ Defectos encontrados en la revisión y corregidos: 2 títulos con `&amp;`; «3W�
 - Indexar todas las válidas: `OLEADA_INDEXACION = 2` en `apps/web/src/datos/textos.ts`.
 - Volver a la puerta antigua: en `fichaIndexable`, devolver solo `c.descripcion.trim().length >= MIN_DESCRIPCION`.
 - Umbral de duplicado: `UMBRAL_DUPLICADO` en `packages/core/src/texto-ficha.ts`.
+
+### 9.5 Verificación en producción (23/11/2026)
+
+Tras el despliegue del commit 4a6e24b: `sitemap.xml` con 1.314 URL (1.262 fichas, sin duplicados, bien formado, muy por debajo de 50.000). 8 fichas de ejemplo (Amazon, Jowua, Hansshow, Tesery, EVDANCE, AliExpress): 200, un solo `h1`, canonical propio, sin `noindex`, presentes en el sitemap, texto visible, sin `undefined/NaN`, JSON-LD parseable (Product, BreadcrumbList, FAQPage; sin AggregateRating). Pendiente de Vic: errores de consola en Chrome.
