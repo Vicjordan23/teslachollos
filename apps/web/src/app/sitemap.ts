@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { CATEGORIAS, MODELOS_WEB, TIENDAS } from "@chollesla/core";
-import { CHOLLOS, chollosDeCategoria, chollosDeVersionCategoria, fichaIndexable, ULTIMA_REVISION } from "@/datos/chollos";
+import { CHOLLOS, chollosDeCategoria, chollosDeVersionCategoria, ULTIMA_REVISION } from "@/datos/chollos";
+import { fichaIndexable } from "@/datos/textos";
 import { HUBS_VERSION, IDS_CODIGOS } from "@/lib/contenido";
 import { SITIO } from "@/lib/sitio";
 

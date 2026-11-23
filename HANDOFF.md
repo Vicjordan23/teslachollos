@@ -1,5 +1,12 @@
 # HANDOFF
 
+## 23/11/2026 (38) - Texto propio por ficha y oleada de indexación
+
+- `packages/core/src/texto-ficha.ts` (+ 18 tests): `generarTextoFicha()`, `crearContexto()`, `validarTextoFicha()`, `datosDelTitulo()`, `shingles()`/`jaccard()`. Genera en el build 200-250 palabras + 3 FAQ por ficha solo con datos reales (título, compatibilidad declarada, categoría, tienda, precio final y código, estadísticas del catálogo, opiniones reales de Amazon). No se toca `oficiales.json`: el importador diario sigue intacto.
+- `apps/web/src/datos/textos.ts`: `textoDe()`, `fichaIndexable()` (puerta de calidad: texto válido, no casi duplicado, no «Otros» sin descripción, y `OLEADA_INDEXACION`), `datos/opiniones.json` (37 resúmenes reales copiados del agente de Telegram). `fichaIndexable` ya no está en `datos/chollos.ts`. La ficha pinta el texto («Qué debes saber antes de comprarlo») y una FAQ visible con JSON-LD; `Product.description` = primer párrafo.
+- Resultado: indexables 322 -> **1.262** (oleada 1: fichas con algún dato propio además del precio); 1.803 con la oleada 2 (`OLEADA_INDEXACION = 2`). Unicidad medida con `node scripts/informe-unicidad.mjs`: media Jaccard 0,33 entre fichas de la misma categoría y tienda, 96 % de los pares por debajo de 0,5, 0 pares >= 0,8 entre las indexables. Detalle y 10 fichas revisadas a mano en `docs/SEO_CHOLLESLA.md` sección 9.
+- Pendiente: (1) Vic: reenviar `sitemap.xml` y pedir indexación de unas fichas en Search Console; con 3-4 semanas de datos decidir la oleada 2. (2) Conectar el historial de precios: `importar-catalogo.mjs` debería traer `historial_precios.json` de tesla-telegram a un archivo aparte (p. ej. `datos/historial.json`, añadido al `git add` del workflow) y `textoDe` pasar `historial` al generador; el generador ya lo soporta. (3) Pedidos de AliExpress: el catálogo web no los guarda; si el importador los trajera, añadir un bloque. (4) Muchos títulos de Hansshow/Tesery siguen en inglés (importador de traducción), el texto los cita tal cual. (5) `npm run lint` sigue fallando por 5 errores previos de react-hooks.
+
 ## 23/11/2026 (37) - SEO (agente 4)
 
 - Auditoria, checklist y plantillas en `docs/SEO_CHOLLESLA.md`. Paginas nuevas: `/modelo/model-y-juniper`, `/modelo/model-3-highland`, `/modelo/<version>/<categoria>` (24 paginas, minimo 8 productos), `/chollos-tesla-esta-semana`, `/codigos-descuento` y `/codigos-descuento/<tienda>`. Quitados Model S, Model X y Cybertruck.

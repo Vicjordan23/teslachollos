@@ -8,3 +8,4 @@ export * from "./modelos.js";
 export * from "./publicar.js";
 export * from "./insignias.js";
 export * from "./seo.js";
+export * from "./texto-ficha.js";

@@ -5,7 +5,9 @@ import { notFound } from "next/navigation";
 import { acortarSinPuntos, aplicarAfiliado, formatoEuros, jsonLdMigas, nombreCategoria, nombreVersion, porcentajeAhorro, precioFinal, TIENDAS, versionesDe, VERSIONES } from "@chollesla/core";
 import { CompartirFicha, CopiarCodigo } from "@/components/AccionesChollo";
 import { AvisoPrecio } from "@/components/AvisoPrecio";
-import { CHOLLOS, cholloPorSlug, chollosDeCategoria, fichaIndexable, formatoFecha } from "@/datos/chollos";
+import { CHOLLOS, cholloPorSlug, chollosDeCategoria, formatoFecha } from "@/datos/chollos";
+import { fichaIndexable, textoDe } from "@/datos/textos";
+import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { HUBS_VERSION } from "@/lib/contenido";
 import { Guardar, Temperatura } from "@/components/Interacciones";
@@ -47,6 +49,7 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
   const salida = enlaceSalida(c.slug, enlace, c.enlaceAfiliado);
   const ahorro = porcentajeAhorro(final, c.precioTienda);
 
+  const texto = textoDe(c);
   const compatibles = versionesDe(c.modelos);
   // Datos estructurados de producto: sin valoraciones ni opiniones (regla de Vic: nada inventado).
   const jsonLd = {
@@ -54,7 +57,7 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
     "@type": "Product",
     name: c.titulo,
     url: `${SITIO}/chollo/${c.slug}`,
-    description: c.descripcion || `${c.titulo}. Accesorio de ${t.nombre} para ${c.modelos}.`,
+    description: texto.resumen,
     ...(compatibles.length > 0 && compatibles.length < VERSIONES.length
       ? { isAccessoryOrSparePartFor: compatibles.map((v) => ({ "@type": "Product", name: `Tesla ${nombreVersion(v)}` })) }
       : {}),
@@ -204,6 +207,30 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
           accesorios a medida cambian entre generaciones.
         </p>
       </section>
+      <section aria-label="Información de Chollesla sobre este producto" className="flex max-w-3xl flex-col gap-4">
+        <h2 className="text-2xl font-semibold">Qué debes saber antes de comprarlo</h2>
+        {texto.secciones.map((s) => (
+          <div key={s.id} className="flex flex-col gap-1.5">
+            {s.id !== "resumen" && <h3 className="text-lg font-semibold">{s.titulo}</h3>}
+            {s.parrafos.map((p) => (
+              <p key={p} className="text-texto-suave">
+                {p}
+              </p>
+            ))}
+            {s.puntos.length > 0 && (
+              <ul className="list-disc pl-5 text-texto-suave">
+                {s.puntos.map((p) => (
+                  <li key={p}>{p}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))}
+        <p className="text-sm text-texto-suave">Los datos salen del catálogo de Chollesla (título, compatibilidad y precio de la tienda); no son una valoración del producto.</p>
+      </section>
+      <div className="max-w-3xl">
+        <Faq preguntas={texto.faq} titulo="Preguntas frecuentes sobre este producto" />
+      </div>
       <TiraChollos titulo={`Más ${nombreCategoria(c.categoria).toLowerCase()} para tu Tesla`} etiqueta="Chollos relacionados" lista={relacionados} />
     </main>
   );

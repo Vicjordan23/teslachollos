@@ -18,7 +18,7 @@ Puntuación de 0 a 100 por área, medida sobre producción (`https://chollesla.e
 
 ## 2. Qué se ha hecho
 
-1. **Puerta de calidad de fichas** (`MIN_DESCRIPCION = 60` en `datos/chollos.ts`): una ficha solo es indexable y entra en el sitemap si tiene descripción real. Las demás siguen accesibles con `noindex, follow`. Es una constante: cuando haya más texto propio o Search Console confirme que Google indexa bien, se baja el umbral.
+1. **Puerta de calidad de fichas**: por la mañana del 23/11 una ficha solo era indexable con descripción real (`MIN_DESCRIPCION = 60`, 322 fichas). **Por la tarde la puerta pasó a ser el texto propio generado (sección 9).** Las que no pasan siguen accesibles con `noindex, follow`.
 2. **Páginas hub nuevas** (todas con más de 300 palabras útiles, FAQ visible con el mismo texto en JSON-LD, migas y enlaces internos):
    - `/modelo/model-y-juniper` y `/modelo/model-3-highland`: introducción, compatibilidad, resumen real (nº de productos, precio mínimo y máximo, tiendas), una tira por categoría y FAQ.
    - `/modelo/<versión>/<categoría>`: 24 páginas largas de cola (p. ej. «Alfombrillas para Model Y Juniper»). Solo se generan con 8 o más productos reales.
@@ -105,5 +105,52 @@ Comprobado el 23/11/2026 con `curl` sobre `https://chollesla.es` tras el desplie
 
 1. Search Console (propiedad `chollesla.es` ya verificada): enviar de nuevo `https://chollesla.es/sitemap.xml` tras el despliegue y usar «Inspección de URL» + «Solicitar indexación» en `/modelo/model-y-juniper`, `/modelo/model-3-highland`, `/chollos-tesla-esta-semana` y `/codigos-descuento`.
 2. Cloudflare → SSL/TLS → Edge Certificates → activar «Always Use HTTPS» (hoy `http://chollesla.es` responde 200) y una regla de redirección `www.chollesla.es/*` → `https://chollesla.es/$1` (301).
-3. Con 3-4 semanas de datos: revisar Rendimiento (consultas, CTR) y Páginas («Rastreada, actualmente sin indexar»); si las fichas `noindex` no hacen falta, bajar `MIN_DESCRIPCION`.
+3. Con 3-4 semanas de datos: revisar Rendimiento (consultas, CTR) y Páginas («Rastreada, actualmente sin indexar»); si las 1.262 fichas de la oleada 1 se indexan bien, pasar `OLEADA_INDEXACION` a 2 (sección 9.1). Tras el despliegue del texto propio: reenviar `sitemap.xml` y pedir indexación de 5-10 fichas de ejemplo.
 4. Bing Webmaster Tools: importar la propiedad desde Search Console (opcional).
+
+## 9. Texto propio por ficha (23/11/2026, tarde)
+
+**Qué es.** Cada ficha (1.896) muestra ahora entre 200 y 250 palabras de texto propio (el mínimo exigido es 120) y 3 preguntas frecuentes, generados **en el build** por una función pura: `generarTextoFicha()` en `packages/core/src/texto-ficha.ts` (18 tests). Nada se guarda en `oficiales.json` (el importador diario lo reescribe): `apps/web/src/datos/textos.ts` llama al generador con `CHOLLOS` y las opiniones, y la página `/chollo/<slug>` lo pinta bajo «Qué debes saber antes de comprarlo» (h2, un h3 por bloque) más un `<Faq>` visible con el mismo texto en JSON-LD. `Product.description` del JSON-LD es el primer párrafo visible. Sin AggregateRating ni reviews.
+
+**Solo datos reales.** Entradas: título (decodificando `&amp;`), compatibilidad que declara la tienda (se cita entre «») y su clasificación en versiones, categoría, tienda, precio de tienda y final con el código, «desde», fecha de revisión, estadísticas del propio catálogo (nº de productos de la categoría, mínimo, máximo, mediana, puesto por precio, tercio, comparación con la misma versión y la misma tienda, otras tiendas con la categoría) y, si existen, opiniones reales de compradores de Amazon.es (`datos/opiniones.json`, 37 productos, copia del opiniones.json del agente de Telegram; el texto se marca «no una valoración de Chollesla»). Del título solo se extraen datos que están escritos en él (piezas, kW/A/m/pulgadas, materiales y características de un léxico cerrado, color) y se atribuyen al título de la tienda. Los consejos de compra por categoría son comprobaciones («mira que…»), nunca afirmaciones sobre el producto; en las categorías donde la clasificación automática falla a veces (alfombrillas, carga) van en condicional («Si es un cargador…»). El envío UE de EVDANCE y la comisión de afiliado se dicen tal cual. No hay especificaciones, materiales ni compatibilidades inventados, ni «solo hoy», ni puntuaciones.
+
+**Variación real.** 3 variantes del resumen, 3 del bloque de precio, 2-3 del bloque de compra por tipo de tienda (con código, Amazon, AliExpress), 3 consejos por cada una de las 12 categorías, 2 órdenes de bloques, bloques condicionales (título, opiniones, historial, «desde», EVDANCE) y, sobre todo, las cifras y citas propias de cada ficha. La variante se elige con un hash del id: es estable entre builds. Si el texto pasa de 250 palabras se acorta primero el bloque de precio y luego se quitan bloques de menor prioridad.
+
+**Historial de precios.** El generador acepta `historial` (cambio de precio registrado) y lo añade como bloque si existe, pero **hoy no está conectado**: `historial_precios.json` vive en tesla-telegram y el importador no lo trae. Pendiente (ver HANDOFF).
+
+### 9.1 Puerta de indexación
+
+`fichaIndexable()` (`datos/textos.ts`) devuelve true si: el texto valida (120-250 palabras, sin `undefined/NaN/null`, sin HTML ni llaves, sin puntuación rota, 2-3 FAQ completas), no es casi duplicado de otra ficha de la misma categoría y tienda (Jaccard de shingles de 5 palabras >= 0,8; de cada pareja se indexa la de slug menor), no está en «Otros» salvo con descripción real, **y entra en la oleada vigente**. `OLEADA_INDEXACION = 1`: solo fichas con algún dato propio además del precio (descripción real, datos citados en el título u opinión de compradores). Pasar a `2` indexa todas las que pasan la puerta; hacerlo cuando Search Console confirme que Google indexa bien la oleada 1 (sin «Rastreada, actualmente sin indexar» en masa).
+
+| | Fichas |
+|---|---|
+| Fichas del catálogo | 1.896 |
+| Con texto propio válido | 1.896 |
+| Casi duplicadas (>= 0,8; mismo producto dado de alta dos veces) | 6 pares (una de cada par se queda en noindex) |
+| **Indexables ahora (oleada 1)** | **1.262** (antes 322): Amazon 197, Jowua 149, Hansshow 338, Tesery 413, EVDANCE 11, AliExpress 154 |
+| Indexables con la oleada 2 | 1.803 |
+
+### 9.2 Informe de unicidad
+
+`node scripts/informe-unicidad.mjs` (tras `npm run build -w packages/core`; opciones `--oleada=2`, `--muestra=slug1,slug2`). No va en `npm test` porque depende del catálogo, que cambia cada día (bloquearía la importación diaria). Medido con los datos del 23/11/2026; similitud = Jaccard de shingles de 5 palabras:
+
+| Conjunto de pares | Pares | Media | P95 | Máx. | % por debajo de 0,5 | Pares >= 0,8 |
+|---|---|---|---|---|---|---|
+| Misma categoría y tienda, **todas** las fichas (antes de la puerta) | 60.589 | 0,338 | 0,494 | 0,837 | 95,4 % | 6 |
+| Misma categoría y tienda, **indexables** | 27.382 | 0,333 | 0,489 | 0,783 | 95,8 % | **0** |
+| Misma categoría (cualquier tienda), indexables | 87.437 | 0,231 | 0,418 | 0,783 | 98,7 % | **0** |
+| Misma tienda (cualquier categoría), indexables | 184.199 | 0,293 | 0,420 | 0,783 | 99,1 % | **0** |
+
+Los 6 pares >= 0,8 son el mismo producto dado de alta dos veces con título casi igual (dos protectores de silicona de AliExpress con distinto id, dos volantes Yoke de Hansshow…). Longitud: mínimo 201, mediana 239, máximo 250 palabras. Limitación honesta: la unicidad medida es léxica; el texto es útil, pero lo original lo aportan los datos (título citado, cifras de precio, posición en el catálogo, compatibilidad declarada) y no un análisis experto de cada producto. Por eso la indexación es progresiva.
+
+### 9.3 Revisión manual de 10 fichas reales
+
+Se leyó el texto completo y se contrastó cada afirmación con los datos de origen: Amazon / pantalla (`protector-de-pantalla-mate-spigen-ez-fit-15-4`, con opinión), Amazon / alfombrillas (`alfombrillas-completas-3w-para-model-y-juniper`, con opinión), Jowua / carga (`compresor-de-aire-portatil-con-kit-de-carga-jowua`), Jowua / interior (`pack-completo-de-parasoles-para-model-y-juniper-jowua`), Hansshow / volante (`model-3-y-carbon-fiber-steering-wheel-d-shaped-round-…`), Hansshow / iluminación (`model-3-y-led-illuminated-welcome-pedal-door-sill-protector`), Tesery / alfombrillas (`oem-wheel-arch-liner-for-tesla-model-y-model-y-juniper`), Tesery / organización (`kit-de-ganchos-de-almacenamiento-interior-para-tesla-model-3-premium-2`), EVDANCE / carga (`evdance-wallbox-11-kw-tipo-2-trifasica-16-a-con-wifi-bluetooth-y-rfid`) y AliExpress / alfombrillas (`teksy-1-2-3-4-6-7-8-piezas-…-022854`). Todas las cifras (precio final, descuento, ahorro, puestos, mínimos, máximos, medianas, piezas, kW) salen de los datos o del catálogo.
+
+Defectos encontrados en la revisión y corregidos: 2 títulos con `&amp;`; «3W» (marca) leído como potencia; «fibra de carbono y carbono» repetido; consejo de cargadores aplicado a un compresor mal clasificado como Carga (ahora condicional); títulos recortados con palabras colgando; concordancia de «pensado según la tienda»; porcentaje absurdo (701 %) en un wallbox (ahora «unas 8,0 veces la mediana»); compatibilidad vacía (ahora se dice que la tienda no la detalla).
+
+### 9.4 Cómo cambiar el criterio
+
+- Indexar todas las válidas: `OLEADA_INDEXACION = 2` en `apps/web/src/datos/textos.ts`.
+- Volver a la puerta antigua: en `fichaIndexable`, devolver solo `c.descripcion.trim().length >= MIN_DESCRIPCION`.
+- Umbral de duplicado: `UMBRAL_DUPLICADO` en `packages/core/src/texto-ficha.ts`.

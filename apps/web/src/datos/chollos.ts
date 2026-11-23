@@ -148,13 +148,8 @@ export function filtrarExtra(lista: CholloOficial[], f: { max?: number; dto?: nu
   });
 }
 
-/**
- * Puerta de calidad para indexar fichas: solo las que tienen una descripción real escrita (no la frase genérica de
- * plantilla) entran en el sitemap y en Google. El resto sigue accesible (noindex, follow) y enlazada desde los listados.
- * Revisar con los datos de Search Console y bajar el umbral cuando haya más texto propio.
- */
+/** Descripción real mínima (caracteres) para considerar que una ficha trae descripción propia de la tienda. La puerta de indexación está en datos/textos.ts. */
 export const MIN_DESCRIPCION = 60;
-export const fichaIndexable = (c: CholloOficial) => c.descripcion.trim().length >= MIN_DESCRIPCION;
 
 /** Chollos de una versión y una categoría (para las páginas «alfombrillas para Model Y Juniper»). */
 export function chollosDeVersionCategoria(version: IdVersion, categoria: IdCategoria): CholloOficial[] {
