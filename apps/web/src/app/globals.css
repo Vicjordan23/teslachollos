@@ -120,33 +120,34 @@ body {
   background-image: none;
 }
 
-/* Barra LED roja tipo piloto trasero del Tesla Roadster: barre de izquierda a derecha entre la franja azul y la cabecera */
+/* Barra LED roja tipo piloto trasero del Tesla Roadster: va y vuelve despacio, muy sutil, entre la franja azul y la cabecera */
 .led-roadster {
   position: relative;
-  height: 5px;
+  height: 3px;
   overflow: hidden;
-  background: linear-gradient(90deg, #1a0408, #2a060c, #1a0408);
+  background: linear-gradient(90deg, #14040a, #1c060c, #14040a);
 }
 .led-roadster::before {
   content: "";
   position: absolute;
   inset: 0 auto 0 0;
-  width: 26%;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 30, 50, 0.25) 35%, #ff1f35 88%, #ffd7dc 100%);
-  box-shadow: 0 0 12px 3px rgba(255, 30, 50, 0.75);
-  transform: translateX(-100%);
-  animation: led-barrido 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  width: 22%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 30, 50, 0.18) 20%, rgba(255, 31, 53, 0.75) 50%, rgba(255, 30, 50, 0.18) 80%, transparent 100%);
+  box-shadow: 0 0 8px 1px rgba(255, 30, 50, 0.35);
+  animation: led-barrido 7s ease-in-out infinite alternate;
 }
 @keyframes led-barrido {
+  from {
+    transform: translateX(0);
+  }
   to {
-    transform: translateX(385%);
+    transform: translateX(354%);
   }
 }
 @media (prefers-reduced-motion: reduce) {
   .led-roadster::before {
     animation: none;
-    transform: none;
     width: 100%;
-    opacity: 0.35;
+    opacity: 0.25;
   }
 }
