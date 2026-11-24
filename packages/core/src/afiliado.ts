@@ -2,7 +2,7 @@ import { esAcortador, hostLimpio, tiendaDeUrl, type IdTienda, type Tienda } from
 
 /** Datos de afiliado de Vic. No son secretos: van en todos los enlaces públicos. */
 export const AFILIADO = {
-  amazonTag: "teslaaccesorios-21",
+  amazonTag: "teslaweb-21",
   hansshowRef: "nBeGMuizu9",
   jowuaGhref: "5866:1343863",
   jowuaDescuento: "accesoriostesla",

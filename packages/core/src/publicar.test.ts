@@ -25,7 +25,7 @@ describe("prepararPublicacion", () => {
   });
   it("Amazon con /dp/ y su tag", () => {
     const r = prepararPublicacion({ ...base, enlace: "https://www.amazon.es/dp/B0GY6GB73J?tag=otro-21" });
-    expect(r.ok === true && r.chollo.enlace).toBe("https://www.amazon.es/dp/B0GY6GB73J?tag=teslaaccesorios-21");
+    expect(r.ok === true && r.chollo.enlace).toBe("https://www.amazon.es/dp/B0GY6GB73J?tag=teslaweb-21");
     expect(prepararPublicacion({ ...base, enlace: "https://www.amazon.es/s?k=tesla" }).ok).toBe(false);
   });
   it("AliExpress y Tesla se aceptan limpios; otras tiendas no", () => {

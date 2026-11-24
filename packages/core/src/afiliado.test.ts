@@ -10,13 +10,13 @@ function url(enlace: string): string {
 describe("aplicarAfiliado", () => {
   it("Amazon: deja /dp/ASIN con el tag de Vic y quita el afiliado ajeno", () => {
     expect(url("https://www.amazon.es/Spigen-Protector/dp/B0GY6GB73J/ref=sr_1_3?tag=otro-21&keywords=x")).toBe(
-      "https://www.amazon.es/dp/B0GY6GB73J?tag=teslaaccesorios-21",
+      "https://www.amazon.es/dp/B0GY6GB73J?tag=teslaweb-21",
     );
-    expect(url("https://amazon.es/gp/product/b0fc21dngx")).toBe("https://www.amazon.es/dp/B0FC21DNGX?tag=teslaaccesorios-21");
+    expect(url("https://amazon.es/gp/product/b0fc21dngx")).toBe("https://www.amazon.es/dp/B0FC21DNGX?tag=teslaweb-21");
   });
 
   it("Amazon sin ASIN: limpia parámetros y pone el tag", () => {
-    expect(url("https://www.amazon.es/s?k=tesla&tag=otro-21")).toBe("https://www.amazon.es/s?k=tesla&tag=teslaaccesorios-21");
+    expect(url("https://www.amazon.es/s?k=tesla&tag=otro-21")).toBe("https://www.amazon.es/s?k=tesla&tag=teslaweb-21");
   });
 
   it("Hansshow: sustituye bg_ref", () => {
