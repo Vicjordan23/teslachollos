@@ -444,6 +444,276 @@ export const GUIAS: Guia[] = [
       PREGUNTA_AFILIADO,
     ],
   },
+  {
+    slug: "luz-ambiental-y-led-para-tesla",
+    titulo: "Luz ambiental y LED para Tesla Model 3 y Model Y: guía de compra",
+    h1: "Luz ambiental y LED para tu Tesla: cómo elegir",
+    descripcion:
+      "Cómo elegir luces de ambiente, tiras LED y luces de cortesía para tu Tesla Model 3 o Model Y: conexión, compatibilidad y opciones con el precio final.",
+    resumen: "Luces de ambiente, tiras LED y luces de umbral: cómo se conectan y qué comprobar antes de comprar.",
+    intro: [
+      "La iluminación interior es de los cambios que más se notan en un Tesla: una tira de luz ambiental, unas luces en las puertas o en el maletero cambian por completo el aspecto de la cabina. Hay opciones muy distintas en precio y en cómo se instalan.",
+      "Antes de comprar conviene saber cómo se alimenta cada una: unas van por USB o por el enchufe de 12 V, otras funcionan con pilas o batería recargable y otras se conectan a la instalación del coche. Cuanto más sencilla la conexión, menos riesgo de problemas.",
+    ],
+    comoElegir: [
+      "Mira cómo se conecta: USB, enchufe de 12 V, pilas o conexión a la instalación del coche. Las que no tocan el cableado son más fáciles de quitar si cambias de opinión.",
+      "Comprueba que la ficha nombre tu modelo y versión. En las luces que sustituyen una pieza del coche, el ajuste cambia con las renovaciones.",
+      "Si quieres controlar el color y el brillo, busca las que traen mando o aplicación; las más baratas suelen ser de un solo color.",
+      "Evita instalaciones que obliguen a cortar o empalmar cables del coche si no estás seguro: pueden afectar a la garantía.",
+      "Fíjate en el brillo y en dónde va colocada: una luz demasiado intensa puede molestar al conducir de noche.",
+    ],
+    bloques: [
+      { titulo: "Iluminación para Model Y Juniper", version: "model-y-juniper", categoria: "iluminacion" },
+      { titulo: "Iluminación para Model 3 Highland", version: "model-3-highland", categoria: "iluminacion" },
+      { titulo: "Iluminación con más descuento", categoria: "iluminacion", orden: "descuento" },
+      { titulo: "Iluminación más barata", categoria: "iluminacion", orden: "barato" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Las luces LED afectan a la garantía del Tesla?",
+        respuesta:
+          "Las que se conectan por USB o por el enchufe de 12 V no tocan el cableado del coche. Las que se empalman a la instalación pueden dar problemas, así que mejor elegir las que no requieren modificar nada.",
+      },
+      {
+        pregunta: "¿Qué luz ambiental es mejor para un Tesla?",
+        respuesta:
+          "Depende de dónde la quieras y de cuánto quieras controlar. Las de varios colores con mando o aplicación dan más juego; las sencillas de un color son más baratas y fáciles de poner.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
+  {
+    slug: "compatibilidad-accesorios-tesla-highland-juniper-legacy",
+    titulo: "Accesorios Tesla Model 3 y Model Y: compatibilidad Highland, Juniper y versiones anteriores",
+    h1: "¿Encaja en mi Tesla? Compatibilidad entre Highland, Juniper y versiones anteriores",
+    descripcion:
+      "Cómo saber si un accesorio encaja en tu Tesla Model 3 o Model Y: diferencias entre Highland, Juniper y las versiones anteriores, y qué mirar en cada ficha.",
+    resumen: "Highland, Juniper y versiones anteriores: cómo saber si un accesorio encaja en tu Tesla.",
+    intro: [
+      "Tanto el Model 3 como el Model Y se han renovado: el Model 3 Highland se vende desde 2024 y el Model Y Juniper desde 2025. Las renovaciones cambiaron el frontal, la iluminación y buena parte del interior, así que un accesorio pensado para la versión anterior puede no encajar en la nueva, y al revés.",
+      "En esta guía no hay trucos: la regla es mirar el año y la versión de cada ficha. Los accesorios universales suelen valer para todas; los que van a medida (alfombrillas, protectores de pantalla, piezas de consola y de exterior) son específicos de cada generación.",
+    ],
+    comoElegir: [
+      "Anota tu versión: Model 3 anterior (2017-2023) o Highland (2024 en adelante); Model Y anterior (2020-2024), Juniper (2025 en adelante) o versión Standard.",
+      "Busca fichas que nombren tu versión de forma expresa. Si solo indican «Model 3» o «Model Y» sin año, pregunta a la tienda.",
+      "Las piezas a medida cambian entre generaciones: alfombrillas, protectores de pantalla, consola, puertas y exterior.",
+      "Los accesorios universales (soportes, cargadores, cables, organizadores sueltos) suelen valer para cualquier versión.",
+      "Antes de pagar, revisa la devolución: cambiar una pieza que no encaja es mucho más fácil con una política clara.",
+    ],
+    bloques: [
+      { titulo: "Para Model 3 Highland (2024 en adelante)", version: "model-3-highland" },
+      { titulo: "Para Model Y Juniper (2025 en adelante)", version: "model-y-juniper" },
+      { titulo: "Para Model 3 anterior (2017-2023)", version: "model-3-legacy" },
+      { titulo: "Para Model Y anterior (2020-2024)", version: "model-y-legacy" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Sirven los accesorios del Model 3 anterior para el Highland?",
+        respuesta:
+          "Los universales sí; los que van a medida normalmente no, porque la renovación cambió la consola, las puertas y el frontal. Comprueba que la ficha nombre el Highland o el año 2024 en adelante.",
+      },
+      {
+        pregunta: "¿Y los del Model Y anterior para el Juniper?",
+        respuesta:
+          "Ocurre lo mismo: lo universal suele valer y lo hecho a medida suele ser específico de cada generación. Busca fichas que nombren el Juniper o el año 2025 en adelante.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
+  {
+    slug: "cubrecoche-y-proteccion-exterior-para-tesla",
+    titulo: "Cubrecoche y protección exterior para Tesla Model 3 y Model Y: guía de compra",
+    h1: "Cubrecoche y protección exterior para tu Tesla",
+    descripcion:
+      "Cómo elegir el cubrecoche y los protectores exteriores de tu Tesla Model 3 o Model Y: ajuste, materiales y qué comprobar, con opciones y precio final.",
+    resumen: "Cubrecoche, protectores y piezas de exterior: ajuste, material y qué comprobar antes de comprar.",
+    intro: [
+      "Un Tesla aparcado en la calle acumula polvo, lluvia y sol. Un cubrecoche a medida y unos protectores de exterior alargan la vida de la pintura y de las piezas, pero el ajuste es lo que decide si funcionan o no.",
+      "En exterior, más que en ningún otro tipo de accesorio, importa que la pieza sea para tu modelo y tu versión: una pieza de otra generación no encaja o queda mal.",
+    ],
+    comoElegir: [
+      "Elige un cubrecoche específico para tu modelo y comprueba que deje libres los retrovisores y el puerto de carga si quieres cargar sin quitarlo.",
+      "Mira el material: los impermeables protegen de la lluvia, pero si no transpiran pueden retener humedad; los transpirables son mejores para uso prolongado.",
+      "En protectores y embellecedores, comprueba el año y la versión. Si es adhesivo, la superficie debe estar limpia y seca al colocarlo.",
+      "Revisa que la ficha indique cómo se fija: con clips, ventosas, adhesivo o ajuste a presión.",
+      "Si lo vas a usar en el exterior mucho tiempo, busca materiales resistentes a los rayos UV.",
+    ],
+    bloques: [
+      { titulo: "Exterior para Model Y Juniper", version: "model-y-juniper", categoria: "exterior" },
+      { titulo: "Exterior para Model 3 Highland", version: "model-3-highland", categoria: "exterior" },
+      { titulo: "Exterior con más descuento", categoria: "exterior", orden: "descuento" },
+      { titulo: "Exterior más barato", categoria: "exterior", orden: "barato" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Un cubrecoche puede dañar la pintura?",
+        respuesta:
+          "Un cubrecoche limpio y del tamaño correcto protege la pintura. Si está sucio o es demasiado ajustado, puede rozarla; conviene ponerlo con el coche limpio.",
+      },
+      {
+        pregunta: "¿Puedo cargar el coche con el cubrecoche puesto?",
+        respuesta:
+          "Depende del diseño. Algunos dejan el puerto de carga accesible; otros obligan a retirarlo. Mira lo que indica la ficha.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
+  {
+    slug: "donde-comprar-accesorios-tesla-amazon-aliexpress-temu-tiendas-oficiales",
+    titulo: "Dónde comprar accesorios para Tesla: Amazon, AliExpress, Temu y tiendas especializadas",
+    h1: "Dónde comprar accesorios para tu Tesla: qué ofrece cada tienda",
+    descripcion:
+      "Comparativa de dónde comprar accesorios para Tesla Model 3 y Model Y en España: Amazon, AliExpress, Temu, Jowua, Hansshow, Tesery y EVDANCE, con códigos de descuento y qué comprobar.",
+    resumen: "Amazon, AliExpress, Temu y tiendas especializadas: códigos, envíos y qué mirar en cada una.",
+    intro: [
+      "Los accesorios para Tesla se venden en tres tipos de sitios: grandes tiendas como Amazon, marketplaces como AliExpress y Temu, y tiendas especializadas en Tesla como Jowua, Hansshow, Tesery o EVDANCE. Cada una tiene sus ventajas, y el precio no es lo único que cuenta.",
+      "En Chollesla mostramos el precio final: el de la tienda con su código de descuento ya aplicado cuando lo hay. Amazon, AliExpress y Temu no llevan código; las tiendas especializadas suelen ofrecer uno, que ya está incluido en el precio de la ficha.",
+    ],
+    comoElegir: [
+      "Compara el precio final, no el de lista: las tiendas especializadas con código pueden salir más baratas que su precio original.",
+      "Mira el envío y el plazo: en marketplaces depende del vendedor, y alguna tienda de la UE cobra gastos de envío a España aparte del precio.",
+      "Revisa la política de devolución antes de pagar, sobre todo en piezas a medida que pueden no encajar.",
+      "Comprueba que la ficha nombre tu modelo y versión; es más importante que la tienda.",
+      "En marketplaces, elige la variante correcta en la página del producto antes de añadir al carrito.",
+    ],
+    bloques: [
+      { titulo: "Los más baratos del catálogo", orden: "barato" },
+      { titulo: "Con más descuento", orden: "descuento" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Qué tienda es más barata para accesorios Tesla?",
+        respuesta:
+          "Depende del producto. Las tiendas especializadas con código de descuento suelen ser competitivas en piezas a medida; los marketplaces destacan en accesorios sencillos. Compara siempre el precio final y el envío.",
+      },
+      {
+        pregunta: "¿Hay que pagar el código de descuento?",
+        respuesta:
+          "No. El código no se paga: es un descuento que la tienda aplica. En Chollesla el precio de cada ficha ya lo incluye, y si la tienda te lo pide al pagar, lo copias y lo pegas.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
+  {
+    slug: "cargador-y-cable-tipo-2-para-tesla-en-espana",
+    titulo: "Cargador y cable Tipo 2 para Tesla en España: qué comprar",
+    h1: "Cargador y cable Tipo 2 para tu Tesla en España",
+    descripcion:
+      "Qué cable o cargador Tipo 2 comprar para tu Tesla Model 3 o Model Y en España: potencia, longitud y qué comprobar antes de comprar, con opciones y precio final.",
+    resumen: "Conector Tipo 2, potencia y longitud: cómo elegir el cable o el cargador del Tesla.",
+    intro: [
+      "En Europa, los Tesla se cargan con el conector Tipo 2, el mismo de la mayoría de puntos de carga públicos. Para cargar en casa o en destino necesitas un cable adecuado o un cargador portátil, y ahí hay opciones muy distintas en potencia, longitud y precio.",
+      "Lo importante es que el cable o el cargador soporte la potencia que admite tu coche y la que ofrece tu instalación. Un cable de más potencia que la de tu coche no carga más rápido, simplemente no se aprovecha.",
+    ],
+    comoElegir: [
+      "Comprueba que el conector sea Tipo 2 y que la ficha indique compatibilidad con Tesla.",
+      "Fíjate en la potencia (kW o amperios) que admite el cable, y que sea suficiente para tu coche y tu instalación.",
+      "Mira si es monofásico o trifásico, según la instalación donde vayas a cargar.",
+      "Elige una longitud cómoda: un cable demasiado corto limita dónde aparcas y uno demasiado largo es incómodo de guardar.",
+      "En cargadores portátiles, revisa que traigan protecciones y certificados, y que el cable de alimentación sea adecuado.",
+    ],
+    bloques: [
+      { titulo: "Carga para Model Y Juniper", version: "model-y-juniper", categoria: "carga" },
+      { titulo: "Carga para Model 3 Highland", version: "model-3-highland", categoria: "carga" },
+      { titulo: "Carga con más descuento", categoria: "carga", orden: "descuento" },
+      { titulo: "Carga más barata", categoria: "carga", orden: "barato" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Qué conector necesita un Tesla en España?",
+        respuesta:
+          "El Tipo 2, que es el estándar europeo de la mayoría de puntos de carga. Para cargar en casa o en destino necesitas un cable o cargador con ese conector.",
+      },
+      {
+        pregunta: "¿Un cable de más potencia carga más rápido?",
+        respuesta:
+          "No. La velocidad la marca el cargador interno del coche, la potencia del punto de carga y la instalación. Un cable de más potencia no acelera nada, pero tampoco hace daño.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
+  {
+    slug: "regalos-para-duenos-de-tesla",
+    titulo: "Regalos para dueños de Tesla: ideas por presupuesto",
+    h1: "Qué regalar a quien tiene un Tesla: ideas por presupuesto",
+    descripcion:
+      "Ideas de regalo para dueños de un Tesla Model 3 o Model Y: accesorios útiles por presupuesto, con el precio final y consejos para acertar con la versión.",
+    resumen: "Ideas de regalo para quien tiene un Tesla, por presupuesto, y cómo acertar con la versión.",
+    intro: [
+      "Acertar con un regalo para alguien que tiene un Tesla es más fácil de lo que parece: los accesorios útiles se agradecen más que los decorativos, y hay opciones desde unos pocos euros.",
+      "La clave es saber qué versión tiene: Model 3 o Model Y, y si es la renovada (Highland o Juniper) o una anterior. Con eso, un organizador, un soporte, un protector de pantalla o unas alfombrillas a medida son siempre buena idea.",
+    ],
+    comoElegir: [
+      "Averigua el modelo y el año del coche antes de comprar. Es lo único imprescindible para acertar con piezas a medida.",
+      "Si no estás seguro, elige algo universal: soportes, organizadores sueltos, cables o luces.",
+      "Ten en cuenta lo que ya tiene: un accesorio repetido no sirve, así que mejor preguntar con disimulo.",
+      "Revisa la devolución de la tienda, por si el regalo no encaja.",
+      "Para sorprender de verdad, elige algo que use todos los días: soporte de móvil, organizador de consola o protector de pantalla.",
+    ],
+    bloques: [
+      { titulo: "Regalos por menos de 20 €", maxEuros: 20, orden: "destacados" },
+      { titulo: "Regalos por menos de 50 €", maxEuros: 50, orden: "destacados" },
+      { titulo: "Los que más descuento tienen", orden: "descuento" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Qué es lo más útil para regalar a un dueño de Tesla?",
+        respuesta:
+          "Los accesorios que usa a diario: un soporte de móvil, un organizador de consola, un protector de pantalla o unas alfombrillas a medida.",
+      },
+      {
+        pregunta: "¿Cómo acierto con la versión si no estoy seguro?",
+        respuesta:
+          "Pregunta el modelo y el año del coche, o elige un accesorio universal que valga para cualquier versión.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
+  {
+    slug: "protectores-de-interior-para-tesla-consola-umbral-y-asientos",
+    titulo: "Protectores de interior para Tesla: consola, umbrales y asientos",
+    h1: "Protectores de interior para tu Tesla: consola, umbrales y asientos",
+    descripcion:
+      "Cómo elegir protectores de interior para tu Tesla Model 3 o Model Y: consola central, umbrales de puerta y fundas de asiento, con precio final y qué comprobar.",
+    resumen: "Consola, umbrales y asientos: cómo elegir los protectores de interior del Tesla.",
+    intro: [
+      "El interior de un Tesla es minimalista, y por eso las zonas de uso diario, como la consola central, los umbrales de las puertas y los asientos, se marcan antes de lo que parece. Los protectores evitan arañazos y desgaste, y suelen ser baratos frente a lo que cuesta reponer la pieza.",
+      "Como casi todo lo que va a medida, el ajuste depende de la generación: la consola, las puertas y los asientos cambian con las renovaciones, así que hay que comprobar el modelo y el año.",
+    ],
+    comoElegir: [
+      "Comprueba que la ficha nombre tu modelo y versión; el diseño interior cambia con las renovaciones.",
+      "En fundas de asiento, comprueba que respeten los airbags laterales y la calefacción de los asientos.",
+      "Los protectores de umbral y de consola de materiales flexibles se adaptan mejor y son fáciles de limpiar.",
+      "Mira cómo se fijan: adhesivo, clips o ajuste a presión. El adhesivo exige superficie limpia y seca.",
+      "Si el producto es para la zona de los pies o los asientos traseros, busca materiales resistentes a patadas y roces.",
+    ],
+    bloques: [
+      { titulo: "Interior para Model Y Juniper", version: "model-y-juniper", categoria: "interior" },
+      { titulo: "Interior para Model 3 Highland", version: "model-3-highland", categoria: "interior" },
+      { titulo: "Fundas y protectores de asiento", categoria: "asientos" },
+      { titulo: "Interior más barato", categoria: "interior", orden: "barato" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Las fundas de asiento universales valen para un Tesla?",
+        respuesta:
+          "Algunas sí, pero las específicas respetan mejor los airbags laterales y la calefacción. Si el modelo está indicado en la ficha, mejor.",
+      },
+      {
+        pregunta: "¿Cómo se coloca un protector adhesivo sin que se despegue?",
+        respuesta:
+          "Con la superficie limpia, seca y sin grasa, y presionando bien desde el centro hacia los bordes. Evita colocarlo con mucho frío o calor.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
 ];
 
 export const GUIA_POR_SLUG = new Map(GUIAS.map((g) => [g.slug, g]));
