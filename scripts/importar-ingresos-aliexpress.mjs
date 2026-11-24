@@ -56,25 +56,38 @@ const pekin = (ms) => new Date(ms + 8 * 3600_000).toISOString().replace("T", " "
 const FIELDS = "order_id,order_number,sub_order_id,order_status,paid_amount,finished_amount,estimated_paid_commission,estimated_finished_commission,paid_time,finished_time,tracking_id,currency,settled_currency";
 
 const encontrados = [];
+const vistos = new Set();
 let raw = null;
-for (let pagina = 1; pagina <= 40; pagina++) {
-  const j = await llamar("aliexpress.affiliate.order.list", {
-    fields: FIELDS,
-    start_time: pekin(Date.now() - dias * 864e5),
-    end_time: pekin(Date.now()),
-    page_no: String(pagina),
-    page_size: "50",
-    locale_site: "es",
-  });
-  const res = j.aliexpress_affiliate_order_list_response?.resp_result;
-  if (pagina === 1) raw = j;
-  if (!res || (res.resp_code && Number(res.resp_code) !== 200)) {
-    console.error("Respuesta inesperada:", JSON.stringify(j).slice(0, 600));
-    process.exit(2);
+// La API exige «status»: un pedido pagado y uno ya recibido por el comprador (confirmado) son estados distintos.
+const ESTADOS = (process.env.ALIEXPRESS_ESTADOS ?? "Payment Completed,Buyer Confirmed Receipt").split(",").map((s) => s.trim()).filter(Boolean);
+for (const estado of ESTADOS) {
+  for (let pagina = 1; pagina <= 40; pagina++) {
+    const j = await llamar("aliexpress.affiliate.order.list", {
+      fields: FIELDS,
+      start_time: pekin(Date.now() - dias * 864e5),
+      end_time: pekin(Date.now()),
+      status: estado,
+      page_no: String(pagina),
+      page_size: "50",
+      locale_site: "es",
+    });
+    const res = j.aliexpress_affiliate_order_list_response?.resp_result;
+    if (!raw) raw = j;
+    if (!res || (res.resp_code && Number(res.resp_code) !== 200)) {
+      console.error(`Respuesta inesperada (${estado}):`, JSON.stringify(j).slice(0, 600));
+      process.exit(2);
+    }
+    const lista = res.result?.orders?.order ?? [];
+    for (const o of lista) {
+      const id = String(o.sub_order_id ?? o.order_id ?? o.order_number ?? JSON.stringify(o));
+      if (vistos.has(id)) continue;
+      vistos.add(id);
+      o.__estado = estado;
+      encontrados.push(o);
+    }
+    if (lista.length < 50) break;
   }
-  const lista = res.result?.orders?.order ?? [];
-  encontrados.push(...lista);
-  if (lista.length < 50) break;
+  console.log(`Estado «${estado}»: ${encontrados.filter((o) => o.__estado === estado).length} pedidos`);
 }
 console.log(`Pedidos leídos: ${encontrados.length} (últimos ${dias} días)`);
 if (prueba && encontrados[0]) console.log("Ejemplo (campos):", JSON.stringify(encontrados[0]).slice(0, 700));
@@ -87,7 +100,7 @@ for (const o of encontrados) {
   const fecha = String(o.paid_time ?? o.finished_time ?? "").slice(0, 10);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(fecha)) continue;
   if (o.currency) monedas.add(String(o.currency));
-  const terminado = /finish|confirm/i.test(String(o.order_status ?? ""));
+  const terminado = /finish|confirm/i.test(String(o.order_status ?? o.__estado ?? "")) || /confirm/i.test(o.__estado);
   const d = porDia.get(fecha) ?? { pedidos: 0, ventas: 0, comision: 0, todosTerminados: true };
   d.pedidos++;
   d.ventas += num(terminado ? o.finished_amount || o.paid_amount : o.paid_amount);
