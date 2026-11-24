@@ -73,7 +73,8 @@ for (const estado of ESTADOS) {
     });
     const res = j.aliexpress_affiliate_order_list_response?.resp_result;
     if (!raw) raw = j;
-    if (!res || (res.resp_code && Number(res.resp_code) !== 200)) {
+    // 405 «The result is empty» = no hay pedidos en ese estado y periodo (no es un error).
+    if (!res || (res.resp_code && ![200, 405].includes(Number(res.resp_code)))) {
       console.error(`Respuesta inesperada (${estado}):`, JSON.stringify(j).slice(0, 600));
       process.exit(2);
     }
