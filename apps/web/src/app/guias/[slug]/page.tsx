@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CATEGORIAS, formatoEuros, jsonLdColeccion } from "@chollesla/core";
+import { AvisoTelegram } from "@/components/AvisoTelegram";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { Migas } from "@/components/Migas";
@@ -164,6 +165,8 @@ export default async function PaginaGuia({ params }: PageProps<"/guias/[slug]">)
           ))}
         </ul>
       </section>
+
+      <AvisoTelegram texto="Te avisamos de los mejores accesorios para tu Tesla, con precio final y enlace directo a la tienda." />
 
       <Faq preguntas={g.preguntas} />
     </main>
