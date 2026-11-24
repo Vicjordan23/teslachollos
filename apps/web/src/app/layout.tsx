@@ -85,6 +85,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             Unirme gratis →
           </span>
         </a>
+        <div className="led-roadster" aria-hidden="true" />
         <header className="relative z-30 border-b border-borde border-t-2 border-t-verde-boton bg-superficie">
           <div className="mx-auto flex max-w-[1250px] items-center gap-3 px-4 py-3">
             <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="Chollesla, inicio">
