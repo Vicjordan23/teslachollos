@@ -79,6 +79,9 @@ function enlaceTienda(tienda: Tienda, url: URL): string {
       for (const k of [...url.searchParams.keys()]) url.searchParams.delete(k);
       return url.toString();
     }
+    case "temu":
+      // El enlace corto de afiliado (temu.to/k/...) ya lleva el seguimiento de Vic: se usa sin tocarlo.
+      return url.toString();
     case "evdance": {
       limpiarParametros(url);
       const destino = encodeURIComponent(url.toString());

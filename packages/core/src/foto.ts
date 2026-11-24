@@ -2,7 +2,7 @@
  * Fotos de producto: siempre la foto real de la tienda enlazada (nunca generada por IA).
  * Solo se aceptan hosts conocidos, para no mostrar imágenes de cualquier sitio.
  */
-export const HOSTS_FOTO = ["m.media-amazon.com", "cdn.shopify.com", "ae01.alicdn.com", "ae-pic-a1.aliexpress-media.com"] as const;
+export const HOSTS_FOTO = ["m.media-amazon.com", "cdn.shopify.com", "ae01.alicdn.com", "ae-pic-a1.aliexpress-media.com", "img.kwcdn.com"] as const;
 
 /** Proxy de imágenes que usaba el agente de Instagram; en la web se usa la foto original. */
 const PROXY = "wsrv.nl";
@@ -30,6 +30,10 @@ export function fotoConAncho(url: string, ancho: number): string {
     // AliExpress sirve miniaturas añadiendo «_<ancho>x<ancho>.jpg» a la URL (tamaños fijos).
     const tam = [220, 350, 480, 640, 960].find((t) => t >= w) ?? 960;
     return /\.(jpe?g|png|webp)$/i.test(u.pathname) && !/_\d+x\d+\.jpg$/i.test(u.pathname) ? `${u.toString()}_${tam}x${tam}.jpg` : url;
+  }
+  if (u.hostname === "img.kwcdn.com") {
+    // Temu: el CDN redimensiona con «?imageView2/2/w/<ancho>».
+    return `${u.origin}${u.pathname}?imageView2/2/w/${w}/q/75`;
   }
   if (u.hostname === "cdn.shopify.com") {
     u.searchParams.set("width", String(w));

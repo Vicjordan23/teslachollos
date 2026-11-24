@@ -494,6 +494,14 @@ export function generarTextoFicha(e: EntradaFicha, ctx: ContextoFichas, extras: 
       ],
       k("comprar"),
     );
+  } else if (e.tienda === "temu") {
+    comprar = elegir(
+      [
+        `En Temu no hay código de Chollesla: el precio de ${formatoEuros(final)} es el que figuraba el ${fecha}. Antes de pagar elige la variante que encaja con tu Tesla y revisa el plazo y los gastos de envío en la ficha. ${comision}`,
+        `Esta ficha enlaza con Temu, donde el precio no lleva código de descuento (${formatoEuros(final)} el ${fecha}). Comprueba en la página del producto la variante, el envío y las condiciones de devolución. ${comision}`,
+      ],
+      k("comprar"),
+    );
   } else if (e.tienda === "aliexpress") {
     comprar = elegir(
       [
@@ -587,7 +595,9 @@ export function generarTextoFicha(e: EntradaFicha, ctx: ContextoFichas, extras: 
       ? { pregunta: "¿Cobra EVDANCE gastos de envío a España?", respuesta: "EVDANCE envía desde la UE y, cuando lo comprobamos, cobraba gastos de envío a España aparte del precio. Confirma el importe al pagar, porque puede cambiar." }
       : e.tienda === "amazon"
         ? { pregunta: "¿Cómo se compra y qué condiciones de envío tiene?", respuesta: "Se compra en Amazon.es desde el botón de la ficha. El envío, la entrega y las devoluciones son los que indique Amazon en el pedido; Chollesla solo enlaza." }
-        : e.tienda === "aliexpress"
+        : e.tienda === "temu"
+          ? { pregunta: "¿Hay código de descuento en Temu?", respuesta: `No: el precio de ${formatoEuros(final)} es el de Temu sin código. Elige bien la variante y revisa el envío y el plazo en la página del producto antes de pagar.` }
+          : e.tienda === "aliexpress"
           ? { pregunta: "¿Hay código de descuento en AliExpress?", respuesta: `No: el precio de ${formatoEuros(final)} es el de AliExpress sin código. Revisa en la página del producto el envío y el plazo antes de pagar.` }
           : { pregunta: `¿Cómo se usa el código ${t.codigo} en ${t.nombre}?`, respuesta: `Entra en la tienda desde el botón de la ficha, añade el producto al carrito y, si el descuento del ${pct} % no se aplica solo, escribe ${t.codigo} en el campo de código antes de pagar.` },
   ];

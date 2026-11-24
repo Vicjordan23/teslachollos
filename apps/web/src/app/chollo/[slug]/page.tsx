@@ -134,6 +134,9 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
           )}
           <p className="text-sm text-texto-suave">Precio revisado el {formatoFecha(c.fecha)}; puede variar.</p>
           <AvisoPrecio fecha={c.fecha} className="w-fit" />
+          {c.tienda === "temu" && (
+            <p className="text-sm text-texto-suave">Ojo: en Temu elige la variante correcta para tu Tesla y revisa el envío en la ficha antes de pagar.</p>
+          )}
           {c.tienda === "evdance" && (
             <p className="text-sm text-texto-suave">Ojo: EVDANCE envía desde la UE y cobra gastos de envío a España.</p>
           )}

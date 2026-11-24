@@ -14,14 +14,15 @@ if (!origen) {
 }
 const leer = (f) => JSON.parse(readFileSync(join(origen, f), "utf8"));
 
-const precios = { ...leer("precios.json"), ...leer("precios_tesery.json") };
-const imagenes = { ...leer("imagenes_ig.json"), ...leer("imagenes_tesery.json") };
+const precios = { ...leer("precios.json"), ...leer("precios_tesery.json"), ...leer("precios_temu.json") };
+const imagenes = { ...leer("imagenes_ig.json"), ...leer("imagenes_tesery.json"), ...leer("imagenes_temu.json") };
 const archivos = [
   ["productos.json", "amazon"],
   ["productos_jowua.json", "jowua"],
   ["productos_hansshow.json", "hansshow"],
   ["productos_tesery.json", "tesery"],
   ["productos_evdance.json", "evdance"],
+  ["productos_temu.json", "temu"],
 ];
 
 function slugify(texto) {

@@ -21,6 +21,7 @@ export const DESCUENTOS_MIN = [30] as const;
 export const TIENDAS_FILTRO = [
   { id: "amazon", nombre: "Amazon" },
   { id: "aliexpress", nombre: "AliExpress" },
+  { id: "temu", nombre: "Temu" },
   { id: "oficiales", nombre: "Tiendas oficiales" },
 ] as const;
 export type TiendaFiltro = (typeof TIENDAS_FILTRO)[number]["id"];
