@@ -44,7 +44,7 @@ export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChol
   const ficha = chollo.ruta ?? `/chollo/${chollo.slug}`;
 
   return (
-    <article className="flex flex-col gap-3 rounded border border-ficha-borde bg-ficha p-3 text-ficha-texto sm:flex-row sm:gap-5 sm:p-4">
+    <article className="group flex flex-col gap-3 rounded border border-ficha-borde bg-ficha p-3 text-ficha-texto transition duration-300 hover:-translate-y-0.5 hover:border-ficha-boton hover:shadow-[0_10px_30px_rgba(0,0,0,0.45)] sm:flex-row sm:gap-5 sm:p-4">
       <Link
         href={ficha}
         tabIndex={-1}
@@ -52,7 +52,7 @@ export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChol
         className="relative h-48 w-full shrink-0 overflow-hidden rounded-sm bg-white sm:h-auto sm:min-h-52 sm:w-52 sm:self-stretch"
       >
         {foto && (
-          <Image src={foto} alt="" fill priority={prioridad} sizes="(max-width: 640px) 100vw, 208px" className="object-contain p-2" />
+          <Image src={foto} alt="" fill priority={prioridad} sizes="(max-width: 640px) 100vw, 208px" className="object-contain p-2 transition-transform duration-500 group-hover:scale-105" />
         )}
       </Link>
 

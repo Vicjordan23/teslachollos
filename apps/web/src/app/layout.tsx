@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Barlow, Rajdhani } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import { formatoFecha, ULTIMA_REVISION } from "@/datos/chollos";
 import { FotoCoche } from "@/components/FotoCoche";
 import { AVISO_AMAZON, CATEGORIAS, MODELOS_WEB, versionesDeModelo } from "@chollesla/core";
@@ -16,8 +16,9 @@ import { OG_POR_DEFECTO } from "@/lib/seo";
 import { HUBS_VERSION } from "@/lib/contenido";
 import "./globals.css";
 
-const cuerpo = Barlow({ variable: "--font-cuerpo", subsets: ["latin"], weight: ["400", "500", "600", "700"] });
-const display = Rajdhani({ variable: "--font-display-next", subsets: ["latin"], weight: ["500", "600", "700"] });
+// Estilo minimalista oscuro (24/11/2026): Montserrat, alternativa libre a la tipografía de Tesla.
+const cuerpo = Montserrat({ variable: "--font-cuerpo", subsets: ["latin"], weight: ["400", "500", "600", "700"] });
+const display = Montserrat({ variable: "--font-display-next", subsets: ["latin"], weight: ["300", "400", "500", "600"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITIO),
