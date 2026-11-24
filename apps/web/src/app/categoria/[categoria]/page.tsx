@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: PageProps<"/categoria/[catego
   if (!id) return {};
   const n = chollosDeCategoria(id).length;
   const titulo = `${nombreCategoria(id)} para Tesla Model 3 y Model Y en oferta`;
-  const descripcion = `${n.toLocaleString("es-ES")} chollos de ${nombreCategoria(id).toLowerCase()} para Tesla Model 3 y Model Y con el precio final tras el código de descuento. Compara Amazon, AliExpress y tiendas oficiales.`;
+  const descripcion = `${n.toLocaleString("es-ES")} chollos de ${nombreCategoria(id).toLowerCase()} para Tesla Model 3 y Model Y con el precio final tras el código de descuento. Compara Amazon, AliExpress, Temu y tiendas oficiales.`;
   return metaPagina({ titulo, descripcion, ruta: `/categoria/${id}` });
 }
 

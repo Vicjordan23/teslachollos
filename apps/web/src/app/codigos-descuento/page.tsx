@@ -11,7 +11,7 @@ import { metaPagina } from "@/lib/seo";
 const PREGUNTAS = [
   {
     pregunta: "¿Qué códigos de descuento hay para accesorios Tesla?",
-    respuesta: `Los que usa Chollesla: ${IDS_CODIGOS.map((t) => `${TIENDAS[t].nombre} ${Math.round(TIENDAS[t].descuento * 100)} % con ${TIENDAS[t].codigo}`).join("; ")}. Amazon y AliExpress no tienen código: sus precios son los de la tienda.`,
+    respuesta: `Los que usa Chollesla: ${IDS_CODIGOS.map((t) => `${TIENDAS[t].nombre} ${Math.round(TIENDAS[t].descuento * 100)} % con ${TIENDAS[t].codigo}`).join("; ")}. Amazon, AliExpress y Temu no tienen código: sus precios son los de la tienda.`,
   },
   {
     pregunta: "¿Tengo que escribir el código yo?",
@@ -47,7 +47,7 @@ export default function CodigosDescuento() {
           comprobar en el carrito que la tienda lo reconoce.
         </p>
         <p className="text-texto-suave">
-          Elige una tienda para ver su código, cómo se usa, un ejemplo con un producto real y sus accesorios con más descuento. Amazon.es y AliExpress no
+          Elige una tienda para ver su código, cómo se usa, un ejemplo con un producto real y sus accesorios con más descuento. Amazon.es, AliExpress y Temu no
           tienen código: sus precios son los que publica la tienda. Última revisión de precios: {formatoFecha(ULTIMA_REVISION)}.
         </p>
       </section>

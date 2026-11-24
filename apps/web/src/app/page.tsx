@@ -12,7 +12,7 @@ import { metaPagina } from "@/lib/seo";
 export const metadata: Metadata = metaPagina({
   titulo: "Accesorios Tesla baratos: chollos Model 3 y Model Y | Chollesla",
   absoluto: true,
-  descripcion: `Más de ${Math.floor(CHOLLOS.length / 100) * 100} accesorios para Tesla Model 3 y Model Y con el precio final ya calculado tras el código de descuento. Amazon, AliExpress y tiendas especializadas.`,
+  descripcion: `Más de ${Math.floor(CHOLLOS.length / 100) * 100} accesorios para Tesla Model 3 y Model Y con el precio final ya calculado tras el código de descuento. Amazon, AliExpress, Temu y tiendas especializadas.`,
   ruta: "/",
 });
 
@@ -51,7 +51,7 @@ export default function Inicio() {
       <section className="flex max-w-3xl flex-col gap-3 text-texto-suave">
         <h2 className="text-2xl font-semibold text-texto">Accesorios para tu Tesla, con el precio final</h2>
         <p>
-          Chollesla reúne accesorios para Tesla Model 3 y Model Y de Amazon, AliExpress y tiendas especializadas como Hansshow, Jowua, Tesery y EVDANCE.
+          Chollesla reúne accesorios para Tesla Model 3 y Model Y de Amazon, AliExpress, Temu y tiendas especializadas como Hansshow, Jowua, Tesery y EVDANCE.
           En cada chollo ves el precio de la tienda y el <strong>precio final</strong> tras el código de descuento, sin tener que hacer cuentas.
         </p>
         <p>

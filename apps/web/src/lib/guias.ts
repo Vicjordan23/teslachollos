@@ -37,7 +37,7 @@ export interface Guia {
 const PREGUNTA_CODIGO: PreguntaFrecuente = {
   pregunta: "¿Por qué el precio es menor que en la web de la tienda?",
   respuesta:
-    "Porque mostramos el precio final: el de la tienda con su código de descuento ya aplicado (por ejemplo Hansshow y EVDANCE un 20 %, Jowua y Tesery un 5 %). Amazon y AliExpress no tienen código. Confirma siempre el importe en la tienda antes de pagar, porque los precios cambian.",
+    "Porque mostramos el precio final: el de la tienda con su código de descuento ya aplicado (por ejemplo Hansshow y EVDANCE un 20 %, Jowua y Tesery un 5 %). Amazon, AliExpress y Temu no tienen código. Confirma siempre el importe en la tienda antes de pagar, porque los precios cambian.",
 };
 
 const PREGUNTA_AFILIADO: PreguntaFrecuente = {

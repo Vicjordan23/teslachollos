@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: PageProps<"/modelo/[modelo]">
     const n = chollosDeVersion(hub.version).length;
     return metaPagina({
       titulo: `Accesorios Tesla ${hub.nombre}: ${n.toLocaleString("es-ES")} chollos`,
-      descripcion: `Accesorios para el ${hub.completo} con el precio final tras el código de descuento: alfombrillas, protectores de pantalla, carga, iluminación y más. Amazon, AliExpress y tiendas especializadas.`,
+      descripcion: `Accesorios para el ${hub.completo} con el precio final tras el código de descuento: alfombrillas, protectores de pantalla, carga, iluminación y más. Amazon, AliExpress, Temu y tiendas especializadas.`,
       ruta: `/modelo/${hub.version}`,
     });
   }
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: PageProps<"/modelo/[modelo]">
   const n = chollosDeModelo(id).length;
   return metaPagina({
     titulo: `Accesorios para Tesla ${nombreModelo(id)}: ${n.toLocaleString("es-ES")} chollos`,
-    descripcion: `Accesorios compatibles con el Tesla ${nombreModelo(id)} con el precio final tras el código de descuento: alfombrillas, fundas, cargadores, organizadores y más. Amazon, AliExpress y tiendas especializadas.`,
+    descripcion: `Accesorios compatibles con el Tesla ${nombreModelo(id)} con el precio final tras el código de descuento: alfombrillas, fundas, cargadores, organizadores y más. Amazon, AliExpress, Temu y tiendas especializadas.`,
     ruta: `/modelo/${id}`,
   });
 }

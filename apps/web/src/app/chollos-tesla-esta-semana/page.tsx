@@ -37,7 +37,7 @@ const PREGUNTAS = [
   {
     pregunta: "¿Qué descuento es el que se muestra?",
     respuesta:
-      "Es la diferencia entre el precio de la tienda y el precio final tras el código de descuento (por ejemplo Hansshow 20 % o Jowua 5 %). Amazon y AliExpress no tienen código, por eso no aparecen entre los mayores descuentos.",
+      "Es la diferencia entre el precio de la tienda y el precio final tras el código de descuento (por ejemplo Hansshow 20 % o Jowua 5 %). Amazon, AliExpress y Temu no tienen código, por eso no aparecen entre los mayores descuentos.",
   },
   {
     pregunta: "¿Cada cuánto se actualiza esta página?",

@@ -51,7 +51,7 @@ export default function Privacidad() {
 
       <h2>Al salir a una tienda</h2>
       <p>
-        Al pulsar «Ir al chollo» pasas a la web de la tienda (Amazon, Jowua, Hansshow, Tesery, EVDANCE u otras). Desde
+        Al pulsar «Ir al chollo» pasas a la web de la tienda (Amazon, AliExpress, Temu, Jowua, Hansshow, Tesery, EVDANCE u otras). Desde
         ese momento se aplica su política de privacidad y de cookies; el enlace de afiliado les indica que vienes de
         Chollesla.
       </p>
