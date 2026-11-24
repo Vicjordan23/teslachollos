@@ -10,15 +10,44 @@ interface Clic {
   titulo: string | null;
 }
 
+const ZONA = "Europe/Madrid";
+
+/** Fecha aaaa-mm-dd en Madrid de un instante. */
+const diaMadrid = (t: number) => new Date(t).toLocaleDateString("sv-SE", { timeZone: ZONA });
+
+/** Instante (ms) en que empieza el día `dia` (aaaa-mm-dd) en Madrid: se prueba con UTC+1 y UTC+2 (horario de invierno y de verano). */
+function inicioDiaMadrid(dia: string): number {
+  const [y, m, d] = dia.split("-").map(Number);
+  for (const h of [1, 2]) {
+    const t = Date.UTC(y!, m! - 1, d!, 0) - h * 3600_000;
+    if (diaMadrid(t) === dia && diaMadrid(t - 1) !== dia) return t;
+  }
+  return Date.UTC(y!, m! - 1, d!, 0) - 3600_000;
+}
+
+/** Periodo pedido: «hoy», «ayer» o los últimos N días (por defecto 30). Devuelve desde (incluido) y hasta (excluido) en ISO y las fechas para ingresos. */
+function periodo(url: URL) {
+  const p = url.searchParams.get("periodo") ?? "";
+  const hoy = diaMadrid(Date.now());
+  if (p === "hoy" || p === "ayer") {
+    const dia = p === "hoy" ? hoy : diaMadrid(inicioDiaMadrid(hoy) - 3600_000);
+    const desde = inicioDiaMadrid(dia);
+    return { etiqueta: p, dias: 1, desde: new Date(desde).toISOString(), hasta: new Date(desde + 24 * 3600_000).toISOString(), fechaDesde: dia, fechaHasta: dia };
+  }
+  const dias = Math.min(365, Math.max(1, Number(p) || Number(url.searchParams.get("dias")) || 30));
+  const desde = new Date(Date.now() - dias * 864e5).toISOString();
+  return { etiqueta: String(dias), dias, desde, hasta: new Date(Date.now() + 864e5).toISOString(), fechaDesde: desde.slice(0, 10), fechaHasta: "9999-12-31" };
+}
+
 /** Resumen para el panel: clics en «Ir al chollo» (por chollo, tienda y día) e ingresos de afiliados. Solo administradores. */
 export async function GET(req: Request) {
   const a = await comprobarAdmin(req);
   if ("error" in a) return respuesta({ error: a.error }, a.status);
-  const dias = Math.min(365, Math.max(1, Number(new URL(req.url).searchParams.get("dias")) || 30));
-  const desde = new Date(Date.now() - dias * 864e5).toISOString();
+  const per = periodo(new URL(req.url));
+  const dias = per.dias;
   const [rc, ri] = await Promise.all([
-    servicio(`clics_ir?select=creado,slug,tienda,titulo&creado=gte.${desde}&order=creado.desc&limit=50000`),
-    servicio(`ingresos_afiliados?select=*&fecha=gte.${desde.slice(0, 10)}&order=fecha.desc&limit=2000`),
+    servicio(`clics_ir?select=creado,slug,tienda,titulo&creado=gte.${per.desde}&creado=lt.${per.hasta}&order=creado.desc&limit=50000`),
+    servicio(`ingresos_afiliados?select=*&fecha=gte.${per.fechaDesde}&fecha=lte.${per.fechaHasta}&order=fecha.desc&limit=2000`),
   ]);
   if (!rc?.ok || !ri?.ok) return respuesta({ error: "Falta crear las tablas (migración 20261123000000)." }, 503);
   const clics = (await rc.json()) as Clic[];
@@ -38,6 +67,7 @@ export async function GET(req: Request) {
   }
   return respuesta({
     dias,
+    periodo: per.etiqueta,
     totalClics: clics.length,
     chollos: [...porChollo.values()].sort((x, y) => y.clics - x.clics).slice(0, 100),
     tiendas: [...porTienda].map(([tienda, n]) => ({ tienda, clics: n })).sort((x, y) => y.clics - x.clics),

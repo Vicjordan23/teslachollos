@@ -6,6 +6,7 @@ import { supabase } from "@/lib/supabase";
 
 interface Resumen {
   dias: number;
+  periodo?: string;
   totalClics: number;
   chollos: { slug: string; titulo: string | null; tienda: string | null; clics: number; ultimo: string }[];
   tiendas: { tienda: string; clics: number }[];
@@ -18,13 +19,13 @@ const eur = (c: number) => (c / 100).toLocaleString("es-ES", { style: "currency"
 /** Panel único de afiliados: clics en «Ir al chollo» y resultados (clics, pedidos, ventas, comisión) de todos los programas. */
 export function PanelAfiliados() {
   const { sesion, listo } = useEstado();
-  const [dias, setDias] = useState(30);
+  const [periodo, setPeriodo] = useState("30");
   const [datos, setDatos] = useState<Resumen | null>(null);
   const [error, setError] = useState("");
 
   const token = async () => (await supabase()?.auth.getSession())?.data.session?.access_token ?? "";
   const cargar = useCallback(async () => {
-    const r = await fetch(`/api/admin/afiliados?dias=${dias}`, { headers: { Authorization: `Bearer ${await token()}` } });
+    const r = await fetch(`/api/admin/afiliados?periodo=${periodo}`, { headers: { Authorization: `Bearer ${await token()}` } });
     const j = (await r.json().catch(() => ({}))) as Resumen & { error?: string };
     if (!r.ok) {
       setError(j.error ?? "Error");
@@ -33,7 +34,7 @@ export function PanelAfiliados() {
       setError("");
       setDatos(j);
     }
-  }, [dias]);
+  }, [periodo]);
 
   useEffect(() => {
     if (sesion) void cargar();
@@ -82,9 +83,11 @@ export function PanelAfiliados() {
       <div className="flex flex-wrap items-center gap-3">
         <label className="text-sm">
           Periodo{" "}
-          <select className={campo} value={dias} onChange={(e) => setDias(Number(e.target.value))}>
+          <select className={campo} value={periodo} onChange={(e) => setPeriodo(e.target.value)}>
+            <option value="hoy">Hoy</option>
+            <option value="ayer">Ayer</option>
             {[7, 30, 90, 365].map((d) => (
-              <option key={d} value={d}>
+              <option key={d} value={String(d)}>
                 últimos {d} días
               </option>
             ))}
