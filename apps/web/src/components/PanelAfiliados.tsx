@@ -72,6 +72,10 @@ export function PanelAfiliados() {
     tiendas.set(i.tienda, { ...f, clicsTienda: f.clicsTienda + i.clics_tienda, pedidos: f.pedidos + i.pedidos, ventas: f.ventas + i.ventas_cents, comision: f.comision + i.comision_cents });
   }
   const totalCom = [...tiendas.values()].reduce((s, t) => s + t.comision, 0);
+  const suma = [...tiendas.values()].reduce(
+    (s, t) => ({ clics: s.clics + t.clics, clicsTienda: s.clicsTienda + t.clicsTienda, pedidos: s.pedidos + t.pedidos, ventas: s.ventas + t.ventas }),
+    { clics: 0, clicsTienda: 0, pedidos: 0, ventas: 0 },
+  );
   const caja = "rounded-xl border border-borde bg-superficie p-3";
   const campo = "rounded border border-borde bg-fondo px-2 py-1 text-sm";
   const th = "px-2 py-1 text-left font-medium";
@@ -131,6 +135,17 @@ export function PanelAfiliados() {
                   </tr>
                 ))}
             </tbody>
+            <tfoot>
+              <tr className="border-t-2 border-borde font-semibold">
+                <td className={td}>TOTAL</td>
+                <td className={td}>{suma.clics}</td>
+                <td className={td}>{suma.clicsTienda || "—"}</td>
+                <td className={td}>{suma.pedidos}</td>
+                <td className={td}>{eur(suma.ventas)}</td>
+                <td className={td}>{eur(totalCom)}</td>
+                <td className={td}>{suma.clics ? eur(totalCom / suma.clics) : "—"}</td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </section>
