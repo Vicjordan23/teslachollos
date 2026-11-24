@@ -112,7 +112,7 @@ export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChol
             <Compartir ruta={ficha} titulo={chollo.titulo} />
 <Guardar slug={chollo.slug} />
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex min-w-0 max-w-full flex-wrap items-center gap-2">
             {tienda?.codigo && <CopiarCodigo codigo={tienda.codigo} />}
             {salida && (
               <a
@@ -120,7 +120,7 @@ export function TarjetaChollo({ chollo, prioridad = false }: { chollo: DatosChol
                 rel="sponsored nofollow noopener"
                 target="_blank"
                 {...atributosSalida(chollo.slug, chollo.titulo, tienda?.id ?? null, salida)}
-                className="flex items-center gap-2 rounded bg-ficha-boton px-5 py-2.5 text-sm font-extrabold text-white hover:bg-ficha-boton-hover sm:px-8 sm:py-3 sm:text-base"
+                className="flex shrink-0 items-center gap-2 whitespace-nowrap rounded bg-ficha-boton px-5 py-2.5 text-sm font-extrabold text-white hover:bg-ficha-boton-hover sm:px-6 sm:py-3 sm:text-base"
               >
                 Ir al chollo
                 <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
