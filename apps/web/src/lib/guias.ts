@@ -326,6 +326,124 @@ export const GUIAS: Guia[] = [
       PREGUNTA_AFILIADO,
     ],
   },
+  {
+    slug: "accesorios-tesla-model-y-y-model-3-standard",
+    titulo: "Accesorios para Tesla Model Y y Model 3 Standard: guía de compra",
+    h1: "Accesorios para tu Tesla Model Y o Model 3 Standard",
+    descripcion:
+      "Qué accesorios comprar para el Tesla Model Y o Model 3 Standard, la versión básica: cómo comprobar la compatibilidad y opciones con el precio final.",
+    resumen: "Model Y y Model 3 Standard, la versión básica: cómo comprobar que un accesorio encaja y por dónde empezar.",
+    version: "model-y-standard",
+    intro: [
+      "El Model Y y el Model 3 Standard son las versiones básicas de cada modelo. Comparten buena parte de la carrocería con las versiones renovadas (Juniper en el Model Y y Highland en el Model 3), pero el equipamiento y algunos detalles pueden cambiar, así que no todo lo que se vende para la versión completa encaja sin más.",
+      "Por eso en esta guía la regla es una: comprobar la compatibilidad antes de comprar. Si la ficha nombra el Standard, perfecto; si solo nombra Juniper o Highland, confirma con la tienda que valga para tu versión. Después, el orden habitual: alfombrillas, protector de pantalla, carga y organización.",
+    ],
+    comoElegir: [
+      "Busca fichas que nombren expresamente Model Y Standard o Model 3 Standard. Si solo indican Juniper o Highland, pregunta a la tienda antes de pagar.",
+      "Las piezas a medida (alfombrillas, protectores de pantalla, embellecedores) dependen del año y de la versión: no te fíes de una ficha que no indique el año.",
+      "Los accesorios universales (soportes, organizadores sueltos, cables y cargadores) suelen valer para cualquier versión.",
+      "Para la carga, el conector en Europa es Tipo 2: mira la potencia que admite tu coche y la longitud del cable.",
+      "Revisa la política de devolución de la tienda: cambiar una pieza que no encaja es mucho más fácil si la devolución está clara.",
+    ],
+    bloques: [
+      { titulo: "Accesorios para Model Y Standard", version: "model-y-standard", texto: "Productos del catálogo que indican el Model Y Standard. Confirma siempre la versión en la ficha." },
+      { titulo: "Accesorios para Model 3 Standard", version: "model-3-standard", texto: "Productos del catálogo que indican el Model 3 Standard. Confirma siempre la versión en la ficha." },
+      { titulo: "Alfombrillas para Model Y y Model 3", categoria: "alfombrillas" },
+      { titulo: "Cargadores y cables", categoria: "carga" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Valen los accesorios del Model Y Juniper para el Model Y Standard?",
+        respuesta:
+          "A veces sí, sobre todo los universales y los que van al exterior de la misma carrocería, pero no hay garantía. Mira que la ficha nombre el Standard o confirma con la tienda antes de comprar.",
+      },
+      {
+        pregunta: "¿Qué accesorio compro primero para un Tesla Standard?",
+        respuesta:
+          "Unas alfombrillas a medida y un protector de pantalla: son lo que más protege desde el primer día. Después, un cable de carga adecuado y un organizador de consola.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
+  {
+    slug: "tapacubos-para-tesla-model-3-y-model-y",
+    titulo: "Tapacubos para Tesla Model 3 y Model Y: cómo elegirlos",
+    h1: "Tapacubos para tu Tesla: cómo elegir los que encajan",
+    descripcion:
+      "Cómo elegir los tapacubos de tu Tesla Model 3 o Model Y: diámetro de llanta, ajuste y montaje, con opciones del catálogo y precio final.",
+    resumen: "Diámetro de llanta, ajuste y montaje: cómo elegir los tapacubos del Tesla.",
+    intro: [
+      "Los tapacubos cambian el aspecto del coche sin tocar la llanta y protegen el diseño original del polvo y los roces. Son un accesorio sencillo, pero el ajuste importa: uno de otro diámetro no encaja o se suelta.",
+      "Lo primero es saber qué llanta llevas. Cada versión y acabado de Tesla monta un diámetro distinto, y el tapacubos tiene que coincidir con él. Si tienes dudas, el diámetro viene marcado en el lateral del neumático.",
+    ],
+    comoElegir: [
+      "Mide o comprueba el diámetro de tu llanta (en pulgadas) y elige un tapacubos de ese mismo diámetro; el de otro tamaño no encaja.",
+      "Comprueba que la ficha nombre tu modelo y versión, porque el diseño de la llanta cambia entre generaciones.",
+      "Mira cómo se monta: los de ajuste a presión se colocan sin herramientas; otros llevan clips o tornillos.",
+      "Fíjate en que el tapacubos deje accesible la válvula del neumático y no tape sensores ni los orificios de ventilación del freno.",
+      "Compra el juego de cuatro y revisa que incluya todas las piezas de montaje.",
+    ],
+    bloques: [
+      { titulo: "Accesorios de exterior para Model Y Juniper", version: "model-y-juniper", categoria: "exterior", texto: "Incluye tapacubos y otras piezas de exterior. Comprueba el diámetro de tu llanta en cada ficha." },
+      { titulo: "Accesorios de exterior para Model 3 Highland", version: "model-3-highland", categoria: "exterior", texto: "Incluye tapacubos y otras piezas de exterior. Comprueba el diámetro de tu llanta en cada ficha." },
+      { titulo: "Exterior con más descuento", categoria: "exterior", orden: "descuento" },
+      { titulo: "Exterior más barato", categoria: "exterior", orden: "barato" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Cómo sé qué diámetro de tapacubos necesito?",
+        respuesta:
+          "Es el de tu llanta. Viene marcado en el lateral del neumático (por ejemplo, el número después de la R). Si tienes dudas, confírmalo en el manual del coche o con la tienda.",
+      },
+      {
+        pregunta: "¿Se pueden poner sin herramientas?",
+        respuesta:
+          "Los de ajuste a presión sí. Otros llevan clips o tornillos, y la ficha de cada producto indica el sistema de montaje.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
+  {
+    slug: "soportes-de-movil-para-tesla",
+    titulo: "Soportes de móvil para Tesla Model 3 y Model Y: guía de compra",
+    h1: "Soportes de móvil para tu Tesla: cómo elegir",
+    descripcion:
+      "Cómo elegir el soporte de móvil de tu Tesla Model 3 o Model Y: imán o MagSafe, dónde colocarlo y qué comprobar, con precio final.",
+    resumen: "Imán, MagSafe o pinza, y dónde colocarlo sin tapar nada: cómo elegir el soporte de móvil del Tesla.",
+    intro: [
+      "Un Tesla no trae soporte para el móvil, y lo habitual es colocarlo en la consola o junto a la pantalla. Hay soportes magnéticos, compatibles con MagSafe, de pinza y de ventosa, y la mejor opción depende de tu móvil y de cómo lo uses.",
+      "Elige uno que encaje con tu modelo y que no tape la pantalla, las salidas de aire ni ningún sensor. Si cargas el móvil sin cable, comprueba además que el soporte no lo impide.",
+    ],
+    comoElegir: [
+      "Si tu móvil es compatible con MagSafe, un soporte MagSafe se sujeta sin placas extra. Si no lo es, los imanes necesitan una placa metálica pegada al móvil o a la funda.",
+      "Mira dónde se coloca: algunos se fijan a la pantalla, otros a la consola o a una salida de aire. Comprueba que no tape la pantalla ni los sensores.",
+      "Revisa que la ficha nombre tu modelo y versión, porque la forma de la consola y de la pantalla cambia con las renovaciones.",
+      "Si usas carga inalámbrica, comprueba que el soporte no bloquee el cargador ni lo recaliente.",
+      "Los soportes con rótula permiten girar el móvil a vertical u horizontal; si usas mucho el navegador, es cómodo.",
+    ],
+    bloques: [
+      { titulo: "Soportes para Model Y Juniper", version: "model-y-juniper", categoria: "soportes" },
+      { titulo: "Soportes para Model 3 Highland", version: "model-3-highland", categoria: "soportes" },
+      { titulo: "Soportes con más descuento", categoria: "soportes", orden: "descuento" },
+      { titulo: "Soportes más baratos", categoria: "soportes", orden: "barato" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Qué soporte de móvil es mejor para un Tesla?",
+        respuesta:
+          "Depende del móvil y de dónde lo quieras. Con un móvil compatible con MagSafe, uno MagSafe es lo más cómodo; si no, uno magnético con placa o uno de pinza. Lo importante es que no tape la pantalla ni los sensores.",
+      },
+      {
+        pregunta: "¿Los soportes magnéticos dañan el móvil?",
+        respuesta:
+          "Los imanes de estos soportes no suelen dañar un móvil actual. Aun así, evita colocar tarjetas con banda magnética entre el móvil y el imán.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
 ];
 
 export const GUIA_POR_SLUG = new Map(GUIAS.map((g) => [g.slug, g]));
