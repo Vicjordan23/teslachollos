@@ -1,0 +1,37 @@
+name: Importar ingresos de AliExpress
+
+# Lee los pedidos de la API de afiliados de AliExpress y los resume por día en ingresos_afiliados (panel /admin/afiliados).
+# A mano desde la pestaña Actions (casilla «prueba» = no escribe, solo muestra lo que leería) y, si GitHub lo lanza, cada día.
+on:
+  schedule:
+    - cron: "20 5 * * *"
+  workflow_dispatch:
+    inputs:
+      prueba:
+        description: "Solo mostrar lo que leería, sin escribir en Supabase"
+        type: boolean
+        default: true
+      dias:
+        description: "Días hacia atrás"
+        default: "45"
+
+concurrency: importar-ingresos-aliexpress
+
+jobs:
+  importar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Importar pedidos
+        env:
+          ALIEXPRESS_APP_KEY: ${{ secrets.ALIEXPRESS_APP_KEY || secrets.ALIEXPRESS_KEY || secrets.ALI_APP_KEY || secrets.AE_APP_KEY || secrets.APP_KEY }}
+          ALIEXPRESS_APP_SECRET: ${{ secrets.ALIEXPRESS_APP_SECRET || secrets.ALIEXPRESS_SECRET || secrets.ALI_APP_SECRET || secrets.AE_APP_SECRET || secrets.APP_SECRET }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          PRUEBA: ${{ github.event_name == 'workflow_dispatch' && inputs.prueba && '--prueba' || '' }}
+          DIAS: ${{ inputs.dias || '45' }}
+        run: node scripts/importar-ingresos-aliexpress.mjs $PRUEBA --dias=$DIAS
