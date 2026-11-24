@@ -19,12 +19,15 @@ const eur = (c: number) => (c / 100).toLocaleString("es-ES", { style: "currency"
 /** Panel único de afiliados: clics en «Ir al chollo» y resultados (clics, pedidos, ventas, comisión) de todos los programas. */
 export function PanelAfiliados() {
   const { sesion, listo } = useEstado();
-  const [periodo, setPeriodo] = useState("30");
+  const [periodo, setPeriodo] = useState("hoy");
   const [datos, setDatos] = useState<Resumen | null>(null);
   const [error, setError] = useState("");
+  const [actualizado, setActualizado] = useState("");
+  const [cargando, setCargando] = useState(false);
 
   const token = async () => (await supabase()?.auth.getSession())?.data.session?.access_token ?? "";
   const cargar = useCallback(async () => {
+    setCargando(true);
     const r = await fetch(`/api/admin/afiliados?periodo=${periodo}`, { headers: { Authorization: `Bearer ${await token()}` } });
     const j = (await r.json().catch(() => ({}))) as Resumen & { error?: string };
     if (!r.ok) {
@@ -33,7 +36,9 @@ export function PanelAfiliados() {
     } else {
       setError("");
       setDatos(j);
+      setActualizado(new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit", second: "2-digit" }));
     }
+    setCargando(false);
   }, [periodo]);
 
   useEffect(() => {
@@ -97,6 +102,10 @@ export function PanelAfiliados() {
             ))}
           </select>
         </label>
+        <button type="button" onClick={() => void cargar()} disabled={cargando} className="rounded-lg bg-verde-boton px-4 py-2 text-sm font-medium text-white hover:opacity-90 disabled:opacity-60">
+          {cargando ? "Actualizando…" : "🔄 Actualizar"}
+        </button>
+        {actualizado && <span className="text-xs text-texto-suave">Actualizado a las {actualizado}</span>}
         <p className={caja}>
           <b>{datos.totalClics}</b> clics en «Ir al chollo»
         </p>
