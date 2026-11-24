@@ -519,9 +519,6 @@ export function generarTextoFicha(e: EntradaFicha, ctx: ContextoFichas, extras: 
       k("comprar"),
     );
   }
-  if (e.tienda === "evdance") {
-    comprar += " Ojo: EVDANCE envía desde la UE y suele cobrar gastos de envío a España aparte del precio; confirma el importe al pagar.";
-  }
 
   // 7 · Opcionales
   const opcionales: SeccionTexto[] = [];
@@ -591,9 +588,7 @@ export function generarTextoFicha(e: EntradaFicha, ctx: ContextoFichas, extras: 
         ? `${e.desde ? "Desde " : ""}${formatoEuros(final)} con el código ${t.codigo} (${pct} %), frente a ${formatoEuros(e.precioTienda)} sin código. Precio revisado el ${fecha}; puede variar.`
         : `${e.desde ? "Desde " : ""}${formatoEuros(final)} en ${t.nombre}, sin código de descuento. Precio revisado el ${fecha}; puede variar.`,
     },
-    e.tienda === "evdance"
-      ? { pregunta: "¿Cobra EVDANCE gastos de envío a España?", respuesta: "EVDANCE envía desde la UE y, cuando lo comprobamos, cobraba gastos de envío a España aparte del precio. Confirma el importe al pagar, porque puede cambiar." }
-      : e.tienda === "amazon"
+    e.tienda === "amazon"
         ? { pregunta: "¿Cómo se compra y qué condiciones de envío tiene?", respuesta: "Se compra en Amazon.es desde el botón de la ficha. El envío, la entrega y las devoluciones son los que indique Amazon en el pedido; Chollesla solo enlaza." }
         : e.tienda === "temu"
           ? { pregunta: "¿Hay código de descuento en Temu?", respuesta: `No: el precio de ${formatoEuros(final)} es el de Temu sin código. Elige bien la variante y revisa el envío y el plazo en la página del producto antes de pagar.` }

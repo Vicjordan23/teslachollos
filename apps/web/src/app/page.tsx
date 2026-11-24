@@ -51,7 +51,7 @@ export default function Inicio() {
       <section className="flex max-w-3xl flex-col gap-3 text-texto-suave">
         <h2 className="text-2xl font-semibold text-texto">Accesorios para tu Tesla, con el precio final</h2>
         <p>
-          Chollesla reúne accesorios para Tesla Model 3 y Model Y de Amazon, AliExpress, Temu y tiendas especializadas como Hansshow, Jowua, Tesery y EVDANCE.
+          Chollesla reúne accesorios para Tesla Model 3 y Model Y de Amazon, AliExpress, Temu y tiendas especializadas como Hansshow, Jowua y Tesery.
           En cada chollo ves el precio de la tienda y el <strong>precio final</strong> tras el código de descuento, sin tener que hacer cuentas.
         </p>
         <p>

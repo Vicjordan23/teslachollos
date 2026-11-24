@@ -21,7 +21,6 @@ const archivos = [
   ["productos_jowua.json", "jowua"],
   ["productos_hansshow.json", "hansshow"],
   ["productos_tesery.json", "tesery"],
-  ["productos_evdance.json", "evdance"],
   ["productos_temu.json", "temu"],
 ];
 

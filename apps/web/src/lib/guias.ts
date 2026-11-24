@@ -37,7 +37,7 @@ export interface Guia {
 const PREGUNTA_CODIGO: PreguntaFrecuente = {
   pregunta: "¿Por qué el precio es menor que en la web de la tienda?",
   respuesta:
-    "Porque mostramos el precio final: el de la tienda con su código de descuento ya aplicado (por ejemplo Hansshow y EVDANCE un 20 %, Jowua y Tesery un 5 %). Amazon, AliExpress y Temu no tienen código. Confirma siempre el importe en la tienda antes de pagar, porque los precios cambian.",
+    "Porque mostramos el precio final: el de la tienda con su código de descuento ya aplicado (por ejemplo Hansshow un 20 %, Jowua y Tesery un 5 %). Amazon, AliExpress y Temu no tienen código. Confirma siempre el importe en la tienda antes de pagar, porque los precios cambian.",
 };
 
 const PREGUNTA_AFILIADO: PreguntaFrecuente = {
@@ -566,10 +566,10 @@ export const GUIAS: Guia[] = [
     titulo: "Dónde comprar accesorios para Tesla: Amazon, AliExpress, Temu y tiendas especializadas",
     h1: "Dónde comprar accesorios para tu Tesla: qué ofrece cada tienda",
     descripcion:
-      "Comparativa de dónde comprar accesorios para Tesla Model 3 y Model Y en España: Amazon, AliExpress, Temu, Jowua, Hansshow, Tesery y EVDANCE, con códigos de descuento y qué comprobar.",
+      "Comparativa de dónde comprar accesorios para Tesla Model 3 y Model Y en España: Amazon, AliExpress, Temu, Jowua, Hansshow y Tesery, con códigos de descuento y qué comprobar.",
     resumen: "Amazon, AliExpress, Temu y tiendas especializadas: códigos, envíos y qué mirar en cada una.",
     intro: [
-      "Los accesorios para Tesla se venden en tres tipos de sitios: grandes tiendas como Amazon, marketplaces como AliExpress y Temu, y tiendas especializadas en Tesla como Jowua, Hansshow, Tesery o EVDANCE. Cada una tiene sus ventajas, y el precio no es lo único que cuenta.",
+      "Los accesorios para Tesla se venden en tres tipos de sitios: grandes tiendas como Amazon, marketplaces como AliExpress y Temu, y tiendas especializadas en Tesla como Jowua, Hansshow o Tesery. Cada una tiene sus ventajas, y el precio no es lo único que cuenta.",
       "En Chollesla mostramos el precio final: el de la tienda con su código de descuento ya aplicado cuando lo hay. Amazon, AliExpress y Temu no llevan código; las tiendas especializadas suelen ofrecer uno, que ya está incluido en el precio de la ficha.",
     ],
     comoElegir: [

@@ -38,15 +38,6 @@ describe("aplicarAfiliado", () => {
     expect(url("https://www.tesery.com/fr-fr/products/gancho")).toContain("/es-es/products/gancho?");
   });
 
-  it("EVDANCE: envuelve en Awin con el afiliado de Vic, también si ya venía de otro Awin", () => {
-    const esperado =
-      "https://www.awin1.com/cread.php?awinmid=67740&awinaffid=3115223&ued=https%3A%2F%2Feu.evdances.com%2Fes%2Fproducts%2Fwallbox";
-    expect(url("https://eu.evdances.com/es/products/wallbox?utm_source=x")).toBe(esperado);
-    expect(
-      url("https://www.awin1.com/cread.php?awinmid=67740&awinaffid=999&ued=https%3A%2F%2Feu.evdances.com%2Fes%2Fproducts%2Fwallbox"),
-    ).toBe(esperado);
-  });
-
   it("Tienda fuera del programa: enlace limpio sin afiliados ni utm", () => {
     const r = aplicarAfiliado("http://tienda-ejemplo.com/p/alfombrillas?ref=yo&utm_campaign=z&color=negro#opiniones");
     expect(r).toEqual({ estado: "ok", url: "https://tienda-ejemplo.com/p/alfombrillas?color=negro", tienda: null });

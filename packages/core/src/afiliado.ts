@@ -7,8 +7,6 @@ export const AFILIADO = {
   jowuaGhref: "5866:1343863",
   jowuaDescuento: "accesoriostesla",
   teseryRef: "AccesoriosTesla",
-  awinMid: "67740",
-  awinAffid: "3115223",
 } as const;
 
 export const AVISO_AMAZON =
@@ -82,11 +80,6 @@ function enlaceTienda(tienda: Tienda, url: URL): string {
     case "temu":
       // El enlace corto de afiliado (temu.to/k/...) ya lleva el seguimiento de Vic: se usa sin tocarlo.
       return url.toString();
-    case "evdance": {
-      limpiarParametros(url);
-      const destino = encodeURIComponent(url.toString());
-      return `https://www.awin1.com/cread.php?awinmid=${AFILIADO.awinMid}&awinaffid=${AFILIADO.awinAffid}&ued=${destino}`;
-    }
   }
 }
 
@@ -106,7 +99,7 @@ export function aplicarAfiliado(enlace: string): ResultadoEnlace {
   if (url.protocol !== "https:" && url.protocol !== "http:") return { estado: "invalido", motivo: "Solo se admiten enlaces web" };
   if (url.username || url.password) return { estado: "invalido", motivo: "La URL no puede llevar credenciales" };
 
-  // Enlaces de Awin: se desenvuelve el destino real y se vuelve a procesar.
+  // Enlaces de Awin de terceros: se desenvuelve el destino real y se vuelve a procesar (se quita el afiliado ajeno).
   if (hostLimpio(url) === "awin1.com") {
     const ued = url.searchParams.get("ued");
     return ued ? aplicarAfiliado(ued) : { estado: "invalido", motivo: "Enlace de Awin sin destino" };

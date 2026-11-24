@@ -10,7 +10,7 @@ export function GET() {
 
 ## Páginas principales
 - [Chollos de esta semana](${SITIO}/chollos-tesla-esta-semana): accesorios con más descuento, con precio revisado en los últimos 7 días.
-- [Códigos de descuento](${SITIO}/codigos-descuento): código de cada tienda (Hansshow, Jowua, Tesery, EVDANCE) y cómo se usa.
+- [Códigos de descuento](${SITIO}/codigos-descuento): código de cada tienda (Hansshow, Jowua, Tesery) y cómo se usa.
 - [Accesorios Model Y Juniper](${SITIO}/modelo/model-y-juniper): accesorios compatibles con el Model Y de 2025 en adelante.
 - [Accesorios Model 3 Highland](${SITIO}/modelo/model-3-highland): accesorios compatibles con el Model 3 de 2024 en adelante.
 - [Categorías](${SITIO}/categoria/alfombrillas): alfombrillas, protectores de pantalla, carga, iluminación, organización y más.

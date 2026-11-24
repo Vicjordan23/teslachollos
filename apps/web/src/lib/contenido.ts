@@ -144,11 +144,6 @@ export const CODIGOS: Partial<Record<IdTienda, InfoCodigo>> = {
     como: "Tesery es una tienda especializada en accesorios para Tesla con un catálogo muy amplio (alfombrillas, protectores, iluminación, organización). Los precios de Chollesla ya llevan el 5 % del código aplicado.",
     aviso: "Las tiendas suelen limitar un solo código por pedido: no se acumulan. Confirma el importe final en el carrito.",
   },
-  evdance: {
-    tienda: "evdance",
-    como: "EVDANCE vende wallboxes y cargadores portátiles para coches eléctricos. El 20 % se aplica con el código en el carrito y los precios de Chollesla ya lo incluyen.",
-    aviso: "EVDANCE envía desde la Unión Europea y cobra gastos de envío a España: súmalos al precio antes de decidir.",
-  },
 };
 
 export const IDS_CODIGOS = Object.keys(CODIGOS) as IdTienda[];

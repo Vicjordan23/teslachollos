@@ -1,5 +1,5 @@
 /** Tiendas con programa de afiliados de Vic. Cada una con SU enlace: nunca se mezclan. */
-export type IdTienda = "amazon" | "jowua" | "hansshow" | "tesery" | "evdance" | "aliexpress" | "temu";
+export type IdTienda = "amazon" | "jowua" | "hansshow" | "tesery" | "aliexpress" | "temu";
 
 export interface Tienda {
   id: IdTienda;
@@ -17,7 +17,6 @@ export const TIENDAS: Record<IdTienda, Tienda> = {
   jowua: { id: "jowua", nombre: "Jowua", dominios: ["jowua-life.com"], descuento: 0.05, codigo: "ACCESORIOSTESLA" },
   hansshow: { id: "hansshow", nombre: "Hansshow", dominios: ["hansshow.com"], descuento: 0.2, codigo: "VICTOR" },
   tesery: { id: "tesery", nombre: "Tesery", dominios: ["tesery.com"], descuento: 0.05, codigo: "ACCESORIOSTESLA" },
-  evdance: { id: "evdance", nombre: "EVDANCE", dominios: ["evdances.com"], descuento: 0.2, codigo: "EVEU20" },
   // AliExpress Portals: el enlace de afiliado lo genera su API con el tracking ID de Vic (no se puede construir aquí).
   aliexpress: { id: "aliexpress", nombre: "AliExpress", dominios: ["aliexpress.com"], descuento: 0, codigo: null },
   // Temu: solo se reconocen los enlaces cortos de afiliado de Vic (temu.to/k/...), que se generan en su panel de afiliados y se usan tal cual.

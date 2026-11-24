@@ -137,9 +137,6 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
           {c.tienda === "temu" && (
             <p className="text-sm text-texto-suave">Ojo: en Temu elige la variante correcta para tu Tesla y revisa el envío en la ficha antes de pagar.</p>
           )}
-          {c.tienda === "evdance" && (
-            <p className="text-sm text-texto-suave">Ojo: EVDANCE envía desde la UE y cobra gastos de envío a España.</p>
-          )}
 
           {salida && (
             <a

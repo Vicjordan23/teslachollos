@@ -29,9 +29,9 @@ const PREGUNTAS = [
 ];
 
 export const metadata: Metadata = metaPagina({
-  titulo: "Códigos de descuento para accesorios Tesla: Hansshow, Jowua, Tesery y EVDANCE",
+  titulo: "Códigos de descuento para accesorios Tesla: Hansshow, Jowua y Tesery",
   descripcion:
-    "Códigos de descuento en Chollesla para accesorios Tesla: Hansshow 20 % (VICTOR), EVDANCE 20 % (EVEU20), Jowua y Tesery 5 % (ACCESORIOSTESLA). Precios ya con el código aplicado.",
+    "Códigos de descuento en Chollesla para accesorios Tesla: Hansshow 20 % (VICTOR), Jowua y Tesery 5 % (ACCESORIOSTESLA). Precios ya con el código aplicado.",
   ruta: "/codigos-descuento",
 });
 

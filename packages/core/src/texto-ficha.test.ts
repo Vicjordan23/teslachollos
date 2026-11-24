@@ -88,7 +88,7 @@ describe("generarTextoFicha", () => {
       const plano = textoPlano(t);
       const codigo = TIENDAS[e.tienda].codigo;
       if (codigo) expect(plano).toContain(codigo);
-      else expect(plano).not.toMatch(/ACCESORIOSTESLA|VICTOR|EVEU20/);
+      else expect(plano).not.toMatch(/ACCESORIOSTESLA|VICTOR/);
     }
   });
 
@@ -110,11 +110,6 @@ describe("generarTextoFicha", () => {
     const t = generarTextoFicha(e, crearContexto([e]));
     expect(validarTextoFicha(t)).toEqual([]);
     expect(textoPlano(t)).not.toMatch(/undefined|NaN|null/);
-  });
-
-  it("EVDANCE avisa del envío desde la UE", () => {
-    const e = entradas.find((x) => x.tienda === "evdance")!;
-    expect(textoPlano(generarTextoFicha(e, ctx))).toMatch(/UE/);
   });
 
   it("las opiniones y el cambio de precio añaden un bloque y no pasan de 250 palabras", () => {
