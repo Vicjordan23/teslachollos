@@ -809,9 +809,8 @@ export const GUIAS: Guia[] = [
       "Evita unidades que sobresalgan mucho del puerto: el calor y las vibraciones las dañan antes.",
     ],
     bloques: [
-      { titulo: "SSD, memorias y hubs para dashcam", buscar: "dashcam|dash cam|sentry|sentinel|ssd|microsd|usb" },
-      { titulo: "Cámaras y espejos con grabación", buscar: "c[aá]mara|grabador|espejo retrovisor|dashcam" },
-      { titulo: "Almacenamiento y USB más barato", buscar: "ssd|microsd|usb", orden: "barato" },
+      { titulo: "SSD, memorias y hubs para dashcam", buscar: "dashcam|dash cam|sentry|sentinel|ssd|microsd|otg|grabador|memoria usb|pendrive" },
+      { titulo: "Dashcam más barata", buscar: "dashcam|dash cam|sentry|sentinel|ssd|microsd|otg|grabador|memoria usb|pendrive", orden: "barato" },
     ],
     preguntas: [
       {
@@ -880,8 +879,8 @@ export const GUIAS: Guia[] = [
       "Un tarjetero con llavero evita llevar la tarjeta suelta; elige uno que no obligue a sacarla para usarla.",
     ],
     bloques: [
-      { titulo: "Fundas y llaveros para la llave Tesla", buscar: "llav|tarjetero|key" },
-      { titulo: "Llaveros más baratos", buscar: "llav|tarjetero|key", orden: "barato" },
+      { titulo: "Fundas y llaveros para la llave Tesla", buscar: "llavero|tarjetero|tarjeta llave|(funda|cubierta|titular|soporte).{0,30}llave" },
+      { titulo: "Llaveros más baratos", buscar: "llavero|tarjetero|tarjeta llave|(funda|cubierta|titular|soporte).{0,30}llave", orden: "barato" },
     ],
     preguntas: [
       {
@@ -953,7 +952,7 @@ export const GUIAS: Guia[] = [
     ],
     bloques: [
       { titulo: "Alfombrillas para el invierno", categoria: "alfombrillas" },
-      { titulo: "Hielo y nieve", buscar: "hielo|nieve|raspador|invierno|antihielo" },
+      { titulo: "Cadenas de nieve y guardabarros", buscar: "cadenas de nieve|guardabarros|anti-?hielo|invierno" },
       { titulo: "Carga y cables", categoria: "carga" },
       { titulo: "Calefacción y confort", buscar: "calefac|calefactado" },
     ],
@@ -1028,7 +1027,7 @@ export const GUIAS: Guia[] = [
     bloques: [
       { titulo: "Colchones, mesas y camping", buscar: "camping|colch[oó]n|mesa|nevera|acampada|picnic" },
       { titulo: "Sombrillas y protección solar", buscar: "sombrilla|parasol" },
-      { titulo: "Energía: inversores y tomas", buscar: "inversor|v2l|toma" },
+      { titulo: "Energía: inversores y tomas", buscar: "inversor|v2l" },
       { titulo: "Organización del maletero", categoria: "organizacion" },
     ],
     preguntas: [
