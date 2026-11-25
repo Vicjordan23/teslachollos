@@ -215,14 +215,16 @@ export const GUIAS: Guia[] = [
   },
   {
     slug: "alfombrillas-para-tesla-model-3-y-model-y",
-    titulo: "Alfombrillas para Tesla Model 3 y Model Y: guía para elegir bien",
-    h1: "Alfombrillas para Tesla Model 3 y Model Y: cómo elegir",
+    titulo: "Alfombrillas para Tesla Model 3 y Model Y: maletero, TPE y 3D (guía)",
+    h1: "Alfombrillas para Tesla Model 3 y Model Y: cómo elegir (maletero, TPE y 3D)",
     descripcion:
-      "Cómo elegir alfombrillas para tu Tesla Model 3 o Model Y: ajuste a medida, material, plazas y maletero, con el precio final y opciones por versión.",
+      "Cómo elegir alfombrillas para tu Tesla Model 3 o Model Y: de maletero, TPE o 3D, a medida por versión, con el precio final y qué piezas lleva cada juego.",
     resumen: "Ajuste a medida, material y qué juego comprar para el Model 3 y el Model Y, con precios finales.",
     intro: [
       "Las alfombrillas son el accesorio que más se nota con el uso diario: protegen la moqueta del barro y del agua y se limpian en un momento. Pero el suelo de cada generación es distinto, y una alfombrilla que no encaja se mueve y se arruga.",
       "Antes de comprar, decide si quieres solo las de las plazas delanteras o el juego completo con traseras, maletero y frunk. Algunas tiendas venden las piezas por separado y otras en pack: compara el total, no el precio de una pieza.",
+      "Las alfombrillas de maletero merecen mención aparte: es la zona donde más se arrastra barro, arena, bolsas de la compra o material deportivo, y una bandeja con borde elevado protege la moqueta y el fondo del maletero. En un Tesla hay además maletero trasero, subsuelo y frunk (el maletero delantero), cada uno con su pieza.",
+      "Esta guía sirve tanto para el Model 3 Highland como para el Model Y Juniper. Más abajo tienes los juegos de cada versión, las piezas de maletero y los más baratos, siempre con el precio final tras el código de descuento de cada tienda.",
     ],
     comoElegir: [
       "Versión: el Model 3 Highland (2024 en adelante) y el Model Y Juniper (2025 en adelante) cambian respecto a las generaciones anteriores. Comprueba el año en la ficha.",
@@ -230,10 +232,15 @@ export const GUIAS: Guia[] = [
       "Material: las de TPE o goma son flexibles, fáciles de lavar y retienen agua y barro; las de tela quedan más discretas pero se ensucian antes.",
       "Contenido del juego: plazas delanteras, traseras, maletero y frunk. Cuenta cuántas piezas lleva el pack.",
       "Sujeción: busca anclajes o un reverso antideslizante para que no se desplace bajo el pedal.",
+      "Maletero: elige una bandeja con borde elevado si transportas barro, arena o bolsas; comprueba si incluye el subsuelo y el frunk, o si se venden aparte.",
+      "TPE o 3D: las de TPE son más finas y flexibles; las 3D o con relieve profundo contienen más líquido, pero son más rígidas y algo más caras.",
+      "Olor y acabado: el TPE de calidad no huele a goma; si una opinión en la tienda lo menciona, conviene leerla antes de comprar.",
     ],
     bloques: [
       { titulo: "Alfombrillas para Model Y Juniper", version: "model-y-juniper", categoria: "alfombrillas" },
       { titulo: "Alfombrillas para Model 3 Highland", version: "model-3-highland", categoria: "alfombrillas" },
+      { titulo: "Alfombrillas de maletero y frunk", categoria: "alfombrillas", buscar: "maletero|frunk|trunk|cofre" },
+      { titulo: "Alfombrillas TPE", categoria: "alfombrillas", buscar: "tpe" },
       { titulo: "Alfombrillas con más descuento", categoria: "alfombrillas", orden: "descuento" },
       { titulo: "Alfombrillas más baratas", categoria: "alfombrillas", orden: "barato" },
     ],
@@ -247,6 +254,26 @@ export const GUIAS: Guia[] = [
         pregunta: "¿Valen las alfombrillas del Model Y antiguo para el Juniper?",
         respuesta:
           "Normalmente no. Las alfombrillas van a medida y el suelo cambió con la renovación. Comprueba que la ficha indique tu versión y año.",
+      },
+      {
+        pregunta: "¿Qué alfombrillas de maletero elijo para mi Tesla?",
+        respuesta:
+          "Una bandeja a medida con borde elevado, de TPE o goma, que cubra el fondo y los laterales. Comprueba si el juego incluye el maletero trasero, el subsuelo y el frunk, porque a menudo se venden por separado.",
+      },
+      {
+        pregunta: "¿Qué lleva un juego completo de alfombrillas para Tesla?",
+        respuesta:
+          "Suele incluir las plazas delanteras y traseras, y a veces el maletero y el frunk. Cuenta las piezas del pack y compara el total, no el precio de una sola alfombrilla.",
+      },
+      {
+        pregunta: "¿Cómo se limpian las alfombrillas de TPE o goma?",
+        respuesta:
+          "Se sacan, se sacuden y se lavan con agua y jabón neutro. Deja que sequen antes de volver a colocarlas y evita productos que las dejen resbaladizas bajo el pedal.",
+      },
+      {
+        pregunta: "¿Valen las mismas alfombrillas para Model 3 y para Model Y?",
+        respuesta:
+          "No. Aunque comparten mecánica, el suelo y el maletero son distintos. Elige siempre el juego de tu modelo y versión.",
       },
       PREGUNTA_CODIGO,
       PREGUNTA_AFILIADO,

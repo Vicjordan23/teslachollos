@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CATEGORIAS, jsonLdColeccion, nombreCategoria, type IdCategoria } from "@chollesla/core";
+import { Faq } from "@/components/Faq";
 import { Filtros } from "@/components/Filtros";
 import { Paginacion } from "@/components/Paginacion";
 import { Rejilla } from "@/components/Rejilla";
@@ -11,6 +12,25 @@ import { Migas } from "@/components/Migas";
 import { CONSEJOS_CATEGORIA, HUBS_VERSION } from "@/lib/contenido";
 import { metaPagina } from "@/lib/seo";
 import { SITIO } from "@/lib/sitio";
+
+const PREGUNTAS_ALFOMBRILLAS = [
+  {
+    pregunta: "¿Qué alfombrillas de maletero elijo para mi Tesla?",
+    respuesta: "Una bandeja a medida con borde elevado, de TPE o goma, que cubra el fondo y los laterales. Comprueba si el juego incluye el maletero trasero, el subsuelo y el frunk.",
+  },
+  {
+    pregunta: "¿Valen las mismas alfombrillas para el Model 3 y el Model Y?",
+    respuesta: "No. El suelo y el maletero son distintos entre modelos y entre versiones (Highland, Juniper y anteriores). Elige siempre el juego de tu modelo y año.",
+  },
+  {
+    pregunta: "¿Es mejor TPE, goma o tela?",
+    respuesta: "El TPE y la goma se lavan en segundos y retienen agua y barro; la tela queda más discreta pero se ensucia antes. Para el día a día y el maletero, suele convenir TPE o goma.",
+  },
+  {
+    pregunta: "¿Por qué el precio es menor que en la tienda?",
+    respuesta: "Mostramos el precio final con el código de descuento de cada tienda ya aplicado. Confirma el importe en el carrito antes de pagar.",
+  },
+];
 
 // Solo existen las rutas generadas en el build; el resto da 404.
 export const dynamicParams = false;
@@ -27,6 +47,13 @@ export async function generateMetadata({ params }: PageProps<"/categoria/[catego
   const id = valida((await params).categoria);
   if (!id) return {};
   const n = chollosDeCategoria(id).length;
+  if (id === "alfombrillas") {
+    return metaPagina({
+      titulo: "Alfombrillas Tesla Model 3 y Model Y: maletero, TPE y 3D en oferta",
+      descripcion: `${n.toLocaleString("es-ES")} alfombrillas para Tesla Model 3 y Model Y (maletero, frunk, TPE y 3D) con el precio final tras el código de descuento. Compara tiendas.`,
+      ruta: `/categoria/${id}`,
+    });
+  }
   const titulo = `${nombreCategoria(id)} para Tesla Model 3 y Model Y en oferta`;
   const descripcion = `${n.toLocaleString("es-ES")} chollos de ${nombreCategoria(id).toLowerCase()} para Tesla Model 3 y Model Y con el precio final tras el código de descuento. Compara Amazon, AliExpress y tiendas oficiales.`;
   return metaPagina({ titulo, descripcion, ruta: `/categoria/${id}` });
@@ -53,6 +80,15 @@ export default async function PaginaCategoria({ params }: PageProps<"/categoria/
           {lista.length.toLocaleString("es-ES")} chollos de {nombreCategoria(id).toLowerCase()} para Tesla Model 3 y Model Y, ordenados con el precio final ya calculado tras el código de descuento.
         </p>
         <p className="max-w-3xl text-texto-suave">{CONSEJOS_CATEGORIA[id]}</p>
+        {id === "alfombrillas" && (
+          <p className="max-w-3xl text-texto-suave">
+            Aquí tienes alfombrillas de interior y de maletero (incluido el frunk) en TPE, goma y 3D, para el Model 3 Highland y el Model Y Juniper. ¿No sabes cuál elegir? Lee la{" "}
+            <Link href="/guias/alfombrillas-para-tesla-model-3-y-model-y" className="font-medium text-verde-boton hover:underline">
+              guía de alfombrillas para Tesla
+            </Link>
+            .
+          </p>
+        )}
         <p className="max-w-3xl text-texto-suave">
           Por versión:{" "}
           {Object.values(HUBS_VERSION)
@@ -70,6 +106,7 @@ export default async function PaginaCategoria({ params }: PageProps<"/categoria/
       </section>
       <Rejilla chollos={pagina(lista, 1)} prioridad={3} />
       <Paginacion actual={1} total={totalPaginas(lista)} base={`/categoria/${id}`} prefijo={`/categoria/${id}`} />
+      {id === "alfombrillas" && <Faq preguntas={PREGUNTAS_ALFOMBRILLAS} />}
     </main>
   );
 }
