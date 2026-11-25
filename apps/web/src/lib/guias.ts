@@ -896,6 +896,154 @@ export const GUIAS: Guia[] = [
       PREGUNTA_AFILIADO,
     ],
   },
+  {
+    slug: "tuning-para-tesla-model-3-y-model-y-aleron-fibra-de-carbono",
+    titulo: "Tuning para Tesla Model 3 y Model Y: alerones, fibra de carbono y detalles",
+    h1: "Tuning para tu Tesla: alerones, fibra de carbono y detalles de carrocería",
+    descripcion:
+      "Guía de tuning para Tesla Model 3 y Model Y: alerón, piezas de fibra de carbono, carcasas de retrovisor y detalles exteriores, con precio final y qué comprobar.",
+    resumen: "Alerones, fibra de carbono y detalles exteriores: cómo personalizar tu Tesla sin pasarte.",
+    intro: [
+      "Personalizar el exterior de un Tesla es sencillo porque el diseño es limpio: un alerón, unas carcasas de retrovisor o unos detalles en fibra de carbono cambian mucho el aspecto con poco dinero. Lo importante es que encajen con tu versión y se fijen bien.",
+      "Antes de montar nada, consulta la normativa de tu zona sobre modificaciones de la carrocería y la cobertura de tu seguro: algunos cambios exteriores conviene comunicarlos.",
+    ],
+    comoElegir: [
+      "Comprueba que la ficha nombre tu modelo y versión: Highland y Juniper tienen formas distintas de portón y retrovisores.",
+      "En piezas de fibra de carbono, distingue la fibra real de los acabados imitación (ABS con acabado de carbono): cambian el precio y el peso.",
+      "Mira el sistema de fijación: adhesivo 3M o clips. Un adhesivo exige superficie limpia y seca, y no se recoloca fácilmente.",
+      "Si quieres reversibilidad total, prefiere piezas que se montan sobre las originales sin taladrar.",
+      "Evita tapar sensores y cámaras con carcasas o adhesivos.",
+    ],
+    bloques: [
+      { titulo: "Alerones y spoilers", buscar: "aler[oó]n|spoiler" },
+      { titulo: "Fibra de carbono", buscar: "fibra de carbono|carbono" },
+      { titulo: "Carcasas y detalles exteriores", buscar: "retrovisor|embellecedor|cubierta de|difusor", categoria: "exterior" },
+      { titulo: "Tuning más barato", categoria: "exterior", orden: "barato" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Un alerón afecta a la garantía o al seguro?",
+        respuesta: "Puede hacerlo si se considera una modificación. Consulta las condiciones de tu seguro y de tu garantía antes de montar piezas que alteren la carrocería.",
+      },
+      {
+        pregunta: "¿La fibra de carbono es real en todos los productos?",
+        respuesta: "No. Algunos son fibra real y otros acabado imitación. Lee la descripción de la ficha en la tienda para saber el material.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
+  {
+    slug: "accesorios-tesla-para-invierno-frio-y-hielo",
+    titulo: "Accesorios Tesla para invierno: frío, hielo y nieve",
+    h1: "Accesorios para el Tesla en invierno: frío, hielo y nieve",
+    descripcion:
+      "Qué accesorios ayudan a tu Tesla Model 3 o Model Y en invierno: protección contra el hielo, alfombrillas de goma, carga y calefacción, con precio final.",
+    resumen: "Protege tu Tesla del frío: hielo, alfombrillas de goma, carga y detalles de invierno.",
+    intro: [
+      "En invierno, el hielo en los cristales, la nieve que entra en el habitáculo y el frío al cargar son las molestias más habituales. Algunos accesorios sencillos las reducen sin tocar el coche.",
+      "Esta guía reúne los productos del catálogo útiles para la estación fría. Para el uso del coche en bajas temperaturas, sigue siempre las recomendaciones del manual de tu modelo.",
+    ],
+    comoElegir: [
+      "Alfombrillas de goma o TPE con borde elevado: retienen agua y barro y se lavan en segundos.",
+      "Una cubierta o manta para el parabrisas ahorra raspar el hielo por la mañana; comprueba que su tamaño encaje con tu modelo.",
+      "Para cargar con frío, un cable resistente y flexible a bajas temperaturas es más cómodo de manejar.",
+      "Un raspador o cepillo de hielo con mango largo evita rayar el cristal y alcanza todo el parabrisas.",
+      "Revisa que los productos de interior no tapen salidas de aire ni sensores.",
+    ],
+    bloques: [
+      { titulo: "Alfombrillas para el invierno", categoria: "alfombrillas" },
+      { titulo: "Hielo y nieve", buscar: "hielo|nieve|raspador|invierno|antihielo" },
+      { titulo: "Carga y cables", categoria: "carga" },
+      { titulo: "Calefacción y confort", buscar: "calefac|calefactado" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Qué alfombrillas son mejores para el invierno?",
+        respuesta: "Las de goma o TPE con borde elevado, porque contienen el agua y la nieve que entra con las botas y se limpian fácilmente.",
+      },
+      {
+        pregunta: "¿Hace falta algo especial para cargar con frío?",
+        respuesta: "No es obligatorio, pero un cable flexible a bajas temperaturas se maneja mejor. Consulta el manual para las recomendaciones de carga con frío.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
+  {
+    slug: "hansshow-y-jowua-para-tesla-que-vende-cada-una",
+    titulo: "Hansshow y Jowua para Tesla: qué vende cada tienda y códigos de descuento",
+    h1: "Hansshow y Jowua para tu Tesla: qué vende cada una y qué código usar",
+    descripcion:
+      "Compara Hansshow (código VICTOR, 20 %) y Jowua (código ACCESORIOSTESLA, 5 %) para Tesla Model 3 y Model Y: qué venden, precios finales y qué revisar antes de comprar.",
+    resumen: "Hansshow con VICTOR (20 %) y Jowua con ACCESORIOSTESLA (5 %): qué venden y cuándo conviene cada una.",
+    intro: [
+      "Hansshow y Jowua son dos tiendas especializadas en accesorios para Tesla con catálogos amplios. Las dos tienen código de descuento, y en Chollesla verás el precio ya calculado con el código aplicado.",
+      "Hansshow aplica un 20 % con el código VICTOR y Jowua un 5 % con ACCESORIOSTESLA. El mejor precio final no siempre sale de la tienda con más descuento, así que conviene comparar el mismo tipo de producto.",
+    ],
+    comoElegir: [
+      "Compara el precio final de productos equivalentes entre tiendas, no solo el porcentaje de descuento.",
+      "Revisa en cada tienda el plazo y el coste de envío a España y la política de devoluciones antes de pagar.",
+      "Introduce el código en el carrito si no se aplica solo y confirma el importe antes de pagar.",
+      "Comprueba siempre que la ficha indique tu modelo y versión (Highland, Juniper o anterior).",
+      "Si el producto se vende también en Amazon, compara: a veces compensa por plazo de entrega o devolución más sencilla.",
+    ],
+    bloques: [
+      { titulo: "Lo más destacado de Hansshow", tienda: "hansshow" },
+      { titulo: "Hansshow más barato", tienda: "hansshow", orden: "barato" },
+      { titulo: "Lo más destacado de Jowua", tienda: "jowua" },
+      { titulo: "Jowua más barato", tienda: "jowua", orden: "barato" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Qué código usar en Hansshow y en Jowua?",
+        respuesta: "En Hansshow, VICTOR (20 %). En Jowua, ACCESORIOSTESLA (5 %). Los precios de Chollesla ya los llevan aplicados; confirma el importe final en el carrito.",
+      },
+      {
+        pregunta: "¿Cuál es mejor, Hansshow o Jowua?",
+        respuesta: "Depende del producto. Compara el precio final de lo que buscas, el plazo de envío y la política de devoluciones de cada tienda.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
+  {
+    slug: "accesorios-camping-y-viaje-para-tesla",
+    titulo: "Accesorios de camping y viaje para Tesla: colchón, nevera y energía",
+    h1: "Accesorios de camping y viaje para tu Tesla",
+    descripcion:
+      "Accesorios para viajar o hacer camping con un Tesla Model 3 o Model Y: colchón, mesa, parasol lateral, inversor y organización del maletero, con precio final.",
+    resumen: "Colchón, mesa, sombrillas laterales, inversor y organización para escapadas con tu Tesla.",
+    intro: [
+      "El maletero amplio y la batería del Tesla lo hacen cómodo para escapadas y noches de camping. Con unos pocos accesorios, el coche pasa de ser transporte a tener un espacio para dormir o descansar.",
+      "Consulta siempre el manual de tu modelo antes de usar la batería para alimentar equipos externos, y respeta la normativa local sobre pernoctar en vehículos.",
+    ],
+    comoElegir: [
+      "En un colchón o plataforma, comprueba que sus medidas encajen con tu modelo y con los asientos abatidos.",
+      "Las sombrillas y parasoles laterales dan intimidad y frescor, pero solo se usan con el coche aparcado.",
+      "Si compras un inversor, comprueba su potencia, la conexión y que sea compatible con tu versión de Tesla.",
+      "Organizadores y cajas plegables ayudan a mantener el maletero ordenado en viajes largos.",
+      "Una mesa plegable en el respaldo o el maletero es práctica para comer o trabajar durante la parada.",
+    ],
+    bloques: [
+      { titulo: "Colchones, mesas y camping", buscar: "camping|colch[oó]n|mesa|nevera|acampada|picnic" },
+      { titulo: "Sombrillas y protección solar", buscar: "sombrilla|parasol" },
+      { titulo: "Energía: inversores y tomas", buscar: "inversor|v2l|toma" },
+      { titulo: "Organización del maletero", categoria: "organizacion" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Se puede dormir en un Tesla?",
+        respuesta: "Sí, con asientos abatidos y un colchón adecuado, y el modo Camping para climatizar. Consulta el manual para su uso y respeta la normativa local sobre pernoctar.",
+      },
+      {
+        pregunta: "¿Se pueden alimentar equipos desde la batería?",
+        respuesta: "Algunos accesorios usan las tomas del coche, pero hay límites de potencia. Consulta el manual de tu modelo antes de conectar nada.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
 ];
 
 export const GUIA_POR_SLUG = new Map(GUIAS.map((g) => [g.slug, g]));
