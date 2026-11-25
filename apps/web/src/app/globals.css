@@ -84,7 +84,7 @@ h1, h2 {
 body {
   background-color: var(--fondo);
   /* Panal de carbono perforado (imagen de Vic, mosaico sin costuras 256x154): más claro que las fichas (#0a0b0c), así destacan. */
-  background-image: url("/fondo-panal.png");
+  background-image: url("/fondo-panal.png?v=2");
   background-size: 256px 154px;
   color: var(--texto);
   font-family: var(--font-sans);
