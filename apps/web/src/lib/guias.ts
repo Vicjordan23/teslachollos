@@ -1,4 +1,4 @@
-import type { IdCategoria, IdVersion, PreguntaFrecuente } from "@chollesla/core";
+import type { IdCategoria, IdTienda, IdVersion, PreguntaFrecuente } from "@chollesla/core";
 import type { IdOrden } from "@/datos/chollos";
 
 /**
@@ -16,6 +16,10 @@ export interface BloqueGuia {
   /** Precio final máximo en euros. */
   maxEuros?: number;
   orden?: IdOrden;
+  /** Expresión regular (sin barras, insensible a mayúsculas) que debe cumplir el título del producto. */
+  buscar?: string;
+  /** Solo productos de esta tienda. */
+  tienda?: IdTienda;
 }
 
 export interface Guia {
@@ -709,6 +713,184 @@ export const GUIAS: Guia[] = [
         pregunta: "¿Cómo se coloca un protector adhesivo sin que se despegue?",
         respuesta:
           "Con la superficie limpia, seca y sin grasa, y presionando bien desde el centro hacia los bordes. Evita colocarlo con mucho frío o calor.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
+  {
+    slug: "parasol-para-tesla-model-3-y-model-y",
+    titulo: "Parasol para Tesla Model 3 y Model Y: cómo elegirlo y precios",
+    h1: "Parasol para tu Tesla: cómo elegir el de parabrisas o el de techo de cristal",
+    descripcion:
+      "Guía para elegir parasol en un Tesla Model 3 o Model Y: parabrisas o techo panorámico, ajuste a medida y precio final con el código de cada tienda.",
+    resumen: "Parabrisas o techo de cristal: qué parasol encaja con tu Tesla y qué comprobar antes de comprarlo.",
+    intro: [
+      "El techo de cristal y el gran parabrisas de un Tesla dejan pasar mucha luz y calor, sobre todo en verano y con el coche aparcado al sol. Un parasol baja la temperatura del habitáculo y protege la pantalla y el salpicadero, y es de los accesorios más baratos que se notan desde el primer día.",
+      "Hay dos zonas distintas: el parabrisas delantero y el techo panorámico. Los productos no son intercambiables, así que lo primero es decidir cuál quieres tapar y comprobar que la ficha indique tu modelo y versión.",
+    ],
+    comoElegir: [
+      "Decide la zona: parabrisas (plegable o enrollable) o techo de cristal (suele fijarse por dentro con clips o ventosas).",
+      "Busca el modelo exacto: la forma del parabrisas y del techo cambia entre Model 3 Highland, Model Y Juniper y versiones anteriores.",
+      "Mira que lleve capa reflectante exterior y que no deje huecos junto al retrovisor y los sensores de la cámara.",
+      "Comprueba cómo se guarda: los plegables caben en la puerta; los rígidos o enrollables ocupan más.",
+      "Evita fijaciones que puedan dejar marcas en el cristal o el techo interior.",
+    ],
+    bloques: [
+      { titulo: "Parasoles para Model Y Juniper", version: "model-y-juniper", buscar: "parasol" },
+      { titulo: "Parasoles para Model 3 Highland", version: "model-3-highland", buscar: "parasol" },
+      { titulo: "Parasoles más baratos", buscar: "parasol", orden: "barato" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Un parasol universal sirve para un Tesla?",
+        respuesta: "Puede tapar, pero deja huecos en los bordes y en la zona de las cámaras. Si hay uno específico para tu modelo y año, suele ajustar mejor.",
+      },
+      {
+        pregunta: "¿Tapa el parasol las cámaras del parabrisas?",
+        respuesta: "Se coloca con el coche aparcado, no en marcha. Aun así, comprueba que no obligue a pegar nada junto a las cámaras o sensores.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
+  {
+    slug: "tesery-para-tesla-que-vende-y-como-comprar",
+    titulo: "Tesery para Tesla: qué venden y cómo comprar con el código ACCESORIOSTESLA",
+    h1: "Tesery para tu Tesla: qué venden y qué mirar antes de comprar",
+    descripcion:
+      "Qué accesorios para Tesla Model 3 y Model Y vende Tesery, cómo aplicar el código ACCESORIOSTESLA y qué comprobar antes de pagar: envío, devoluciones y compatibilidad.",
+    resumen: "Qué vende Tesery, cómo usar el código ACCESORIOSTESLA y qué revisar antes de pagar.",
+    intro: [
+      "Tesery es una tienda especializada en accesorios para Tesla con un catálogo muy amplio: alfombrillas, protecciones, volantes, kits de carrocería, iluminación y más. En Chollesla mostramos sus productos con el precio ya calculado tras aplicar el código.",
+      "No publicamos valoraciones de compradores ni puntuaciones: aquí solo encontrarás el catálogo, el precio final y los puntos que conviene comprobar en la propia tienda antes de pagar.",
+    ],
+    comoElegir: [
+      "Comprueba que la ficha nombre tu modelo y versión (Highland, Juniper o anterior) antes de añadir al carrito.",
+      "Introduce el código ACCESORIOSTESLA en el carrito si la tienda no lo aplica sola; Chollesla muestra ya el precio con ese 5 %.",
+      "Revisa en la tienda el plazo y el coste de envío a España y la política de devoluciones antes de pagar.",
+      "En ofertas relámpago, confirma que el precio y las variantes siguen vigentes; pueden cambiar sin aviso.",
+      "Compara con Amazon o Hansshow si el mismo accesorio es muy barato: a veces cambia el envío más que el precio.",
+    ],
+    bloques: [
+      { titulo: "Lo más destacado de Tesery", tienda: "tesery" },
+      { titulo: "Tesery para Model Y Juniper", tienda: "tesery", version: "model-y-juniper" },
+      { titulo: "Tesery para Model 3 Highland", tienda: "tesery", version: "model-3-highland" },
+      { titulo: "Lo más barato de Tesery", tienda: "tesery", orden: "barato" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Qué código de descuento tiene Tesery?",
+        respuesta: "El código es ACCESORIOSTESLA y da un 5 %. Los precios de Chollesla ya lo llevan descontado; confirma el importe final en el carrito.",
+      },
+      {
+        pregunta: "¿Los enlaces a Tesery son de afiliado?",
+        respuesta: "Sí, como el resto. Si compras desde ellos nos llega una pequeña comisión sin coste extra para ti.",
+      },
+      PREGUNTA_CODIGO,
+    ],
+  },
+  {
+    slug: "dashcam-y-modo-centinela-para-tesla",
+    titulo: "Dashcam y modo Centinela para Tesla: memorias USB, SSD y accesorios",
+    h1: "Dashcam y modo Centinela en tu Tesla: qué necesitas para grabar",
+    descripcion:
+      "Qué comprar para grabar con la dashcam y el modo Centinela de tu Tesla: memoria USB o SSD, hub USB y cámaras, con el precio final y qué comprobar.",
+    resumen: "Memorias, SSD, hubs USB y cámaras para grabar con la dashcam y el modo Centinela.",
+    intro: [
+      "El Tesla graba con sus cámaras laterales, frontal y trasera, pero necesita una unidad USB para guardar los vídeos de la dashcam y del modo Centinela. La elección de esa unidad es lo que más afecta a la fiabilidad: una memoria inadecuada se llena rápido o falla con el calor.",
+      "Aquí reunimos las unidades de almacenamiento, hubs y cámaras del catálogo con su precio final. Consulta siempre en el manual de tu coche los formatos y capacidades admitidos antes de comprar.",
+    ],
+    comoElegir: [
+      "Para grabación continua es mejor un SSD o una memoria pensada para vídeo (alta resistencia de escritura) que un pendrive corriente.",
+      "Elige capacidad según cuánto quieras conservar: el Centinela genera muchos clips.",
+      "Un hub USB permite conectar a la vez la unidad de grabación y otros dispositivos; comprueba que sea compatible con tu versión de Tesla.",
+      "Revisa el formato admitido por el coche y que la ficha mencione compatibilidad con Tesla.",
+      "Evita unidades que sobresalgan mucho del puerto: el calor y las vibraciones las dañan antes.",
+    ],
+    bloques: [
+      { titulo: "SSD, memorias y hubs para dashcam", buscar: "dashcam|dash cam|sentry|sentinel|ssd|microsd|usb" },
+      { titulo: "Cámaras y espejos con grabación", buscar: "c[aá]mara|grabador|espejo retrovisor|dashcam" },
+      { titulo: "Almacenamiento y USB más barato", buscar: "ssd|microsd|usb", orden: "barato" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Qué necesito para que funcione el modo Centinela?",
+        respuesta: "Una unidad USB compatible con el formato que indica Tesla y el modo activado en el coche. Consulta el manual de tu modelo para el formato exacto.",
+      },
+      {
+        pregunta: "¿Vale cualquier pendrive?",
+        respuesta: "Puede funcionar, pero en grabación continua se desgasta pronto. Un SSD o una unidad pensada para vídeo suele ser más fiable.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
+  {
+    slug: "fundas-de-asiento-para-tesla-model-3-y-model-y",
+    titulo: "Fundas de asiento para Tesla Model 3 y Model Y: cómo elegirlas",
+    h1: "Fundas de asiento para tu Tesla: qué comprobar antes de comprar",
+    descripcion:
+      "Cómo elegir fundas de asiento para Tesla Model 3 y Model Y: ajuste a medida, airbags laterales y calefacción, con el precio final de cada tienda.",
+    resumen: "Fundas de asiento a medida: ajuste, airbags y calefacción antes de comprar.",
+    intro: [
+      "Las fundas protegen la tapicería de roces, manchas y del desgaste diario, y mantienen mejor el valor del coche. En un Tesla es importante elegir bien: los asientos incluyen calefacción y airbags laterales que la funda no debe estorbar.",
+      "Lo más seguro es una funda específica para tu modelo y año. Las universales pueden costar menos pero se mueven y arrugan.",
+    ],
+    comoElegir: [
+      "Comprueba modelo, año y número de plazas (cinco plazas o siete en Model Y) en la ficha.",
+      "Asegúrate de que respeta los airbags laterales y no tapa los mandos ni la calefacción del asiento.",
+      "Busca material fácil de limpiar si hay niños o mascotas.",
+      "Mira cómo se fija: bandas elásticas y ganchos sin necesidad de desmontar el asiento son lo más cómodo.",
+      "Si solo quieres proteger la parte trasera, valen las fundas de banqueta o los protectores de respaldo.",
+    ],
+    bloques: [
+      { titulo: "Fundas para Model Y Juniper", version: "model-y-juniper", categoria: "asientos" },
+      { titulo: "Fundas para Model 3 Highland", version: "model-3-highland", categoria: "asientos" },
+      { titulo: "Fundas de asiento más baratas", categoria: "asientos", orden: "barato" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Una funda interfiere con los airbags laterales?",
+        respuesta: "Una funda mal diseñada puede hacerlo. Elige una que indique expresamente compatibilidad con los airbags laterales de tu modelo.",
+      },
+      {
+        pregunta: "¿Se pueden usar con asientos calefactados?",
+        respuesta: "Sí, si el material es fino y transpirable. Una funda gruesa o aislante reduce el efecto de la calefacción.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
+  {
+    slug: "funda-de-llave-y-tarjeta-para-tesla",
+    titulo: "Funda de llave y tarjeta para Tesla: llaveros y protectores",
+    h1: "Funda de llave y tarjeta para tu Tesla: qué hay y cómo elegir",
+    descripcion:
+      "Fundas, llaveros y tarjeteros para la llave Tesla y la tarjeta de acceso: materiales, ajuste y precio final de cada tienda para Model 3 y Model Y.",
+    resumen: "Fundas y llaveros para la llave y la tarjeta del Tesla, con el precio final.",
+    intro: [
+      "La llave del Tesla, con su forma de coche en miniatura, y la tarjeta de acceso se rayan y se pierden fácilmente en el bolso o el bolsillo. Una funda o un llavero protege el plástico y ayuda a tenerlas siempre a mano.",
+      "Hay dos productos distintos: fundas para el mando con forma de coche y tarjeteros o llaveros para la tarjeta. Comprueba cuál tienes tú antes de elegir.",
+    ],
+    comoElegir: [
+      "Confirma si tu coche usa llave con forma de coche, tarjeta o ambas, y que el producto sea para ese tipo.",
+      "El TPU flexible protege del polvo y los arañazos; el cuero o el metal dan mejor aspecto pero pesan más.",
+      "Comprueba que la funda deje accesibles los botones y no sobresalga demasiado.",
+      "Un tarjetero con llavero evita llevar la tarjeta suelta; elige uno que no obligue a sacarla para usarla.",
+    ],
+    bloques: [
+      { titulo: "Fundas y llaveros para la llave Tesla", buscar: "llav|tarjetero|key" },
+      { titulo: "Llaveros más baratos", buscar: "llav|tarjetero|key", orden: "barato" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Funciona la tarjeta con funda?",
+        respuesta: "Con fundas finas suele funcionar. Si no lee a la primera, prueba a sacarla de la funda; las muy gruesas o metálicas pueden interferir.",
+      },
+      {
+        pregunta: "¿Qué pasa si pierdo la llave o la tarjeta?",
+        respuesta: "Puedes usar el móvil como llave y registrar nuevas llaves desde el coche. Consulta el manual de tu modelo para el procedimiento.",
       },
       PREGUNTA_CODIGO,
       PREGUNTA_AFILIADO,

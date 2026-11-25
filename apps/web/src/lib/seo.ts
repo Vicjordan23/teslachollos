@@ -18,14 +18,16 @@ export function acortar(texto: string, max: number): string {
  * Metadatos completos de una página indexable: título, descripción, canonical propio, hreflang es-ES,
  * Open Graph y Twitter con imagen. Un `openGraph` de página reemplaza al del layout, por eso se rellena entero aquí.
  */
-export function metaPagina(raw: { titulo: string; descripcion: string; ruta: string; imagen?: string; absoluto?: boolean; noindex?: boolean }): Metadata {
+export function metaPagina(raw: { titulo: string; descripcion: string; ruta: string; imagen?: string; absoluto?: boolean; noindex?: boolean; producto?: boolean }): Metadata {
   const p = { ...raw, descripcion: acortar(raw.descripcion, 158) };
   const imagen = p.imagen ?? OG_POR_DEFECTO;
   return {
     title: p.absoluto ? { absolute: p.titulo } : p.titulo,
     description: p.descripcion,
     alternates: { canonical: p.ruta, languages: { "es-ES": p.ruta, "x-default": p.ruta } },
-    openGraph: { title: p.titulo, description: p.descripcion, url: p.ruta, siteName: "Chollesla", locale: "es_ES", type: "website", images: [imagen] },
+    // Next no tipa og:type «product»: en fichas se omite `type` y se añade la etiqueta a mano.
+    openGraph: { title: p.titulo, description: p.descripcion, url: p.ruta, siteName: "Chollesla", locale: "es_ES", ...(p.producto ? {} : { type: "website" as const }), images: [imagen] },
+    ...(p.producto ? { other: { "og:type": "product" } } : {}),
     twitter: { card: "summary_large_image", title: p.titulo, description: p.descripcion, images: [imagen] },
     robots: p.noindex ? { index: false, follow: true } : undefined,
   };

@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: PageProps<"/chollo/[slug]">):
     `${acortar(c.titulo, 70)}: ${precio}${ahorro > 0 ? ` (-${ahorro} %)` : ""} con el precio final ya calculado${t.codigo ? ` usando el código ${t.codigo}` : ""} en ${t.nombre}. Compatible con ${acortar(c.modelos, 45)}.`,
     158,
   );
-  return metaPagina({ titulo, descripcion, ruta: `/chollo/${c.slug}`, imagen: c.foto, noindex: !fichaIndexable(c) });
+  return metaPagina({ titulo, descripcion, ruta: `/chollo/${c.slug}`, imagen: c.foto, noindex: !fichaIndexable(c), producto: true });
 }
 
 export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]">) {
@@ -63,11 +63,16 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
       ? { isAccessoryOrSparePartFor: compatibles.map((v) => ({ "@type": "Product", name: `Tesla ${nombreVersion(v)}` })) }
       : {}),
     category: nombreCategoria(c.categoria),
+    sku: c.id,
+    // Marca solo si la tienda vende producto propio; en Amazon/AliExpress no se conoce y no se inventa.
+    ...(["hansshow", "jowua", "tesery"].includes(c.tienda) ? { brand: { "@type": "Brand", name: t.nombre } } : {}),
     image: [c.foto],
     offers: {
       "@type": "Offer",
       price: (final / 100).toFixed(2),
       priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      priceValidUntil: new Date(Date.parse(c.fecha) + 14 * 86_400_000).toISOString().slice(0, 10),
       itemCondition: "https://schema.org/NewCondition",
       url: `${SITIO}/chollo/${c.slug}`,
       seller: { "@type": "Organization", name: t.nombre },

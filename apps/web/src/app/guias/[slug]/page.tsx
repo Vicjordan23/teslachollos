@@ -28,6 +28,11 @@ function listaDelBloque(b: BloqueGuia): CholloOficial[] {
   let lista = b.version ? chollosDeVersion(b.version) : CHOLLOS;
   if (b.categoria) lista = lista.filter((c) => c.categoria === b.categoria);
   if (b.maxEuros) lista = lista.filter((c) => finalDe(c) <= b.maxEuros! * 100);
+  if (b.tienda) lista = lista.filter((c) => c.tienda === b.tienda);
+  if (b.buscar) {
+    const re = new RegExp(b.buscar, "i");
+    lista = lista.filter((c) => re.test(c.titulo));
+  }
   return lista;
 }
 
