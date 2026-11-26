@@ -1070,6 +1070,38 @@ export const GUIAS: Guia[] = [
       PREGUNTA_AFILIADO,
     ],
   },
+  {
+    slug: "black-friday-tesla-2026-hansshow-codigo-victor",
+    titulo: "Black Friday Tesla 2026: 20 % en Hansshow con el código VICTOR",
+    h1: "Black Friday Tesla 2026: 20 % en Hansshow con VICTOR",
+    descripcion:
+      "Black Friday 2026 para Tesla Model 3 y Model Y: 20 % en Hansshow con el código VICTOR, sin pedido mínimo. Soporte giratorio, umbrales LED y luz ambiental.",
+    resumen: "El código VICTOR da un 20 % en Hansshow sin pedido mínimo: qué mirar en Black Friday.",
+    intro: [
+      "En Hansshow, el código VICTOR descuenta un 20 % sin pedido mínimo. Lo comprobamos en su carrito el 26 de noviembre de 2026.",
+      "Los precios de esta página ya llevan el código aplicado. Las campañas y los precios cambian estos días, así que confirma el importe en el carrito antes de pagar.",
+    ],
+    comoElegir: [
+      "Comprueba que la ficha indique tu modelo y versión: Highland, Juniper o anterior. Algunas piezas no valen para las versiones Performance.",
+      "Escribe VICTOR en la casilla de código del carrito y revisa que el descuento aparezca antes de pagar.",
+      "No cuentes con sumar dos códigos ni con aplicar VICTOR sobre artículos en liquidación: Hansshow indica que sus ofertas de campaña no se combinan.",
+      "Revisa el plazo y el coste de envío a España y la política de devoluciones.",
+    ],
+    bloques: [
+      { titulo: "Soporte giratorio de pantalla", tienda: "hansshow", buscar: "giratori" },
+      { titulo: "Luz ambiental para el interior", tienda: "hansshow", buscar: "ambient" },
+      { titulo: "Umbrales de puerta con LED", tienda: "hansshow", buscar: "umbral" },
+      { titulo: "Más de Hansshow", tienda: "hansshow" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Qué descuento tiene el código VICTOR en Black Friday?",
+        respuesta: "Un 20 % sin pedido mínimo, comprobado en el carrito de Hansshow el 26 de noviembre de 2026. Confirma el importe antes de pagar.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
 ];
 
 export const GUIA_POR_SLUG = new Map(GUIAS.map((g) => [g.slug, g]));
