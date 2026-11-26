@@ -1102,6 +1102,116 @@ export const GUIAS: Guia[] = [
       PREGUNTA_AFILIADO,
     ],
   },
+  {
+    slug: "frunk-electrico-y-cierre-suave-tesla",
+    titulo: "Frunk eléctrico y puertas de cierre suave para Tesla: precios y qué mirar",
+    h1: "Frunk eléctrico y cierre suave para Tesla",
+    descripcion:
+      "Frunk eléctrico, cerradura de succión y puertas de cierre suave para Tesla Model 3 y Model Y: precios finales, compatibilidad y qué revisar antes de comprar.",
+    resumen: "Capó delantero motorizado y cierre por succión: precios y compatibilidad antes de gastar.",
+    intro: [
+      "El frunk eléctrico abre y cierra el capó delantero con motor, y el cierre suave termina de cerrar puertas o maleteros sin dar un golpe. Son de las mejoras más caras, así que conviene comprobar bien qué pieza corresponde a tu coche.",
+      "Se instalan sobre componentes del vehículo. Antes de comprar, pregunta qué pasa con la garantía y valora que lo monte un taller.",
+    ],
+    comoElegir: [
+      "Confirma modelo, versión y año en las variantes de la ficha: una pieza para Highland no vale necesariamente para Juniper ni para las versiones anteriores.",
+      "Revisa qué incluye el kit: solo motorización, cierre por succión, control remoto o sensor de pie. El precio cambia mucho según el contenido.",
+      "Lee las instrucciones de montaje y comprueba si exige cortar cables o taladrar.",
+      "Comprueba que tenga detección de obstáculos y pruébala con cuidado después de instalarlo.",
+      "Mira el plazo de entrega, la garantía de la tienda y quién paga el envío si hay que devolverlo.",
+    ],
+    bloques: [
+      { titulo: "Frunk eléctrico", buscar: "power frunk|frunk el[eé]ctric" },
+      { titulo: "Cerraduras de succión y cierre suave", buscar: "cierre suave|cerradura de succi[oó]n" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Instalar un frunk eléctrico afecta a la garantía?",
+        respuesta: "Una avería causada por una pieza de terceros o por su montaje puede quedar fuera de la garantía. Consulta con Tesla o con tu taller antes de instalarlo.",
+      },
+      {
+        pregunta: "¿Lo puedo montar yo?",
+        respuesta: "Depende del kit y de tu experiencia. Lee las instrucciones de la tienda antes de comprar y, si hay que tocar el cableado, lo prudente es que lo haga un profesional.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
+  {
+    slug: "pantalla-de-instrumentos-y-hud-para-tesla",
+    titulo: "Pantalla de instrumentos y HUD para Tesla Model 3 y Model Y",
+    h1: "Pantalla frente al volante y HUD para tu Tesla",
+    descripcion:
+      "Pantallas de instrumentos y HUD para Tesla Model 3 Highland y Model Y Juniper: ver la velocidad frente al volante. Precios finales y qué comprobar antes.",
+    resumen: "Velocidad y datos frente al volante: pantallas y HUD, con compatibilidad y precio.",
+    intro: [
+      "El Model 3 y el Model Y muestran la velocidad en la pantalla central. Una pantalla de instrumentos o un HUD de terceros añade esa información delante del conductor.",
+      "Qué datos muestra y cómo se conecta depende de cada producto y puede cambiar con las actualizaciones del coche.",
+    ],
+    comoElegir: [
+      "Comprueba el modelo, la versión y el año admitidos en la ficha.",
+      "Revisa cómo se alimenta y de dónde obtiene los datos, y si hay que desmontar molduras.",
+      "Pregunta a la tienda si sigue funcionando tras las actualizaciones de software y cómo se actualiza.",
+      "Colócala sin tapar la visión de la carretera ni zonas de airbag, y ajusta el brillo para la noche.",
+      "Si dudas sobre la garantía o la inspección técnica, consúltalo antes de instalarla.",
+    ],
+    bloques: [
+      {
+        titulo: "Pantallas y HUD para el conductor",
+        buscar: "dashboard display|panel de instrumentos inteligente|pantalla t[aá]ctil .*panel de instrumentos|pantalla del panel de instrumentos|\\bHUD\\b",
+      },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Se puede ver la velocidad frente al volante en un Tesla?",
+        respuesta: "Con accesorios de terceros, sí: pantallas de instrumentos o proyectores HUD. Comprueba la compatibilidad exacta con tu versión.",
+      },
+      {
+        pregunta: "¿Pueden dejar de funcionar con una actualización?",
+        respuesta: "Puede ocurrir, porque dependen de datos del coche. Pregunta a la tienda por su política de actualizaciones y devoluciones antes de comprar.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
+  {
+    slug: "primera-semana-con-tu-tesla-checklist",
+    titulo: "Primera semana con tu Tesla: lista de ajustes y accesorios básicos",
+    h1: "Tu primera semana con un Tesla: la lista",
+    descripcion:
+      "Checklist para tu primera semana con un Tesla Model 3 o Model Y: revisión de entrega, llave, carga en casa y accesorios básicos con precio final.",
+    resumen: "Qué revisar, qué configurar y qué comprar (y qué puede esperar) los primeros siete días.",
+    intro: [
+      "Día 1: revisa pintura, cristales, llantas e interior, anota con fotos lo que veas y comunícalo a Tesla cuanto antes. Configura la llave del móvil, guarda las tarjetas llave y crea tu perfil de conductor.",
+      "Días 2 a 4: ajusta el límite de carga y el horario según tu tarifa, decide si activas el modo Centinela y la grabación (consumen batería) y comprueba la presión de los neumáticos.",
+      "Días 5 a 7: con unos días de uso ya sabes qué echas en falta. Compra primero lo que protege (alfombrillas y pantalla) y deja lo estético para después.",
+      "Si quieres que te avisemos de las bajadas de precio de estos accesorios, únete a nuestro canal de Telegram desde esta página.",
+    ],
+    comoElegir: [
+      "Compra para tu versión exacta: Highland, Juniper y los modelos anteriores no comparten muchas piezas.",
+      "Empieza por lo que protege: alfombrillas, protector de pantalla y fundas si viajas con niños o mascotas.",
+      "Antes de comprar un cargador, confirma qué enchufe o punto de carga tienes y la potencia disponible en casa.",
+      "Para grabar con las cámaras, comprueba si tu coche ya trae memoria USB y qué capacidad tiene.",
+    ],
+    bloques: [
+      { titulo: "1. Alfombrillas", categoria: "alfombrillas" },
+      { titulo: "2. Protector de pantalla", buscar: "protector.*pantalla|cristal templado" },
+      { titulo: "3. Carga", categoria: "carga" },
+      { titulo: "4. Orden en la consola y el maletero", categoria: "organizacion" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Qué es lo primero que conviene comprar para un Tesla nuevo?",
+        respuesta: "Lo que protege desde el primer día, como alfombrillas y protector de pantalla, y lo que necesites para cargar según tu instalación. El resto puede esperar.",
+      },
+      {
+        pregunta: "¿Qué reviso al recibir el coche?",
+        respuesta: "Pintura, cristales, llantas, tapicería, puertas y maleteros, y que estén las tarjetas llave. Documenta con fotos cualquier defecto y avisa a Tesla cuanto antes.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
 ];
 
 export const GUIA_POR_SLUG = new Map(GUIAS.map((g) => [g.slug, g]));
