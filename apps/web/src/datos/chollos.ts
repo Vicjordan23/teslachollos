@@ -47,8 +47,8 @@ function barajar<T>(lista: T[], semilla: number): T[] {
   return copia;
 }
 
-/** Mezcla las tiendas en proporción a su tamaño, para que ninguna acapare la portada. */
-function intercalar(lista: CholloOficial[]): CholloOficial[] {
+/** Mezcla las tiendas en proporción a su tamaño, para que ninguna acapare la lista. */
+function proporcional(lista: CholloOficial[]): CholloOficial[] {
   const grupos = new Map<IdTienda, CholloOficial[]>();
   for (const c of lista) grupos.set(c.tienda, [...(grupos.get(c.tienda) ?? []), c]);
   const colas = [...grupos.values()].map((g) => ({ cola: barajar(g, 2026), total: g.length, usados: 0 }));
@@ -58,6 +58,24 @@ function intercalar(lista: CholloOficial[]): CholloOficial[] {
       .filter((c) => c.usados < c.total)
       .sort((a, b) => a.usados / a.total - b.usados / b.total || b.total - a.total)[0]!;
     salida.push(siguiente.cola[siguiente.usados++]!);
+  }
+  return salida;
+}
+
+/**
+ * Orden de la portada: 3 de cada 5 son de Amazon mientras queden (decisión de Vic, 26/11: es la tienda que da ventas);
+ * los otros 2 se reparten entre el resto en proporción a su tamaño.
+ */
+function intercalar(lista: CholloOficial[]): CholloOficial[] {
+  const amazon = barajar(lista.filter((c) => c.tienda === "amazon"), 2026);
+  const resto = proporcional(lista.filter((c) => c.tienda !== "amazon"));
+  const salida: CholloOficial[] = [];
+  let a = 0;
+  let r = 0;
+  while (a < amazon.length || r < resto.length) {
+    const tocaAmazon = [0, 2, 4].includes(salida.length % 5);
+    if (a < amazon.length && (tocaAmazon || r >= resto.length)) salida.push(amazon[a++]!);
+    else salida.push(resto[r++]!);
   }
   return salida;
 }

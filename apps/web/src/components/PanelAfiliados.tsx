@@ -2,19 +2,76 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useEstado } from "@/lib/interacciones";
+import { ZONA, type Cifras, type Ingreso } from "@/lib/panel";
 import { supabase } from "@/lib/supabase";
 
 interface Resumen {
-  dias: number;
-  periodo?: string;
-  totalClics: number;
-  chollos: { slug: string; titulo: string | null; tienda: string | null; clics: number; ultimo: string }[];
-  tiendas: { tienda: string; clics: number }[];
-  dia: { dia: string; clics: number }[];
-  ingresos: { id: number; fecha: string; tienda: string; clics_tienda: number; pedidos: number; ventas_cents: number; comision_cents: number; estado: string; origen: string; notas: string | null }[];
+  periodo: string;
+  fechaDesde: string;
+  fechaHasta: string;
+  dias: ({ dia: string } & Cifras)[];
+  tiendas: ({ tienda: string } & Cifras)[];
+  total: Cifras;
+  chollos: { slug: string; titulo: string | null; tienda: string | null; clics: number }[];
+  ingresos: Ingreso[];
+  resumenes: Ingreso[];
+  ultimos: Record<string, string>;
 }
 
 const eur = (c: number) => (c / 100).toLocaleString("es-ES", { style: "currency", currency: "EUR" });
+const fechaCorta = (d: string) => new Date(`${d}T12:00:00Z`).toLocaleDateString("es-ES", { weekday: "short", day: "2-digit", month: "2-digit", timeZone: ZONA });
+const th = "px-2 py-1 text-right font-medium first:text-left";
+const td = "px-2 py-1 text-right tabular-nums first:text-left";
+
+/** Tabla común: una fila por día o por tienda, y el total del periodo. «—» = la tienda aún no ha dado el dato. */
+function Tabla({ primera, filas, total }: { primera: string; filas: ({ clave: string; nombre: string } & Cifras)[]; total: Cifras }) {
+  const celdas = (c: Cifras) => (
+    <>
+      <td className={`${td} font-semibold`}>{c.clics}</td>
+      <td className={`${td} border-l border-borde`}>{c.programa ? c.programa.clics : "—"}</td>
+      <td className={td}>{c.programa ? c.programa.pedidos : "—"}</td>
+      <td className={td}>{c.programa ? eur(c.programa.ventas) : "—"}</td>
+      <td className={td}>{c.programa ? eur(c.programa.comision) : "—"}</td>
+    </>
+  );
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm">
+        <thead>
+          <tr className="text-texto-suave">
+            <th className={th} />
+            <th className={th}>Nuestra web</th>
+            <th className="border-l border-borde px-2 py-1 text-center font-medium" colSpan={4}>
+              Según la tienda
+            </th>
+          </tr>
+          <tr>
+            <th className={th}>{primera}</th>
+            <th className={th}>Clics</th>
+            <th className={`${th} border-l border-borde`}>Clics</th>
+            <th className={th}>Pedidos</th>
+            <th className={th}>Ventas</th>
+            <th className={th}>Comisión</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filas.map((f) => (
+            <tr key={f.clave} className="border-t border-borde">
+              <td className={td}>{f.nombre}</td>
+              {celdas(f)}
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr className="border-t-2 border-borde font-semibold">
+            <td className={td}>TOTAL</td>
+            {celdas(total)}
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  );
+}
 
 /** Panel único de afiliados: clics en «Ir al chollo» y resultados (clics, pedidos, ventas, comisión) de todos los programas. */
 export function PanelAfiliados() {
@@ -66,25 +123,12 @@ export function PanelAfiliados() {
   };
 
   if (listo && !sesion) return <p className="text-texto-suave">Entra con tu cuenta de administrador.</p>;
-  if (!datos) return <p className="text-texto-suave">{error || "Cargando…"}</p>;
+  if (!datos || datos.periodo !== periodo) return <p className="text-texto-suave">{error || "Cargando…"}</p>;
 
-  // Resumen por tienda: clics propios + resultados de los programas.
-  const tiendas = new Map<string, { clics: number; clicsTienda: number; pedidos: number; ventas: number; comision: number }>();
-  const fila = (t: string) => tiendas.get(t) ?? { clics: 0, clicsTienda: 0, pedidos: 0, ventas: 0, comision: 0 };
-  for (const t of datos.tiendas) tiendas.set(t.tienda, { ...fila(t.tienda), clics: t.clics });
-  for (const i of datos.ingresos) {
-    const f = fila(i.tienda);
-    tiendas.set(i.tienda, { ...f, clicsTienda: f.clicsTienda + i.clics_tienda, pedidos: f.pedidos + i.pedidos, ventas: f.ventas + i.ventas_cents, comision: f.comision + i.comision_cents });
-  }
-  const totalCom = [...tiendas.values()].reduce((s, t) => s + t.comision, 0);
-  const suma = [...tiendas.values()].reduce(
-    (s, t) => ({ clics: s.clics + t.clics, clicsTienda: s.clicsTienda + t.clicsTienda, pedidos: s.pedidos + t.pedidos, ventas: s.ventas + t.ventas }),
-    { clics: 0, clicsTienda: 0, pedidos: 0, ventas: 0 },
-  );
+  const unDia = datos.fechaDesde === datos.fechaHasta;
+  const rotulo = unDia ? `solo el ${fechaCorta(datos.fechaDesde)}` : `del ${fechaCorta(datos.fechaDesde)} al ${fechaCorta(datos.fechaHasta)}, ambos incluidos`;
   const caja = "rounded-xl border border-borde bg-superficie p-3";
   const campo = "rounded border border-borde bg-fondo px-2 py-1 text-sm";
-  const th = "px-2 py-1 text-left font-medium";
-  const td = "px-2 py-1";
 
   return (
     <div className="flex flex-col gap-8">
@@ -106,61 +150,51 @@ export function PanelAfiliados() {
           {cargando ? "Actualizando…" : "🔄 Actualizar"}
         </button>
         {actualizado && <span className="text-xs text-texto-suave">Actualizado a las {actualizado}</span>}
-        <p className={caja}>
-          <b>{datos.totalClics}</b> clics en «Ir al chollo»
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <p className="text-lg">
+          Mostrando <b>{rotulo}</b> (hora de Madrid).
         </p>
-        <p className={caja}>
-          <b>{eur(totalCom)}</b> de comisión registrada
-        </p>
+        <div className="flex flex-wrap gap-3">
+          <p className={caja}>
+            <b>{datos.total.clics}</b> clics en la web
+          </p>
+          <p className={caja}>
+            <b>{datos.total.programa ? datos.total.programa.pedidos : "—"}</b> pedidos
+          </p>
+          <p className={caja}>
+            <b>{datos.total.programa ? eur(datos.total.programa.comision) : "—"}</b> de comisión
+          </p>
+        </div>
+        <ul className="list-disc pl-5 text-sm text-texto-suave">
+          <li>«Nuestra web» cuenta los botones «Ir al chollo» de chollesla.es. Los clics desde Telegram, Facebook o Instagram van directos a la tienda y no salen ahí.</li>
+          <li>«Según la tienda» es lo que informa cada programa e incluye todos los canales. «—» significa que no hay dato cargado, no que sea cero.</li>
+          <li>
+            Último día cargado por tienda:{" "}
+            {Object.keys(datos.ultimos).length ? Object.entries(datos.ultimos).map(([t, d]) => `${t} ${fechaCorta(d)}`).join(" · ") : "ninguno todavía"}.
+          </li>
+        </ul>
       </div>
 
       <section className="flex flex-col gap-2">
-        <h2 className="text-xl font-semibold">Por tienda / programa</h2>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr>
-                <th className={th}>Tienda</th>
-                <th className={th}>Clics Chollesla</th>
-                <th className={th}>Clics en tienda</th>
-                <th className={th}>Pedidos</th>
-                <th className={th}>Ventas</th>
-                <th className={th}>Comisión</th>
-                <th className={th}>€/clic</th>
-              </tr>
-            </thead>
-            <tbody>
-              {[...tiendas]
-                .sort((a, b) => b[1].clics - a[1].clics)
-                .map(([t, v]) => (
-                  <tr key={t} className="border-t border-borde">
-                    <td className={td}>{t}</td>
-                    <td className={td}>{v.clics}</td>
-                    <td className={td}>{v.clicsTienda || "—"}</td>
-                    <td className={td}>{v.pedidos}</td>
-                    <td className={td}>{eur(v.ventas)}</td>
-                    <td className={td}>{eur(v.comision)}</td>
-                    <td className={td}>{v.clics ? eur(v.comision / v.clics) : "—"}</td>
-                  </tr>
-                ))}
-            </tbody>
-            <tfoot>
-              <tr className="border-t-2 border-borde font-semibold">
-                <td className={td}>TOTAL</td>
-                <td className={td}>{suma.clics}</td>
-                <td className={td}>{suma.clicsTienda || "—"}</td>
-                <td className={td}>{suma.pedidos}</td>
-                <td className={td}>{eur(suma.ventas)}</td>
-                <td className={td}>{eur(totalCom)}</td>
-                <td className={td}>{suma.clics ? eur(totalCom / suma.clics) : "—"}</td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
+        <h2 className="text-xl font-semibold">Por tienda</h2>
+        {datos.tiendas.length === 0 ? (
+          <p className="text-texto-suave">Sin clics ni datos de tiendas en este periodo.</p>
+        ) : (
+          <Tabla primera="Tienda" filas={datos.tiendas.map((f) => ({ ...f, clave: f.tienda, nombre: f.tienda }))} total={datos.total} />
+        )}
       </section>
 
+      {!unDia && (
+        <section className="flex flex-col gap-2">
+          <h2 className="text-xl font-semibold">Día a día</h2>
+          <Tabla primera="Día" filas={datos.dias.map((f) => ({ ...f, clave: f.dia, nombre: fechaCorta(f.dia) }))} total={datos.total} />
+        </section>
+      )}
+
       <section className="flex flex-col gap-2">
-        <h2 className="text-xl font-semibold">Chollos más pulsados</h2>
+        <h2 className="text-xl font-semibold">Chollos más pulsados en la web</h2>
         {datos.chollos.length === 0 && <p className="text-texto-suave">Aún no hay clics en este periodo.</p>}
         <ol className="flex flex-col gap-1 text-sm">
           {datos.chollos.map((c) => (
@@ -174,16 +208,19 @@ export function PanelAfiliados() {
         </ol>
       </section>
 
-      <section className="flex flex-col gap-2">
-        <h2 className="text-xl font-semibold">Clics por día</h2>
-        <ul className="flex flex-wrap gap-2 text-sm">
-          {datos.dia.map((d) => (
-            <li key={d.dia} className={caja}>
-              {d.dia}: <b>{d.clics}</b>
-            </li>
-          ))}
-        </ul>
-      </section>
+      {datos.resumenes.length > 0 && (
+        <section className="flex flex-col gap-2">
+          <h2 className="text-xl font-semibold">Totales de varios días (aparte, no se suman arriba)</h2>
+          <ul className="flex flex-col gap-1 text-sm">
+            {datos.resumenes.map((i) => (
+              <li key={i.id} className="border-t border-borde py-1">
+                {i.tienda}: {i.clics_tienda} clics · {i.pedidos} pedidos · ventas {eur(i.ventas_cents)} · comisión <b>{eur(i.comision_cents)}</b>
+                <span className="text-texto-suave"> — {i.notas}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section className="flex flex-col gap-3">
         <h2 className="text-xl font-semibold">Resultados de los programas (a mano)</h2>
