@@ -23,15 +23,23 @@ const fechaCorta = (d: string) => new Date(`${d}T12:00:00Z`).toLocaleDateString(
 const th = "px-2 py-1 text-right font-medium first:text-left";
 const td = "px-2 py-1 text-right tabular-nums first:text-left";
 
+/** Cifra de la tienda: «—» si no hay dato; «≥» si la tienda ocultó parte del periodo. */
+function dato(c: Cifras, campo: "pedidos" | "ventas" | "comision"): string {
+  const p = c.programa;
+  if (!p || (p.incompleto && !p[campo])) return "—";
+  const valor = campo === "pedidos" ? String(p.pedidos) : eur(p[campo]);
+  return p.incompleto ? `≥ ${valor}` : valor;
+}
+
 /** Tabla común: una fila por día o por tienda, y el total del periodo. «—» = la tienda aún no ha dado el dato. */
 function Tabla({ primera, filas, total }: { primera: string; filas: ({ clave: string; nombre: string } & Cifras)[]; total: Cifras }) {
   const celdas = (c: Cifras) => (
     <>
       <td className={`${td} font-semibold`}>{c.clics}</td>
       <td className={`${td} border-l border-borde`}>{c.programa ? c.programa.clics : "—"}</td>
-      <td className={td}>{c.programa ? c.programa.pedidos : "—"}</td>
-      <td className={td}>{c.programa ? eur(c.programa.ventas) : "—"}</td>
-      <td className={td}>{c.programa ? eur(c.programa.comision) : "—"}</td>
+      <td className={td}>{dato(c, "pedidos")}</td>
+      <td className={td}>{dato(c, "ventas")}</td>
+      <td className={td}>{dato(c, "comision")}</td>
     </>
   );
   return (
@@ -49,7 +57,7 @@ function Tabla({ primera, filas, total }: { primera: string; filas: ({ clave: st
             <th className={th}>{primera}</th>
             <th className={th}>Clics</th>
             <th className={`${th} border-l border-borde`}>Clics</th>
-            <th className={th}>Pedidos</th>
+            <th className={th}>Artículos pedidos</th>
             <th className={th}>Ventas</th>
             <th className={th}>Comisión</th>
           </tr>
@@ -161,15 +169,15 @@ export function PanelAfiliados() {
             <b>{datos.total.clics}</b> clics en la web
           </p>
           <p className={caja}>
-            <b>{datos.total.programa ? datos.total.programa.pedidos : "—"}</b> pedidos
+            <b>{dato(datos.total, "pedidos")}</b> artículos pedidos
           </p>
           <p className={caja}>
-            <b>{datos.total.programa ? eur(datos.total.programa.comision) : "—"}</b> de comisión
+            <b>{dato(datos.total, "comision")}</b> de comisión
           </p>
         </div>
         <ul className="list-disc pl-5 text-sm text-texto-suave">
           <li>«Nuestra web» cuenta los botones «Ir al chollo» de chollesla.es. Los clics desde Telegram, Facebook o Instagram van directos a la tienda y no salen ahí.</li>
-          <li>«Según la tienda» es lo que informa cada programa e incluye todos los canales. «—» significa que no hay dato cargado, no que sea cero.</li>
+          <li>«Según la tienda» es lo que informa cada programa e incluye todos los canales. «—» significa que no hay dato cargado, no que sea cero. «≥» significa que la tienda ocultó parte: Amazon no enseña los pedidos ni la comisión de muchos días con poco tráfico (el total real está abajo, en «Totales de varios días»).</li>
           <li>
             Último día cargado por tienda:{" "}
             {Object.keys(datos.ultimos).length ? Object.entries(datos.ultimos).map(([t, d]) => `${t} ${fechaCorta(d)}`).join(" · ") : "ninguno todavía"}.

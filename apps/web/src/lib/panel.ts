@@ -22,7 +22,7 @@ export interface Cifras {
   /** Clics en «Ir al chollo» contados por la web. */
   clics: number;
   /** Datos del programa de la tienda; null = todavía no hay dato cargado (no es un cero). */
-  programa: { clics: number; pedidos: number; ventas: number; comision: number } | null;
+  programa: { clics: number; pedidos: number; ventas: number; comision: number; incompleto: boolean } | null;
 }
 
 export const ZONA = "Europe/Madrid";
@@ -70,8 +70,15 @@ export function periodo(valor: string, ahora = Date.now()) {
 export const esResumen = (i: Ingreso) => /^\s*resumen/i.test(i.notas ?? "");
 
 function sumar(c: Cifras, i: Ingreso): void {
-  const t = c.programa ?? { clics: 0, pedidos: 0, ventas: 0, comision: 0 };
-  c.programa = { clics: t.clics + i.clics_tienda, pedidos: t.pedidos + i.pedidos, ventas: t.ventas + i.ventas_cents, comision: t.comision + i.comision_cents };
+  const t = c.programa ?? { clics: 0, pedidos: 0, ventas: 0, comision: 0, incompleto: false };
+  c.programa = {
+    clics: t.clics + i.clics_tienda,
+    pedidos: t.pedidos + i.pedidos,
+    ventas: t.ventas + i.ventas_cents,
+    comision: t.comision + i.comision_cents,
+    // La tienda no ha enseñado todas las cifras de algún día (Amazon, con poco tráfico).
+    incompleto: t.incompleto || (i.notas ?? "").includes("[sin detalle]"),
+  };
 }
 
 const vacia = (): Cifras => ({ clics: 0, programa: null });
