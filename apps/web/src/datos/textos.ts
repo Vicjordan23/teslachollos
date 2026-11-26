@@ -1,5 +1,6 @@
 import { crearContexto, datosDelTitulo, generarTextoFicha, jaccard, shingles, textoPlano, UMBRAL_DUPLICADO, validarTextoFicha, type TextoFicha } from "@chollesla/core";
 import opiniones from "./opiniones.json";
+import PROPIOS from "./textos-propios.json";
 import { CHOLLOS, MIN_DESCRIPCION, type CholloOficial } from "./chollos";
 
 /**
@@ -50,9 +51,12 @@ const duplicadas: Set<string> = (() => {
  */
 export const OLEADA_INDEXACION: 1 | 2 = 1;
 
+/** Texto escrito a mano para fichas concretas (datos/textos-propios.json, por slug): primero las que Google ya muestra. */
+export const textoPropio = (slug: string): string[] => (PROPIOS as Record<string, string[]>)[slug] ?? [];
+
 /** ¿Tiene la ficha algún dato propio verificable más allá del precio y la compatibilidad? */
 export function tieneDatosPropios(c: CholloOficial): boolean {
-  return c.descripcion.trim().length >= MIN_DESCRIPCION || datosDelTitulo(c.titulo).length > 0 || (c.tienda === "amazon" && Boolean(OPINIONES[c.id]));
+  return textoPropio(c.slug).length > 0 || c.descripcion.trim().length >= MIN_DESCRIPCION || datosDelTitulo(c.titulo).length > 0 || (c.tienda === "amazon" && Boolean(OPINIONES[c.id]));
 }
 
 /**

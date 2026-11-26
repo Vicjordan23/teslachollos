@@ -7,7 +7,7 @@ import { CompartirFicha, CopiarCodigo } from "@/components/AccionesChollo";
 import { AvisoPrecio } from "@/components/AvisoPrecio";
 import { AvisoTelegram } from "@/components/AvisoTelegram";
 import { CHOLLOS, cholloPorSlug, chollosDeCategoria, formatoFecha } from "@/datos/chollos";
-import { fichaIndexable, textoDe } from "@/datos/textos";
+import { fichaIndexable, textoDe, textoPropio } from "@/datos/textos";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { HUBS_VERSION } from "@/lib/contenido";
@@ -51,6 +51,7 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
   const ahorro = porcentajeAhorro(final, c.precioTienda);
 
   const texto = textoDe(c);
+  const propio = textoPropio(c.slug);
   const compatibles = versionesDe(c.modelos);
   // Datos estructurados de producto: sin valoraciones ni opiniones (regla de Vic: nada inventado).
   const jsonLd = {
@@ -160,6 +161,16 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
         </div>
       </article>
       <AvisoTelegram />
+      {propio.length > 0 && (
+        <section aria-label="Antes de comprar este modelo" className="flex max-w-3xl flex-col gap-2">
+          <h2 className="text-2xl font-semibold">Antes de comprar este modelo</h2>
+          {propio.map((p) => (
+            <p key={p} className="text-texto-suave">
+              {p}
+            </p>
+          ))}
+        </section>
+      )}
       <section aria-label="Datos del chollo" className="flex max-w-3xl flex-col gap-3">
         <h2 className="text-2xl font-semibold">Datos de este chollo</h2>
         <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-texto-suave">
