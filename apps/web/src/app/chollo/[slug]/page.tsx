@@ -246,6 +246,15 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
         ))}
         <p className="text-sm text-texto-suave">Los datos salen del catálogo de Chollesla (título, compatibilidad y precio de la tienda); no son una valoración del producto.</p>
       </section>
+      {c.categoria === "alfombrillas" && /maletero|frunk|trunk|cofre/i.test(c.titulo) && (
+        <p className="max-w-3xl text-texto-suave">
+          ¿Dudas con la zona de carga? Mira la{" "}
+          <Link href="/guias/alfombrillas-de-maletero-tesla" className="font-medium text-verde-boton hover:underline">
+            guía de alfombrillas de maletero para Tesla
+          </Link>
+          .
+        </p>
+      )}
       <div className="max-w-3xl">
         <Faq preguntas={texto.faq} titulo="Preguntas frecuentes sobre este producto" />
       </div>

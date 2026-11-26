@@ -215,8 +215,8 @@ export const GUIAS: Guia[] = [
   },
   {
     slug: "alfombrillas-para-tesla-model-3-y-model-y",
-    titulo: "Alfombrillas para Tesla Model 3 y Model Y: maletero, TPE y 3D (guía)",
-    h1: "Alfombrillas para Tesla Model 3 y Model Y: cómo elegir (maletero, TPE y 3D)",
+    titulo: "Alfombrillas para Tesla Model 3 y Model Y: TPE, 3D y juegos completos",
+    h1: "Alfombrillas para Tesla Model 3 y Model Y: cómo elegir (TPE, 3D y juegos)",
     descripcion:
       "Cómo elegir alfombrillas para tu Tesla Model 3 o Model Y: de maletero, TPE o 3D, a medida por versión, con el precio final y qué piezas lleva cada juego.",
     resumen: "Ajuste a medida, material y qué juego comprar para el Model 3 y el Model Y, con precios finales.",
@@ -274,6 +274,48 @@ export const GUIAS: Guia[] = [
         pregunta: "¿Valen las mismas alfombrillas para Model 3 y para Model Y?",
         respuesta:
           "No. Aunque comparten mecánica, el suelo y el maletero son distintos. Elige siempre el juego de tu modelo y versión.",
+      },
+      PREGUNTA_CODIGO,
+      PREGUNTA_AFILIADO,
+    ],
+  },
+  {
+    slug: "alfombrillas-de-maletero-tesla",
+    titulo: "Alfombrillas de maletero para Tesla Model Y y Model 3: cuál elegir",
+    h1: "Alfombrillas para el maletero de tu Tesla",
+    descripcion:
+      "Alfombrillas de maletero y frunk para Tesla Model Y Juniper y Model 3 Highland: qué piezas hay, cómo comprobar que encajan y precio final de cada una.",
+    resumen: "Maletero, subsuelo, frunk y laterales: qué pieza protege cada zona y cuál encaja en tu versión.",
+    intro: [
+      "Un Tesla tiene varias zonas de carga y casi siempre cada una lleva su propia alfombrilla: el maletero trasero, el subsuelo, el maletero delantero (frunk) y, en algunos juegos, los respaldos traseros o los laterales.",
+      "Antes de comparar precios, mira qué zonas incluye cada producto. Un juego de varias piezas y una sola bandeja pueden parecer lo mismo en la foto.",
+    ],
+    comoElegir: [
+      "Versión y año: el maletero cambia entre el Model Y Juniper y el Model Y anterior, y entre el Model 3 Highland y los anteriores. Elige la variante exacta.",
+      "Piezas: comprueba si incluye maletero, subsuelo, frunk, respaldos traseros y laterales, y cuántas piezas son.",
+      "Distribución de asientos: si tu coche tiene más de cinco plazas, confirma que la pieza sea para esa configuración.",
+      "Borde elevado: contiene agua, arena y líquidos mejor que una alfombrilla plana.",
+      "Material: el TPE y la goma se lavan con agua; los acabados textiles son más discretos pero cuesta más limpiarlos.",
+      "Si abates los asientos para cargar, elige un juego que cubra también los respaldos.",
+    ],
+    bloques: [
+      { titulo: "Maletero y frunk para Model Y Juniper", version: "model-y-juniper", categoria: "alfombrillas", buscar: "maletero|frunk|trunk|cofre" },
+      { titulo: "Maletero y frunk para Model 3 Highland", version: "model-3-highland", categoria: "alfombrillas", buscar: "maletero|frunk|trunk|cofre" },
+      { titulo: "Frunk (maletero delantero)", categoria: "alfombrillas", buscar: "frunk|maletero delantero|cofre" },
+      { titulo: "Las más baratas para el maletero", categoria: "alfombrillas", buscar: "maletero|frunk|trunk|cofre", orden: "barato" },
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Qué alfombrillas de maletero valen para mi Tesla?",
+        respuesta: "Las que indiquen tu modelo, versión y año. El maletero cambió con las renovaciones Highland y Juniper, así que no des por hecho que una pieza antigua encaje.",
+      },
+      {
+        pregunta: "¿El frunk necesita su propia alfombrilla?",
+        respuesta: "Sí. El maletero delantero tiene una forma distinta y su pieza va aparte o dentro de un juego que la mencione expresamente.",
+      },
+      {
+        pregunta: "¿Es mejor un juego completo o piezas sueltas?",
+        respuesta: "Depende de lo que quieras proteger. Suma el precio de las piezas sueltas que necesitas y compáralo con el del juego que las incluye.",
       },
       PREGUNTA_CODIGO,
       PREGUNTA_AFILIADO,

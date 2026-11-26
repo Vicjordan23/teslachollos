@@ -85,6 +85,10 @@ export default async function PaginaCategoria({ params }: PageProps<"/categoria/
             Aquí tienes alfombrillas de interior y de maletero (incluido el frunk) en TPE, goma y 3D, para el Model 3 Highland y el Model Y Juniper. ¿No sabes cuál elegir? Lee la{" "}
             <Link href="/guias/alfombrillas-para-tesla-model-3-y-model-y" className="font-medium text-verde-boton hover:underline">
               guía de alfombrillas para Tesla
+            </Link>{" "}
+            o, si lo que quieres proteger es la zona de carga, la{" "}
+            <Link href="/guias/alfombrillas-de-maletero-tesla" className="font-medium text-verde-boton hover:underline">
+              guía de alfombrillas de maletero
             </Link>
             .
           </p>
