@@ -31,6 +31,11 @@ describe("aplicarAfiliado", () => {
     );
   });
 
+  it("Yeslak: pasa a /es/, quita el afiliado ajeno y pone el de Vic", () => {
+    expect(url("https://www.yeslak.com/products/gancho?ref=OTRO")).toBe("https://www.yeslak.com/es/products/gancho?ref=Chollesla");
+    expect(url("https://www.yeslak.com/es/products/gancho")).toBe("https://www.yeslak.com/es/products/gancho?ref=Chollesla");
+  });
+
   it("Tesery: pasa a /es-es/ y añade GoAffPro", () => {
     expect(url("https://www.tesery.com/products/gancho?ref=OTRO&utm_source=x")).toBe(
       "https://www.tesery.com/es-es/products/gancho?ref=AccesoriosTesla&utm_medium=affiliate&utm_source=goaffpro",

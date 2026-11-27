@@ -309,3 +309,7 @@ Todo se activa solo cuando existen las variables; sin ellas la web sigue como an
 6. Alta de autónomo antes de activar los cobros (como particular no se pueden cobrar cuotas).
 
 **Siguiente:** con el OK, Fase 0 (Vic compra el dominio y crea cuentas) y Fase 1 (esqueleto del monorepo, CI y despliegue de prueba).
+
+## 27/11/2026 — Yeslak como tienda
+- Tienda `yeslak` (core, importador, textos, código VICTORMARTINJUA 15 %, ?ref=Chollesla); 502 chollos. typecheck, test y build OK.
+- PENDIENTE: ejecutar `supabase/migrations/20261127000000_yeslak.sql` en el editor SQL (sesión caducada); hasta entonces la sincronización salta Yeslak.

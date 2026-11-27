@@ -1,5 +1,5 @@
 /** Tiendas con programa de afiliados de Vic. Cada una con SU enlace: nunca se mezclan. */
-export type IdTienda = "amazon" | "jowua" | "hansshow" | "tesery" | "aliexpress" | "temu";
+export type IdTienda = "amazon" | "jowua" | "hansshow" | "tesery" | "aliexpress" | "temu" | "yeslak";
 
 export interface Tienda {
   id: IdTienda;
@@ -21,6 +21,8 @@ export const TIENDAS: Record<IdTienda, Tienda> = {
   aliexpress: { id: "aliexpress", nombre: "AliExpress", dominios: ["aliexpress.com"], descuento: 0, codigo: null },
   // Temu: solo se reconocen los enlaces cortos de afiliado de Vic (temu.to/k/...), que se generan en su panel de afiliados y se usan tal cual.
   temu: { id: "temu", nombre: "Temu", dominios: ["temu.to"], descuento: 0, codigo: null },
+  // Yeslak (GoAffPro, 27/11/2026): código de Vic 15 %, comisión 3 %.
+  yeslak: { id: "yeslak", nombre: "Yeslak", dominios: ["yeslak.com"], descuento: 0.15, codigo: "VICTORMARTINJUA" },
 };
 
 /** Acortadores que hay que resolver en el servidor antes de saber la tienda real. */

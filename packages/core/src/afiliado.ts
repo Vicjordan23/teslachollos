@@ -7,6 +7,7 @@ export const AFILIADO = {
   jowuaGhref: "5866:1343863",
   jowuaDescuento: "accesoriostesla",
   teseryRef: "AccesoriosTesla",
+  yeslakRef: "Chollesla",
 } as const;
 
 export const AVISO_AMAZON =
@@ -77,6 +78,12 @@ function enlaceTienda(tienda: Tienda, url: URL): string {
       for (const k of [...url.searchParams.keys()]) url.searchParams.delete(k);
       return url.toString();
     }
+    case "yeslak":
+      limpiarParametros(url);
+      // La versión española de la tienda: /es/products/<handle>
+      url.pathname = url.pathname.replace(/^\/(?:[a-z]{2}(?:-[a-z]{2})?\/)?products\//i, "/es/products/");
+      url.searchParams.set("ref", AFILIADO.yeslakRef);
+      return url.toString();
     case "temu":
       // El enlace corto de afiliado (temu.to/k/...) ya lleva el seguimiento de Vic: se usa sin tocarlo.
       return url.toString();

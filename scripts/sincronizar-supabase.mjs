@@ -54,12 +54,17 @@ async function pedir(ruta, opciones = {}) {
   return t ? JSON.parse(t) : null; // return=minimal devuelve 201 sin cuerpo
 }
 
+// Una tienda nueva sin dar de alta en la tabla `tiendas` (migración pendiente) no debe romper el resto: se salta y se avisa.
+const dadas = new Set((await pedir("tiendas?select=id")).map((t) => t.id));
+const altas = filas.filter((f) => dadas.has(f.tienda));
+if (altas.length < filas.length) console.log(`::warning::${filas.length - altas.length} chollos sin sincronizar: falta dar de alta su tienda en Supabase.`);
+
 // 1) Alta o actualización por id_externo, en tandas.
-for (let i = 0; i < filas.length; i += 500) {
+for (let i = 0; i < altas.length; i += 500) {
   await pedir("chollos?on_conflict=id_externo", {
     method: "POST",
     headers: { Prefer: "resolution=merge-duplicates,return=minimal" },
-    body: JSON.stringify(filas.slice(i, i + 500)),
+    body: JSON.stringify(altas.slice(i, i + 500)),
   });
 }
 
@@ -75,4 +80,4 @@ for (let i = 0; i < sobran.length; i += 200) {
   });
 }
 
-console.log(`Sincronizados ${filas.length} chollos oficiales; retirados ${sobran.length}.`);
+console.log(`Sincronizados ${altas.length} chollos oficiales; retirados ${sobran.length}.`);

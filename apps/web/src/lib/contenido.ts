@@ -139,6 +139,11 @@ export const CODIGOS: Partial<Record<IdTienda, InfoCodigo>> = {
     como: "Hansshow vende accesorios y mejoras para Tesla: volantes y piezas de fibra de carbono, iluminación, soportes de pantalla y piezas de exterior. El 20 % se aplica con el código en el carrito; los precios de Chollesla ya lo incluyen.",
     aviso: "Es el mayor descuento de nuestras tiendas. Confirma en el carrito que el código se aplica y revisa envío y plazos.",
   },
+  yeslak: {
+    tienda: "yeslak",
+    como: "Yeslak es una tienda especializada en accesorios para Tesla (protectores, fibra de carbono, organizadores, tapacubos, parasoles). Los precios de Chollesla ya llevan el 15 % del código aplicado: escríbelo en el campo de descuento al pagar.",
+    aviso: "Chollesla participa en el programa de afiliados de Yeslak (GoAffPro). El código no se aplica a los artículos que la tienda ya marca como rebajados; confirma en el carrito el descuento, el envío a España y el plazo.",
+  },
   tesery: {
     tienda: "tesery",
     como: "Tesery es una tienda especializada en accesorios para Tesla con un catálogo muy amplio (alfombrillas, protectores, iluminación, organización). Los precios de Chollesla ya llevan el 5 % del código aplicado.",

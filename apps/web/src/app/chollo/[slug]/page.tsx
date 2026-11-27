@@ -66,7 +66,7 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
     category: nombreCategoria(c.categoria),
     sku: c.id,
     // Marca solo si la tienda vende producto propio; en Amazon/AliExpress no se conoce y no se inventa.
-    ...(["hansshow", "jowua", "tesery"].includes(c.tienda) ? { brand: { "@type": "Brand", name: t.nombre } } : {}),
+    ...(["hansshow", "jowua", "tesery", "yeslak"].includes(c.tienda) ? { brand: { "@type": "Brand", name: t.nombre } } : {}),
     image: [c.foto],
     offers: {
       "@type": "Offer",

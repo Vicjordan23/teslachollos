@@ -69,7 +69,7 @@ export function FormPublicar() {
       <label className="flex flex-col gap-1">
         <span className="font-medium">Enlace del producto</span>
         <input required type="url" value={datos.enlace} onChange={cambiar("enlace")} placeholder="https://www.amazon.es/dp/…" className={campo} />
-        <span className="text-sm text-texto-suave">Amazon.es, Jowua, Hansshow, Tesery, Tesla o AliExpress. Se publica con el enlace de afiliado de Chollesla.</span>
+        <span className="text-sm text-texto-suave">Amazon.es, Jowua, Hansshow, Tesery, Yeslak, Tesla o AliExpress. Se publica con el enlace de afiliado de Chollesla.</span>
       </label>
       <label className="flex flex-col gap-1">
         <span className="font-medium">Título</span>

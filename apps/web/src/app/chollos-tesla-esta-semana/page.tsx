@@ -61,7 +61,7 @@ export default function ChollosSemana() {
         <h1 className="text-2xl font-semibold sm:text-3xl">Chollos Tesla de esta semana</h1>
         <p className="text-texto-suave">
           Aquí tienes los accesorios para Tesla Model 3 y Model Y con más descuento esta semana. El descuento que ves es real: la diferencia entre el precio
-          de la tienda y el precio final tras el código de descuento (Hansshow da un 20 %, Jowua y Tesery un 5 %). Hoy el mayor llega al {MAX_DTO} %.
+          de la tienda y el precio final tras el código de descuento (Hansshow da un 20 %, Yeslak un 15 %, Jowua y Tesery un 5 %). Hoy el mayor llega al {MAX_DTO} %.
         </p>
         <p className="text-texto-suave">
           Solo aparecen productos con el precio revisado en los últimos {DIAS} días ({recientes.length.toLocaleString("es-ES")} de{" "}

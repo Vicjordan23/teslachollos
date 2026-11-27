@@ -64,7 +64,7 @@ export function prepararPublicacion(b: Borrador): ResultadoPublicacion {
   if (r.estado === "resolver") return { ok: "resolver" };
   if (r.estado === "invalido") return { ok: false, error: "El enlace no es válido." };
   if (!enlaceAceptado(r)) {
-    return { ok: false, error: "Esa tienda aún no está admitida. Tiendas: Amazon.es, Jowua, Hansshow, Tesery, Tesla y AliExpress." };
+    return { ok: false, error: "Esa tienda aún no está admitida. Tiendas: Amazon.es, Jowua, Hansshow, Tesery, Yeslak, Tesla y AliExpress." };
   }
   if (r.tienda === "amazon" && !/\/(dp|gp\/product)\/[A-Z0-9]{10}/i.test(r.url)) {
     return { ok: false, error: "Pega el enlace de la ficha del producto en Amazon (con /dp/)." };
