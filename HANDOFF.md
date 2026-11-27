@@ -314,3 +314,4 @@ Todo se activa solo cuando existen las variables; sin ellas la web sigue como an
 - Tienda `yeslak` (core, importador, textos, código VICTORMARTINJUA 15 %, ?ref=Chollesla); 502 chollos. typecheck, test y build OK.
 - PENDIENTE: ejecutar `supabase/migrations/20261127000000_yeslak.sql` en el editor SQL (sesión caducada); hasta entonces la sincronización salta Yeslak.
 - 27/11 10:50: banners con los 7 canales de Telegram por tienda (fila bajo la franja azul, fichas, tienda y codigo; `lib/telegram.ts`, `CanalesMarca.tsx`). Migracion de Yeslak ejecutada en Supabase.
+- 27/11 11:46: canal de Amazon renombrado a t.me/CholleslaAmzn (enlace de la web actualizado). Comunidad Telegram «Chollesla» con los 8 canales.

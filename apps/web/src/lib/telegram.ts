@@ -5,7 +5,7 @@ export const TELEGRAM = "https://t.me/teslaaccesorios";
 
 /** Canales por tienda (27/11/2026): cada uno publica solo su tienda cada 30 minutos. */
 const USUARIOS: Record<IdTienda, string> = {
-  amazon: "CholleslaAmazon",
+  amazon: "CholleslaAmzn", // Amazon no admite «amazon» en la dirección
   aliexpress: "CholleslaAliExpress",
   hansshow: "CholleslaHansshow",
   jowua: "CholleslaJowua",
