@@ -160,7 +160,7 @@ export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]"
           <Reportar slug={c.slug} />
         </div>
       </article>
-      <AvisoTelegram tienda={c.tienda} />
+      <AvisoTelegram />
       {propio.length > 0 && (
         <section aria-label="Antes de comprar este modelo" className="flex max-w-3xl flex-col gap-2">
           <h2 className="text-2xl font-semibold">Antes de comprar este modelo</h2>

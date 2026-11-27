@@ -15,7 +15,6 @@ import { INDEXAR, SITIO } from "@/lib/sitio";
 import { OG_POR_DEFECTO } from "@/lib/seo";
 import { HUBS_VERSION } from "@/lib/contenido";
 import "./globals.css";
-import { CanalesMarca } from "@/components/CanalesMarca";
 import { TELEGRAM } from "@/lib/telegram";
 
 // Estilo minimalista oscuro (24/11/2026): Montserrat, alternativa libre a la tipografía de Tesla.
@@ -80,14 +79,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           <Image src="/telegram.webp" alt="" width={64} height={64} unoptimized className="size-12 shrink-0 sm:size-16" />
           <span className="flex flex-col text-left leading-tight sm:flex-row sm:items-center sm:gap-5">
-            <span className="font-display text-xl font-bold uppercase tracking-wide sm:text-3xl">Únete al canal de Telegram</span>
-            <span className="text-sm font-medium opacity-95 sm:text-lg">Todos los chollos de tu Tesla, uno cada 30 minutos</span>
+            <span className="font-display text-xl font-bold uppercase tracking-wide sm:text-3xl">Únete a la comunidad Chollesla</span>
+            <span className="text-sm font-medium opacity-95 sm:text-lg">En Telegram: un chollo cada 30 minutos y un canal por tienda</span>
           </span>
           <span className="hidden shrink-0 rounded-full bg-white px-6 py-2.5 font-display text-lg font-bold uppercase text-[#1c93d1] shadow-lg sm:block">
             Unirme gratis →
           </span>
         </a>
-        <CanalesMarca className="justify-center bg-superficie px-4 py-2" />
         <div className="led-roadster" aria-hidden="true" />
         <header className="relative z-30 border-b border-borde border-t-2 border-t-verde-boton bg-superficie">
           <div className="mx-auto flex max-w-[1250px] items-center gap-3 px-4 py-3">

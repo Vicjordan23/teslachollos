@@ -43,7 +43,7 @@ export default async function PaginaTienda({ params }: PageProps<"/tienda/[tiend
             Precios con el código <strong className="text-verde">{t.codigo}</strong> ya aplicado.
           </p>
         )}
-        <AvisoTelegram tienda={id} />
+        <AvisoTelegram />
         <BarraCategorias />
       </section>
       <Rejilla chollos={pagina(lista, 1)} prioridad={3} />

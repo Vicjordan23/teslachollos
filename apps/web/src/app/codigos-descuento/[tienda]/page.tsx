@@ -110,7 +110,7 @@ export default async function CodigoTienda({ params }: PageProps<"/codigos-descu
           .
         </p>
       </section>
-      <AvisoTelegram tienda={id} />
+      <AvisoTelegram />
       <h2 className="text-2xl font-semibold">Accesorios de {t.nombre} con el código aplicado</h2>
       <Rejilla chollos={primeros(top, 24)} prioridad={3} />
       <p>
