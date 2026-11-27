@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { TIENDAS, type IdTienda } from "@chollesla/core";
+import { AvisoTelegram } from "@/components/AvisoTelegram";
 import { BarraCategorias } from "@/components/BarraCategorias";
 import { Paginacion } from "@/components/Paginacion";
 import { Rejilla } from "@/components/Rejilla";
@@ -42,6 +43,7 @@ export default async function PaginaTienda({ params }: PageProps<"/tienda/[tiend
             Precios con el código <strong className="text-verde">{t.codigo}</strong> ya aplicado.
           </p>
         )}
+        <AvisoTelegram tienda={id} />
         <BarraCategorias />
       </section>
       <Rejilla chollos={pagina(lista, 1)} prioridad={3} />

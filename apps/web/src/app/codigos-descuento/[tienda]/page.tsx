@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { TIENDAS, formatoEuros, jsonLdColeccion, porcentajeAhorro, type IdTienda } from "@chollesla/core";
+import { AvisoTelegram } from "@/components/AvisoTelegram";
 import { CopiarCodigo } from "@/components/AccionesChollo";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
@@ -109,6 +110,7 @@ export default async function CodigoTienda({ params }: PageProps<"/codigos-descu
           .
         </p>
       </section>
+      <AvisoTelegram tienda={id} />
       <h2 className="text-2xl font-semibold">Accesorios de {t.nombre} con el código aplicado</h2>
       <Rejilla chollos={primeros(top, 24)} prioridad={3} />
       <p>
