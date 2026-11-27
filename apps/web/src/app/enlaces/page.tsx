@@ -7,6 +7,9 @@ import { metaPagina } from "@/lib/seo";
 
 /** Página para el enlace de la bio (TikTok, Instagram, YouTube): los productos de cada vídeo, el más reciente primero. */
 const VIDEOS = [
+  "pack-completo-de-parasoles-para-model-y-juniper-jowua",
+  "streamer-ambient-light-for-model-y-y-juniper-model-3-3-highland-led-st",
+  "model-y-juniper-power-frunk-kit-remote-control-tesla-electric-frunk-ki",
   "swiveling-mount-kit-2-0-for-model-y-y-juniper-model-3-3-highland-cente",
   "model-3-highland-backseat-ambient-light-seat-back-ambient-lighting-int",
   "protector-de-maletero-de-todo-tiempo-para-model-3-highland-jowua",
