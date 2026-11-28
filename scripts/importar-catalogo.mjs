@@ -6,6 +6,7 @@ import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { aplicarAfiliado, categoriaDe, urlFoto } from "../packages/core/dist/index.js";
+import { registrar, repartidorDeSlugs } from "./registro.mjs";
 
 const origen = process.argv[2];
 if (!origen) {
@@ -36,7 +37,7 @@ function slugify(texto) {
     .replace(/-+$/g, "");
 }
 
-const usados = new Set();
+const darSlug = repartidorDeSlugs();
 const chollos = [];
 const descartes = { pausado: 0, sinPrecio: 0, sinFoto: 0, enlace: 0 };
 
@@ -53,9 +54,7 @@ for (const [archivo, tiendaPorDefecto] of archivos) {
     const comprobado = aplicarAfiliado(enlace);
     if (comprobado.estado !== "ok" || comprobado.tienda !== tienda) { descartes.enlace++; continue; }
 
-    let slug = slugify(p.titulo) || slugify(p.asin);
-    for (let n = 2; usados.has(slug); n++) slug = `${slugify(p.titulo)}-${n}`;
-    usados.add(slug);
+    const slug = darSlug(tienda, p.asin, slugify(p.titulo) || slugify(p.asin));
 
     chollos.push({
       id: p.asin,
@@ -78,6 +77,7 @@ const aqui = dirname(fileURLToPath(import.meta.url));
 const destino = join(aqui, "..", "apps", "web", "src", "datos", "oficiales.json");
 mkdirSync(dirname(destino), { recursive: true });
 writeFileSync(destino, JSON.stringify(chollos, null, 1) + "\n");
+registrar(chollos);
 
 const porTienda = chollos.reduce((a, c) => ((a[c.tienda] = (a[c.tienda] ?? 0) + 1), a), {});
 console.log(`Importados ${chollos.length} chollos →`, destino);

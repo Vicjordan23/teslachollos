@@ -18,17 +18,30 @@ import { EtiquetasModelo } from "@/components/EtiquetasModelo";
 import { SITIO } from "@/lib/sitio";
 import { acortar, metaPagina } from "@/lib/seo";
 import { TiraChollos } from "@/components/TiraChollos";
+import { FichaRetirada } from "@/components/FichaRetirada";
+import { retiradoPorSlug, RETIRADOS } from "@/datos/retirados";
 
 // Solo existen las rutas generadas en el build; el resto da 404.
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return CHOLLOS.map((c) => ({ slug: c.slug }));
+  return [...CHOLLOS, ...RETIRADOS].map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps<"/chollo/[slug]">): Promise<Metadata> {
-  const c = cholloPorSlug((await params).slug);
-  if (!c) return {};
+  const { slug } = await params;
+  const c = cholloPorSlug(slug);
+  if (!c) {
+    const r = retiradoPorSlug(slug);
+    if (!r) return {};
+    return metaPagina({
+      titulo: `${acortarSinPuntos(r.titulo, 40)}: ya no disponible, alternativas`,
+      descripcion: acortar(`${acortar(r.titulo, 70)} ya no está disponible. Mira alternativas parecidas para tu Tesla con el precio final calculado.`, 158),
+      ruta: `/chollo/${r.slug}`,
+      imagen: r.foto,
+      noindex: !r.conservar,
+    });
+  }
   const t = TIENDAS[c.tienda];
   const final = precioFinal(c.precioTienda, c.tienda);
   const precio = formatoEuros(final);
@@ -42,8 +55,13 @@ export async function generateMetadata({ params }: PageProps<"/chollo/[slug]">):
 }
 
 export default async function FichaChollo({ params }: PageProps<"/chollo/[slug]">) {
-  const c = cholloPorSlug((await params).slug);
-  if (!c) notFound();
+  const { slug } = await params;
+  const c = cholloPorSlug(slug);
+  if (!c) {
+    const r = retiradoPorSlug(slug);
+    if (!r) notFound();
+    return <FichaRetirada r={r} />;
+  }
   const t = TIENDAS[c.tienda];
   const final = precioFinal(c.precioTienda, c.tienda);
   const enlace = aplicarAfiliado(c.enlace);

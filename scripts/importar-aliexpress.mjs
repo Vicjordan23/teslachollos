@@ -3,6 +3,7 @@
 // ALIEXPRESS_APP_KEY, ALIEXPRESS_APP_SECRET y ALIEXPRESS_TRACKING_ID. Requiere `npm run build -w packages/core`.
 // Reglas: foto real de AliExpress, precio de la API (EUR, envío a España), enlace de afiliado generado por la API
 // con el tracking ID de Vic. No se muestra el «precio original» de AliExpress (suele estar inflado).
+import { registrar, repartidorDeSlugs } from "./registro.mjs";
 import { createHash, createHmac } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";
 import { aplicarAfiliado, categoriaDe, urlFoto } from "../packages/core/dist/index.js";
@@ -106,7 +107,7 @@ for (const keywords of BUSQUEDAS) {
 }
 
 const oficiales = JSON.parse(readFileSync(new URL("../apps/web/src/datos/oficiales.json", import.meta.url), "utf8"));
-const usados = new Set(oficiales.map((c) => c.slug));
+const darSlug = repartidorDeSlugs(oficiales.map((c) => c.slug));
 const hoy = new Date().toISOString().slice(0, 10);
 const descartes = { foto: 0, precio: 0, enlace: 0 };
 const salida = [];
@@ -120,9 +121,7 @@ for (const p of [...productos.values()].sort((a, b) => (b.lastest_volume ?? 0) -
   const afiliado = String(p.promotion_link ?? "");
   if (ficha.estado !== "ok" || ficha.tienda !== "aliexpress" || !/^https:\/\/s\.click\.aliexpress\.com\//.test(afiliado)) { descartes.enlace++; continue; }
   const titulo = String(p.product_title).replace(/\s+/g, " ").trim().slice(0, 200);
-  let slug = `${slugify(titulo) || "aliexpress"}-${String(p.product_id).slice(-6)}`;
-  for (let n = 2; usados.has(slug); n++) slug = `${slug}-${n}`;
-  usados.add(slug);
+  const slug = darSlug("aliexpress", String(p.product_id), `${slugify(titulo) || "aliexpress"}-${String(p.product_id).slice(-6)}`);
   salida.push({
     id: String(p.product_id),
     slug,
@@ -141,4 +140,5 @@ for (const p of [...productos.values()].sort((a, b) => (b.lastest_volume ?? 0) -
 }
 
 writeFileSync(new URL("../apps/web/src/datos/aliexpress.json", import.meta.url), `${JSON.stringify(salida, null, 1)}\n`);
+registrar(salida);
 console.log(`AliExpress: ${productos.size} productos para Tesla encontrados, ${salida.length} guardados. Descartados:`, descartes);

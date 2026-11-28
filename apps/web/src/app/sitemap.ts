@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { CATEGORIAS, MODELOS_WEB, TIENDAS } from "@chollesla/core";
 import { CHOLLOS, chollosDeCategoria, chollosDeVersionCategoria, ULTIMA_REVISION } from "@/datos/chollos";
+import { RETIRADOS } from "@/datos/retirados";
 import { fichaIndexable } from "@/datos/textos";
 import { HUBS_VERSION, IDS_CODIGOS } from "@/lib/contenido";
 import { GUIAS } from "@/lib/guias";
@@ -34,5 +35,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...Object.keys(TIENDAS).map((t) => ({ url: `${SITIO}/tienda/${t}`, lastModified: revision, changeFrequency: "weekly" as const, priority: 0.5 })),
     { url: `${SITIO}/comunidad`, changeFrequency: "daily" as const, priority: 0.4 },
     ...CHOLLOS.filter(fichaIndexable).map((c) => ({ url: `${SITIO}/chollo/${c.slug}`, lastModified: c.fecha, changeFrequency: "weekly" as const, priority: 0.6 })),
+    ...RETIRADOS.filter((r) => r.conservar).map((r) => ({ url: `${SITIO}/chollo/${r.slug}`, lastModified: r.visto, changeFrequency: "monthly" as const, priority: 0.4 })),
   ];
 }

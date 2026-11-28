@@ -53,6 +53,9 @@ jobs:
       - name: Traducir al español los títulos que vengan en otro idioma
         if: steps.secreto.outputs.hay == 'si'
         run: node scripts/traducir-titulos.mjs
+      - name: Actualizar el registro permanente de productos
+        if: steps.secreto.outputs.hay == 'si'
+        run: node scripts/actualizar-registro.mjs
       - name: Comprobar que la web compila con los datos nuevos
         if: steps.secreto.outputs.hay == 'si'
         run: npm test && npm run typecheck
@@ -63,7 +66,7 @@ jobs:
           if git diff --quiet -- apps/web/src/datos/oficiales.json; then echo "Sin cambios."; echo "hay=no" >> "$GITHUB_OUTPUT"; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add apps/web/src/datos/oficiales.json scripts/traducciones.json
+          git add apps/web/src/datos/oficiales.json apps/web/src/datos/registro.json scripts/traducciones.json
           git commit -m "datos: catálogo oficial y precios actualizados"
           git push origin HEAD:main
           echo "hay=si" >> "$GITHUB_OUTPUT"

@@ -1,6 +1,15 @@
 import type { NextConfig } from "next";
+import retirados from "./src/datos/retirados-config.json";
 
 const nextConfig: NextConfig = {
+  // Direcciones antiguas de productos que cambiaron de nombre, y sustituciones puestas a mano.
+  async redirects() {
+    return Object.entries(retirados.redirigir as Record<string, string>).map(([de, a]) => ({
+      source: `/chollo/${de}`,
+      destination: `/chollo/${a}`,
+      statusCode: 301,
+    }));
+  },
   // Fotos reales de producto: solo de los hosts que acepta urlFoto() en @chollesla/core,
   // pedidas ya reducidas al CDN de cada tienda (src/lib/cargador-fotos.ts).
   images: {
