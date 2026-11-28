@@ -8,6 +8,6 @@ import { registrarClic } from "@/lib/clics";
 export async function POST(request: Request, { params }: RouteContext<"/api/clic/[slug]">) {
   const { slug } = await params;
   const c = /^[a-z0-9-]{1,90}$/.test(slug) ? cholloPorSlug(slug) : undefined;
-  if (c) await registrarClic({ slug, tienda: c.tienda, titulo: c.titulo }, request.headers.get("user-agent"));
+  if (c) await registrarClic({ slug, tienda: c.tienda, titulo: c.titulo }, request.headers);
   return new Response(null, { status: 204, headers: { "Cache-Control": "no-store" } });
 }

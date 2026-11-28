@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { NO_MEDIR } from "@/lib/no-medir";
 
 /** Contenedor de Google Tag Manager (analítica). Solo se carga si la persona lo acepta. */
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-T78HDVK3";
@@ -12,6 +13,20 @@ function leer(): string | null {
     return localStorage.getItem(CLAVE);
   } catch {
     return null;
+  }
+}
+
+/** Aplica `?medir=no|si` y dice si este navegador está excluido. Renueva la cookie en cada visita. */
+function excluido(): boolean {
+  const pedido = new URLSearchParams(window.location.search).get("medir");
+  try {
+    if (pedido === "no") localStorage.setItem(NO_MEDIR, "1");
+    if (pedido === "si") localStorage.removeItem(NO_MEDIR);
+    const si = localStorage.getItem(NO_MEDIR) === "1";
+    document.cookie = `${NO_MEDIR}=1; path=/; max-age=${si ? 63072000 : 0}; samesite=lax; secure`;
+    return si;
+  } catch {
+    return false;
   }
 }
 
@@ -30,7 +45,22 @@ function cargarGtm() {
 export function Analitica() {
   const [decidido, setDecidido] = useState(true); // true = no se muestra el aviso hasta saber qué hay guardado
 
+  const [aviso, setAviso] = useState("");
+
   useEffect(() => {
+    const fuera = excluido();
+    const pedido = new URLSearchParams(window.location.search).get("medir");
+    const mensaje =
+      pedido === "no"
+        ? fuera
+          ? "Este navegador ya no cuenta en las estadísticas."
+          : "No se pudo guardar: este navegador sigue contando."
+        : pedido === "si"
+          ? "Este navegador vuelve a contar en las estadísticas."
+          : "";
+    // Fuera del cuerpo del efecto: el aviso depende de lo que hay en el navegador.
+    if (mensaje) queueMicrotask(() => setAviso(mensaje));
+    if (fuera) return;
     const guardado = leer();
     if (guardado === "si") cargarGtm();
     setDecidido(guardado !== null);
@@ -40,7 +70,7 @@ export function Analitica() {
     // Evento para Google Analytics (vía Tag Manager) cuando alguien pulsa «Ir al chollo». Solo se envía si aceptó las cookies.
     const alPulsar = (e: MouseEvent) => {
       const enlace = (e.target as Element | null)?.closest?.("a[data-ir-slug]") as HTMLAnchorElement | null;
-      if (!enlace || leer() !== "si") return;
+      if (!enlace || leer() !== "si" || localStorage.getItem(NO_MEDIR) === "1") return;
       const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
       w.dataLayer = w.dataLayer ?? [];
       w.dataLayer.push({
@@ -62,6 +92,14 @@ export function Analitica() {
     }
     if (valor === "si") cargarGtm();
     setDecidido(true);
+  }
+
+  if (aviso) {
+    return (
+      <p role="status" className="fixed inset-x-0 bottom-0 z-50 border-t border-borde bg-superficie px-4 py-4 text-center text-sm font-medium text-texto shadow-2xl">
+        {aviso}
+      </p>
+    );
   }
 
   if (decidido) return null;

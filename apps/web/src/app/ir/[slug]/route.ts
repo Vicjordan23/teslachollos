@@ -20,7 +20,7 @@ export async function GET(request: Request, { params }: RouteContext<"/ir/[slug]
     return new Response("Este chollo ya no está.", { status: 404, headers: { ...CABECERAS, "Content-Type": "text/plain; charset=utf-8" } });
   }
   console.log(JSON.stringify({ evento: "clic", slug, tienda: c.tienda }));
-  await registrarClic({ slug, tienda: c.tienda, titulo: c.titulo }, request.headers.get("user-agent"));
+  await registrarClic({ slug, tienda: c.tienda, titulo: c.titulo }, request.headers);
   // AliExpress: enlace de afiliado generado por su API (solo se acepta si es de s.click.aliexpress.com).
   const destino = "afiliado" in c && c.afiliado?.startsWith("https://s.click.aliexpress.com/") ? c.afiliado : enlace.url;
   return new Response(null, { status: 302, headers: { ...CABECERAS, Location: destino } });

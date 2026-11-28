@@ -1,3 +1,4 @@
+import { cookieNoMedir } from "@/lib/no-medir";
 import { servicio } from "@/lib/supabase-servidor";
 
 /** Robots y vistas previas: no son personas pulsando «Ir al chollo». */
@@ -11,8 +12,8 @@ export function esRobot(userAgent: string | null): boolean {
  * Anota un clic en «Ir al chollo»: qué chollo y qué tienda. Ni IP ni identificadores de la persona.
  * Nunca falla hacia fuera: si Supabase no responde, el clic sigue su camino.
  */
-export async function registrarClic(clic: { slug: string; tienda: string | null; titulo: string | null }, userAgent: string | null) {
-  if (esRobot(userAgent)) return;
+export async function registrarClic(clic: { slug: string; tienda: string | null; titulo: string | null }, cabeceras: Headers) {
+  if (esRobot(cabeceras.get("user-agent")) || cookieNoMedir(cabeceras.get("cookie"))) return;
   try {
     await servicio("clics_ir", {
       method: "POST",
