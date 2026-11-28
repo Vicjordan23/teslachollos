@@ -9,3 +9,4 @@ export * from "./publicar.js";
 export * from "./insignias.js";
 export * from "./seo.js";
 export * from "./texto-ficha.js";
+export * from "./telegram-publico.js";

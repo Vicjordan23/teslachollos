@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { buscar, nombreCategoria, nombreModelo, nombreVersion } from "@chollesla/core";
+import { buscar, nombreCategoria, nombreModelo, nombreVersion, TIENDAS } from "@chollesla/core";
 import { Filtros } from "@/components/Filtros";
 import { Rejilla } from "@/components/Rejilla";
 import { CHOLLOS, chollosDeModelo, chollosDeVersion, filtrarExtra, ordenar, pagina, totalPaginas } from "@/datos/chollos";
@@ -23,7 +23,7 @@ export default async function Buscar({ searchParams }: PageProps<"/buscar">) {
   const n = Math.min(total, p);
   const ruta = (num: number) => urlFiltro({ ...filtro, orden }, num);
   const boton = "rounded-full border border-borde bg-superficie px-3 py-1.5";
-  const partes = [version ? nombreVersion(version) : modelo && nombreModelo(modelo), categoria && nombreCategoria(categoria)].filter(Boolean).join(" · ");
+  const partes = [filtro.tienda && filtro.tienda !== "oficiales" && TIENDAS[filtro.tienda].nombre, version ? nombreVersion(version) : modelo && nombreModelo(modelo), categoria && nombreCategoria(categoria)].filter(Boolean).join(" · ");
 
   return (
     <main className="mx-auto flex w-full max-w-[1250px] flex-1 flex-col gap-5 px-4 py-6">

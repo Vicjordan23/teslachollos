@@ -5,6 +5,7 @@ import { AvisoTelegram } from "@/components/AvisoTelegram";
 import { BarraCategorias } from "@/components/BarraCategorias";
 import { Paginacion } from "@/components/Paginacion";
 import { Rejilla } from "@/components/Rejilla";
+import { SelectorTiendas } from "@/components/SelectorTiendas";
 import { chollosDeTienda, pagina, totalPaginas } from "@/datos/chollos";
 import { metaPagina } from "@/lib/seo";
 
@@ -36,6 +37,7 @@ export default async function PaginaTienda({ params }: PageProps<"/tienda/[tiend
   const lista = chollosDeTienda(id);
   return (
     <main className="mx-auto flex w-full max-w-[1250px] flex-1 flex-col gap-5 px-4 py-6">
+      <SelectorTiendas activa={id} />
       <section className="flex flex-col gap-3">
         <h1 className="text-3xl font-semibold">Chollos de {t.nombre} para tu Tesla</h1>
         {t.codigo && (
@@ -43,6 +45,20 @@ export default async function PaginaTienda({ params }: PageProps<"/tienda/[tiend
             Precios con el código <strong className="text-verde">{t.codigo}</strong> ya aplicado.
           </p>
         )}
+        <form action="/buscar" method="get" role="search" className="flex max-w-xl gap-2">
+          <input type="hidden" name="tienda" value={id} />
+          <input
+            name="q"
+            type="search"
+            maxLength={80}
+            aria-label={`Buscar en ${t.nombre}`}
+            placeholder={`Buscar solo en ${t.nombre}…`}
+            className="h-10 min-w-0 flex-1 rounded border border-borde bg-superficie px-3 text-sm text-texto outline-none focus:border-verde-boton"
+          />
+          <button type="submit" className="rounded bg-verde-boton px-4 text-sm font-medium text-white">
+            Buscar
+          </button>
+        </form>
         <AvisoTelegram />
         <BarraCategorias />
       </section>

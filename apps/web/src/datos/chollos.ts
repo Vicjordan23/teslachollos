@@ -156,7 +156,7 @@ export function formatoFecha(iso: string): string {
 }
 
 /** Precio máximo (€ finales), descuento mínimo (%) y tienda. Lo que no viene informado no filtra. */
-export function filtrarExtra(lista: CholloOficial[], f: { max?: number; dto?: number; tienda?: "amazon" | "aliexpress" | "temu" | "oficiales" }): CholloOficial[] {
+export function filtrarExtra(lista: CholloOficial[], f: { max?: number; dto?: number; tienda?: IdTienda | "oficiales" }): CholloOficial[] {
   return lista.filter((c) => {
     if (f.max && finalDe(c) > f.max * 100) return false;
     if (f.dto && ahorroDe(c) < f.dto) return false;

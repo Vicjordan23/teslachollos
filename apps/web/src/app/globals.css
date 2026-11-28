@@ -185,3 +185,39 @@ input:focus-visible, textarea:focus-visible, select:focus-visible, a:focus-visib
     transition: none;
   }
 }
+
+/* Cinta de canales por tienda: dos tiras iguales que se desplazan una anchura completa y vuelven a empezar. */
+.cinta {
+  overflow: hidden;
+}
+.cinta-pista {
+  display: flex;
+  width: max-content;
+  animation: cinta-pasa 70s linear infinite;
+}
+.cinta-tira {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-around;
+  min-width: 100vw;
+}
+.cinta:hover .cinta-pista,
+.cinta:focus-within .cinta-pista {
+  animation-play-state: paused;
+}
+@keyframes cinta-pasa {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cinta {
+    overflow-x: auto;
+  }
+  .cinta-pista {
+    animation: none;
+  }
+  .cinta-tira[aria-hidden] {
+    display: none;
+  }
+}

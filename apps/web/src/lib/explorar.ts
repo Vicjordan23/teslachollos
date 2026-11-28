@@ -1,4 +1,4 @@
-import { CATEGORIAS, MODELOS, VERSIONES, type IdCategoria, type IdModelo, type IdVersion } from "@chollesla/core";
+import { CATEGORIAS, MODELOS, TIENDAS, VERSIONES, type IdTienda, type IdCategoria, type IdModelo, type IdVersion } from "@chollesla/core";
 import { ORDENES, type IdOrden } from "@/datos/chollos";
 
 export interface Filtro {
@@ -12,7 +12,7 @@ export interface Filtro {
   max?: number;
   /** Descuento mínimo en % (30). */
   dto?: number;
-  /** «amazon», «aliexpress» u «oficiales» (el resto de tiendas con código). */
+  /** Una tienda concreta u «oficiales» (las tiendas con código). */
   tienda?: TiendaFiltro;
 }
 
@@ -24,7 +24,8 @@ export const TIENDAS_FILTRO = [
   { id: "temu", nombre: "Temu" },
   { id: "oficiales", nombre: "Tiendas oficiales" },
 ] as const;
-export type TiendaFiltro = (typeof TIENDAS_FILTRO)[number]["id"];
+/** Además de los accesos rápidos, vale cualquier tienda (buscador de cada página de tienda). */
+export type TiendaFiltro = IdTienda | "oficiales";
 
 /** URL de un filtro: las combinaciones simples van a páginas estáticas (SEO); el resto, a /buscar. */
 export function urlFiltro(f: Filtro, pagina = 1): string {
@@ -65,7 +66,7 @@ export function leerFiltro(sp: Record<string, string | string[] | undefined>): F
   return {
     max: (PRECIOS_MAX as readonly number[]).includes(max) ? max : undefined,
     dto: (DESCUENTOS_MIN as readonly number[]).includes(dto) ? dto : undefined,
-    tienda: TIENDAS_FILTRO.some((t) => t.id === tienda) ? (tienda as TiendaFiltro) : undefined,
+    tienda: tienda === "oficiales" || Object.hasOwn(TIENDAS, tienda) ? (tienda as TiendaFiltro) : undefined,
     q: uno(sp.q).slice(0, 80) || undefined,
     modelo: MODELOS.some((m) => m.id === modelo) ? (modelo as IdModelo) : undefined,
     // La versión solo vale si es del modelo elegido.

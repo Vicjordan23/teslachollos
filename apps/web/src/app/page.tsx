@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Filtros } from "@/components/Filtros";
 import { MiTesla } from "@/components/MiTesla";
 import { UltimosChollos } from "@/components/UltimosChollos";
+import { SelectorTiendas } from "@/components/SelectorTiendas";
 import { Paginacion } from "@/components/Paginacion";
 import { Rejilla } from "@/components/Rejilla";
 import Link from "next/link";
@@ -37,6 +38,7 @@ const PREGUNTAS = [
 export default function Inicio() {
   return (
     <main className="mx-auto flex w-full max-w-[1250px] flex-1 flex-col gap-5 px-4 py-6">
+      <SelectorTiendas />
       <MiTesla />
       <Filtros filtro={{}} />
       <UltimosChollos />

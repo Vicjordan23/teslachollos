@@ -16,6 +16,7 @@ import { OG_POR_DEFECTO } from "@/lib/seo";
 import { HUBS_VERSION } from "@/lib/contenido";
 import "./globals.css";
 import { TELEGRAM } from "@/lib/telegram";
+import { CintaCanales, ContadorPrincipal } from "@/components/ContadoresTelegram";
 
 // Estilo minimalista oscuro (24/11/2026): Montserrat, alternativa libre a la tipografía de Tesla.
 const cuerpo = Montserrat({ variable: "--font-cuerpo", subsets: ["latin"], weight: ["400", "500", "600", "700"] });
@@ -71,6 +72,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
       </head>
       <body className="min-h-full flex flex-col">
+        <ContadorPrincipal />
         <a
           href={TELEGRAM}
           target="_blank"
@@ -86,6 +88,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             Unirme gratis →
           </span>
         </a>
+        <CintaCanales />
         <div className="led-roadster" aria-hidden="true" />
         <header className="relative z-30 border-b border-borde border-t-2 border-t-verde-boton bg-superficie">
           <div className="mx-auto flex max-w-[1250px] items-center gap-3 px-4 py-3">
